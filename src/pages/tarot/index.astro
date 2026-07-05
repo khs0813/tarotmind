@@ -1,0 +1,37 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import ReadingCard from '../../components/ReadingCard.astro';
+import { tarotReadings } from '../../data/tarotReadings';
+import { getSiteUrl } from '../../data/site';
+const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '타로 리딩', path: '/tarot/' }];
+const siteUrl = getSiteUrl();
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: '타로 리딩 모음',
+  itemListElement: tarotReadings.map((reading, index) => ({ '@type': 'ListItem', position: index + 1, name: reading.shortTitle, url: `${siteUrl}/tarot/${reading.slug}/` }))
+}];
+---
+<Layout
+  title="무료 타로 리딩 모음 | 타로마음"
+  description="오늘의 타로, 연애 타로, 재회 타로, 직장운 타로, 금전운 타로 등 무료 AI 스타일 타로 리딩을 모아볼 수 있습니다."
+  canonicalPath="/tarot/"
+  keywords={['무료 타로 리딩', '오늘의 타로', '연애 타로', '재회 타로', '직장운 타로', '금전운 타로', '선택 타로']}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <section class="page-hero container">
+    <span class="eyebrow">타로 리딩 모음</span>
+    <h1>무료 AI 스타일 타로 리딩</h1>
+    <p>오늘의 메시지부터 연애, 재회, 직장, 금전, 선택 고민까지 상황에 맞는 카드를 뽑아보세요.</p>
+  </section>
+  <AdSlot position="top" />
+  <section class="container content-section">
+    <div class="card-grid-list">
+      {tarotReadings.map((reading) => <ReadingCard reading={reading} />)}
+    </div>
+  </section>
+</Layout>

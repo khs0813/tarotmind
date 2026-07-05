@@ -1,0 +1,156 @@
+---
+import '../styles/global.css';
+import '../styles/tarot.css';
+import '../styles/cards.css';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { DEFAULT_OG_IMAGE, getNaverVerification, getSiteUrl, isSiteUrlConfigured, SITE_NAME, SITE_DESCRIPTION, type BreadcrumbItem } from '../data/site';
+
+type Props = {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  keywords?: string[];
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  breadcrumbs?: BreadcrumbItem[];
+  jsonLd?: Record<string, unknown>[];
+  robots?: string;
+  datePublished?: string;
+  dateModified?: string;
+};
+
+const {
+  title,
+  description,
+  canonicalPath,
+  keywords = [],
+  ogImage = DEFAULT_OG_IMAGE,
+  ogType = 'website',
+  breadcrumbs = [],
+  jsonLd = [],
+  robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  datePublished,
+  dateModified
+} = Astro.props as Props;
+
+const siteUrl = getSiteUrl();
+const hasConfiguredSiteUrl = isSiteUrlConfigured();
+const canonicalUrl = new URL(canonicalPath, `${siteUrl}/`).toString();
+const imageUrl = new URL(ogImage, `${siteUrl}/`).toString();
+const rssUrl = new URL('/rss.xml', `${siteUrl}/`).toString();
+const naverVerification = getNaverVerification();
+const robotsContent = hasConfiguredSiteUrl ? robots : 'noindex, nofollow, noarchive';
+const keywordContent = keywords.map((keyword) => keyword.trim()).filter(Boolean).join(', ');
+const siteId = `${siteUrl}/#website`;
+const publisherId = `${siteUrl}/#organization`;
+const pageId = `${canonicalUrl}#webpage`;
+
+const publisherLd = {
+  '@id': publisherId,
+  '@type': 'Organization',
+  name: SITE_NAME,
+  url: siteUrl,
+  logo: imageUrl
+};
+
+const organizationLd = {
+  '@context': 'https://schema.org',
+  ...publisherLd
+};
+
+const webPageLd = {
+  '@context': 'https://schema.org',
+  '@id': pageId,
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: canonicalUrl,
+  inLanguage: 'ko-KR',
+  isPartOf: {
+    '@id': siteId,
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: siteUrl
+  },
+  publisher: { '@id': publisherId },
+  ...(datePublished ? { datePublished } : {}),
+  ...(dateModified ? { dateModified } : {})
+};
+
+const webSiteLd = canonicalPath === '/' ? [{
+  '@context': 'https://schema.org',
+  '@id': siteId,
+  '@type': 'WebSite',
+  name: SITE_NAME,
+  description: SITE_DESCRIPTION,
+  url: siteUrl,
+  inLanguage: 'ko-KR',
+  publisher: publisherLd
+}] : [];
+
+const breadcrumbLd = breadcrumbs.length > 0 ? [{
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: new URL(item.path, `${siteUrl}/`).toString()
+  }))
+}] : [];
+
+const allJsonLd = hasConfiguredSiteUrl ? [organizationLd, ...webSiteLd, webPageLd, ...breadcrumbLd, ...jsonLd] : [];
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {keywordContent && <meta name="keywords" content={keywordContent} />}
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content={robotsContent} />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="author" content={SITE_NAME} />
+    <meta name="generator" content="Astro" />
+    {naverVerification && <meta name="naver-site-verification" content={naverVerification} />}
+
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:secure_url" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content={`${SITE_NAME} 대표 이미지`} />
+    {ogType === 'article' && datePublished && <meta property="article:published_time" content={datePublished} />}
+    {ogType === 'article' && dateModified && <meta property="article:modified_time" content={dateModified} />}
+    {ogType === 'article' && <meta property="article:author" content={SITE_NAME} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content={`${SITE_NAME} 대표 이미지`} />
+
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} RSS`} href={rssUrl} />
+    <link rel="alternate" hreflang="ko-KR" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    {allJsonLd.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
+  </head>
+  <body>
+    <Header />
+    <main id="content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

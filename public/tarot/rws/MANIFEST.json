@@ -1,0 +1,793 @@
+{
+  "checkedAt": "2026-07-05T13:15:27.259Z",
+  "source": "Wikimedia Commons API",
+  "allowedPolicy": [
+    "Public Domain",
+    "CC0",
+    "CC BY",
+    "commercially usable license",
+    "paid license"
+  ],
+  "files": [
+    {
+      "file": "Cups01.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups01.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups01"
+    },
+    {
+      "file": "Cups02.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups02.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups02"
+    },
+    {
+      "file": "Cups03.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups03.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups03"
+    },
+    {
+      "file": "Cups04.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups04.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups04"
+    },
+    {
+      "file": "Cups05.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups05.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups05"
+    },
+    {
+      "file": "Cups06.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups06.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups06"
+    },
+    {
+      "file": "Cups07.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups07.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups07"
+    },
+    {
+      "file": "Cups08.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups08.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups08"
+    },
+    {
+      "file": "Cups09.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups09.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups09"
+    },
+    {
+      "file": "Cups10.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups10.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups10"
+    },
+    {
+      "file": "Cups11.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups11.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups11"
+    },
+    {
+      "file": "Cups12.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups12.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups12"
+    },
+    {
+      "file": "Cups13.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups13.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups13"
+    },
+    {
+      "file": "Cups14.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Cups14.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Cups14"
+    },
+    {
+      "file": "Pents01.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents01.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents01"
+    },
+    {
+      "file": "Pents02.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents02.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents02"
+    },
+    {
+      "file": "Pents03.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents03.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents03"
+    },
+    {
+      "file": "Pents04.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents04.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents04"
+    },
+    {
+      "file": "Pents05.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents05.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents05"
+    },
+    {
+      "file": "Pents06.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents06.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents06"
+    },
+    {
+      "file": "Pents07.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents07.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents07"
+    },
+    {
+      "file": "Pents08.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents08.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents08"
+    },
+    {
+      "file": "Pents09.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents09.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents09"
+    },
+    {
+      "file": "Pents10.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents10.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents10"
+    },
+    {
+      "file": "Pents11.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents11.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents11"
+    },
+    {
+      "file": "Pents12.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents12.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents12"
+    },
+    {
+      "file": "Pents13.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents13.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents13"
+    },
+    {
+      "file": "Pents14.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Pents14.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Pents14"
+    },
+    {
+      "file": "RWS Tarot 00 Fool.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_00_Fool.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 00 Fool"
+    },
+    {
+      "file": "RWS Tarot 01 Magician.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_01_Magician.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 01 Magician"
+    },
+    {
+      "file": "RWS Tarot 02 High Priestess.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_02_High_Priestess.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 02 High Priestess"
+    },
+    {
+      "file": "RWS Tarot 03 Empress.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_03_Empress.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 03 Empress"
+    },
+    {
+      "file": "RWS Tarot 04 Emperor.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_04_Emperor.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 04 Emperor"
+    },
+    {
+      "file": "RWS Tarot 05 Hierophant.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_05_Hierophant.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 05 Hierophant"
+    },
+    {
+      "file": "RWS Tarot 06 Lovers.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_06_Lovers.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 06 Lovers"
+    },
+    {
+      "file": "RWS Tarot 07 Chariot.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_07_Chariot.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 07 Chariot"
+    },
+    {
+      "file": "RWS Tarot 08 Strength.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_08_Strength.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 08 Strength"
+    },
+    {
+      "file": "RWS Tarot 09 Hermit.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_09_Hermit.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 09 Hermit"
+    },
+    {
+      "file": "RWS Tarot 10 Wheel of Fortune.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_10_Wheel_of_Fortune.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 10 Wheel of Fortune"
+    },
+    {
+      "file": "RWS Tarot 11 Justice.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_11_Justice.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 11 Justice"
+    },
+    {
+      "file": "RWS Tarot 12 Hanged Man.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_12_Hanged_Man.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 12 Hanged Man"
+    },
+    {
+      "file": "RWS Tarot 13 Death.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_13_Death.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 13 Death"
+    },
+    {
+      "file": "RWS Tarot 14 Temperance.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_14_Temperance.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 14 Temperance"
+    },
+    {
+      "file": "RWS Tarot 15 Devil.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_15_Devil.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 15 Devil"
+    },
+    {
+      "file": "RWS Tarot 16 Tower.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_16_Tower.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 16 Tower"
+    },
+    {
+      "file": "RWS Tarot 17 Star.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_17_Star.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 17 Star"
+    },
+    {
+      "file": "RWS Tarot 18 Moon.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_18_Moon.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 18 Moon"
+    },
+    {
+      "file": "RWS Tarot 19 Sun.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_19_Sun.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 19 Sun"
+    },
+    {
+      "file": "RWS Tarot 20 Judgement.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_20_Judgement.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 20 Judgement"
+    },
+    {
+      "file": "RWS Tarot 21 World.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:RWS_Tarot_21_World.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "RWS Tarot 21 World"
+    },
+    {
+      "file": "Swords01.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords01.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords01"
+    },
+    {
+      "file": "Swords02.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords02.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords02"
+    },
+    {
+      "file": "Swords03.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords03.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords03"
+    },
+    {
+      "file": "Swords04.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords04.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords04"
+    },
+    {
+      "file": "Swords05.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords05.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords05"
+    },
+    {
+      "file": "Swords06.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords06.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords06"
+    },
+    {
+      "file": "Swords07.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords07.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords07"
+    },
+    {
+      "file": "Swords08.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords08.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords08"
+    },
+    {
+      "file": "Swords09.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords09.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords09"
+    },
+    {
+      "file": "Swords10.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords10.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords10"
+    },
+    {
+      "file": "Swords11.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords11.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords11"
+    },
+    {
+      "file": "Swords12.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords12.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords12"
+    },
+    {
+      "file": "Swords13.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords13.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords13"
+    },
+    {
+      "file": "Swords14.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Swords14.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Swords14"
+    },
+    {
+      "file": "Wands01.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands01.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands01"
+    },
+    {
+      "file": "Wands02.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands02.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands02"
+    },
+    {
+      "file": "Wands03.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands03.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands03"
+    },
+    {
+      "file": "Wands04.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands04.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands04"
+    },
+    {
+      "file": "Wands05.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands05.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands05"
+    },
+    {
+      "file": "Wands06.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands06.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands06"
+    },
+    {
+      "file": "Wands07.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands07.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands07"
+    },
+    {
+      "file": "Wands08.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands08.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands08"
+    },
+    {
+      "file": "Wands09.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands09.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands09"
+    },
+    {
+      "file": "Wands10.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands10.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands10"
+    },
+    {
+      "file": "Wands11.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands11.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands11"
+    },
+    {
+      "file": "Wands12.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands12.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands12"
+    },
+    {
+      "file": "Wands13.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands13.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands13"
+    },
+    {
+      "file": "Wands14.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wands14.jpg",
+      "licenseShortName": "Public domain",
+      "usageTerms": "Public domain",
+      "licenseUrl": "",
+      "artist": "Pamela Colman Smith",
+      "credit": "http://muzendo.jp/blog/",
+      "source": "Wands14"
+    }
+  ]
+}

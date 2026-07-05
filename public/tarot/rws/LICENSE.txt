@@ -1,0 +1,21 @@
+Rider-Waite-Smith tarot card images
+
+License policy for this project:
+Only use images that are confirmed as Public Domain, CC0, CC BY, commercially usable, or covered by a paid license.
+
+Current local images:
+These files are local copies of Rider-Waite-Smith tarot card images from Wikimedia Commons file pages marked as Public Domain.
+
+Primary sources:
+- https://commons.wikimedia.org/wiki/File:RWS_Tarot_00_Fool.jpg
+- https://commons.wikimedia.org/wiki/File:Wands01.jpg
+- https://en.wikipedia.org/wiki/Rider%E2%80%93Waite_Tarot
+
+Relevant notes from the source pages checked on 2026-07-05:
+- Wikimedia Commons marks these files as Public Domain.
+- The original Rider-Waite Tarot was first published in 1909/1910.
+- The Commons pages state the work is in the public domain in the United States because it was published before January 1, 1931.
+- The Commons pages identify Pamela Colman Smith as the artist and note Arthur Edward Waite as copyright holder.
+
+Operational rule:
+Do not replace or add tarot card images in this folder unless the replacement is also confirmed as Public Domain, CC0, CC BY, commercially usable, or covered by a paid license.

@@ -1,0 +1,18 @@
+---
+import { SITE_NAME } from '../data/site';
+---
+<header class="site-header">
+  <a class="skip-link" href="#content">본문 바로가기</a>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${SITE_NAME} 홈`}>
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span>{SITE_NAME}</span>
+    </a>
+    <nav class="main-nav" aria-label="주요 메뉴">
+      <a href="/tarot/">타로 리딩</a>
+      <a href="/cards/">카드 의미</a>
+      <a href="/guides/">타로 가이드</a>
+      <a href="/about/">소개</a>
+    </nav>
+  </div>
+</header>

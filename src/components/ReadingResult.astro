@@ -1,0 +1,7 @@
+---
+const { title = '타로 리딩 결과' } = Astro.props as { title?: string };
+---
+<section class="reading-result static-result">
+  <h2>{title}</h2>
+  <slot />
+</section>

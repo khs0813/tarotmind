@@ -1,0 +1,78 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import FAQ from '../../components/FAQ.astro';
+import { guides, type GuidePage } from '../../data/guides';
+import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, SITE_NAME, getSiteUrl } from '../../data/site';
+
+export function getStaticPaths() {
+  return guides.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+
+const { guide } = Astro.props as { guide: GuidePage };
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/guides/${guide.slug}/`;
+const imageUrl = new URL(DEFAULT_OG_IMAGE, `${siteUrl}/`).toString();
+const breadcrumbs = [
+  { name: '타로마음', path: '/' },
+  { name: '타로 가이드', path: '/guides/' },
+  { name: guide.title.split('|')[0].trim(), path: `/guides/${guide.slug}/` }
+];
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@id': `${pageUrl}#article`,
+    '@type': 'Article',
+    headline: guide.title.split('|')[0].trim(),
+    description: guide.description,
+    url: pageUrl,
+    mainEntityOfPage: pageUrl,
+    inLanguage: 'ko-KR',
+    datePublished: DEFAULT_LASTMOD,
+    dateModified: DEFAULT_LASTMOD,
+    image: imageUrl,
+    keywords: guide.title.split('|')[0].trim(),
+    author: { '@type': 'Organization', name: SITE_NAME },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      logo: imageUrl
+    }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: guide.faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+  }
+];
+---
+<Layout
+  title={guide.title}
+  description={guide.description}
+  canonicalPath={`/guides/${guide.slug}/`}
+  ogType="article"
+  keywords={[guide.title.split('|')[0].trim(), '타로 가이드', '타로 보는 법', '타로 카드 의미']}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <section class="page-hero container">
+    <span class="eyebrow">타로 가이드</span>
+    <h1>{guide.title.split('|')[0].trim()}</h1>
+    <p>{guide.intro}</p>
+  </section>
+  <AdSlot position="top" />
+  <article class="container readable-content">
+    {guide.sections.map((section) => (
+      <section class="content-section">
+        <h2>{section.title}</h2>
+        <p>{section.content}</p>
+      </section>
+    ))}
+    <FAQ faqs={guide.faqs} />
+  </article>
+  <AdSlot position="bottom" />
+</Layout>

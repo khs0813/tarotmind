@@ -1,0 +1,32 @@
+---
+type Props = {
+  position: 'top' | 'middle' | 'bottom' | 'sidebar';
+  label?: string;
+};
+const { position, label = '광고' } = Astro.props as Props;
+const unitMap: Record<string, string | undefined> = {
+  top: import.meta.env.PUBLIC_ADFIT_TOP_UNIT,
+  middle: import.meta.env.PUBLIC_ADFIT_MIDDLE_UNIT,
+  bottom: import.meta.env.PUBLIC_ADFIT_BOTTOM_UNIT,
+  sidebar: import.meta.env.PUBLIC_ADFIT_MIDDLE_UNIT
+};
+const unitId = unitMap[position];
+const size = position === 'top' ? { width: 320, height: 100 } : { width: 320, height: 100 };
+---
+<section class={`ad-slot ad-slot-${position}`} aria-label="광고 영역">
+  <span class="ad-label">{label}</span>
+  {unitId ? (
+    <>
+      <ins
+        class="kakao_ad_area"
+        style={`display:none;width:${size.width}px;height:${size.height}px;`}
+        data-ad-unit={unitId}
+        data-ad-width={String(size.width)}
+        data-ad-height={String(size.height)}
+      />
+      <script is:inline async type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script>
+    </>
+  ) : (
+    <div class="ad-placeholder">카카오 애드핏 광고 영역</div>
+  )}
+</section>

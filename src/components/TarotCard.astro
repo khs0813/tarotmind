@@ -1,0 +1,7 @@
+---
+const { name = 'TAROT', reversed = false } = Astro.props as { name?: string; reversed?: boolean };
+---
+<div class={`static-tarot-card ${reversed ? 'is-reversed' : ''}`}>
+  <span>✦</span>
+  <strong>{name}</strong>
+</div>

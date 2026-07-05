@@ -1,0 +1,19 @@
+---
+import { tarotReadings } from '../data/tarotReadings';
+const { slugs, title = '관련 타로 리딩' } = Astro.props as { slugs: string[]; title?: string };
+const readings = slugs.map((slug) => tarotReadings.find((item) => item.slug === slug)).filter(Boolean);
+---
+{readings.length > 0 && (
+  <section class="content-section related-section">
+    <h2>{title}</h2>
+    <div class="card-grid-list">
+      {readings.map((reading) => reading && (
+        <a class="feature-card" href={`/tarot/${reading.slug}/`}>
+          <span class="eyebrow">타로 리딩</span>
+          <h3>{reading.shortTitle}</h3>
+          <p>{reading.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+)}

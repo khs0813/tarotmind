@@ -1,0 +1,40 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { guides } from '../../data/guides';
+import { getSiteUrl } from '../../data/site';
+const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '타로 가이드', path: '/guides/' }];
+const siteUrl = getSiteUrl();
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: '타로 가이드 모음',
+  itemListElement: guides.map((guide, index) => ({ '@type': 'ListItem', position: index + 1, name: guide.title, url: `${siteUrl}/guides/${guide.slug}/` }))
+}];
+---
+<Layout
+  title="타로 가이드 모음 | 타로마음"
+  description="타로 카드 의미, 타로 보는 법, 메이저 아르카나, 타로 스프레드 등 초보자를 위한 타로 가이드를 모았습니다."
+  canonicalPath="/guides/"
+  keywords={['타로 가이드', '타로 카드 의미', '타로 보는 법', '메이저 아르카나', '타로 스프레드']}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <section class="page-hero container">
+    <span class="eyebrow">타로 가이드</span>
+    <h1>처음 보는 사람을 위한 타로 가이드</h1>
+    <p>타로 카드 의미와 리딩 방법을 가볍게 익히고 더 재미있게 카드를 뽑아보세요.</p>
+  </section>
+  <section class="container content-section">
+    <div class="card-grid-list">
+      {guides.map((guide) => (
+        <a class="feature-card" href={`/guides/${guide.slug}/`}>
+          <span class="eyebrow">가이드</span>
+          <h3>{guide.title.split('|')[0].trim()}</h3>
+          <p>{guide.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

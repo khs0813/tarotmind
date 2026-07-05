@@ -1,0 +1,88 @@
+---
+import { tarotCards } from '../data/tarotCards';
+import type { TarotReadingPage } from '../data/tarotReadings';
+const { reading } = Astro.props as { reading: TarotReadingPage };
+const requiredCards = reading.positions.length;
+---
+<section class="tarot-reader" data-tarot-reader data-reading-slug={reading.slug}>
+  <script is:inline type="application/json" data-reading-config set:html={JSON.stringify(reading)} />
+  <script is:inline type="application/json" data-card-data set:html={JSON.stringify(tarotCards)} />
+
+  <div class="reader-panel">
+    <div class="reader-intro">
+      <span class="eyebrow">무료 AI 스타일 리딩</span>
+      <h2>카드를 선택해 리딩을 시작하세요</h2>
+      <p>{reading.intro}</p>
+    </div>
+
+    <div class="question-box">
+      {reading.spreadType === 'choice' ? (
+        <div class="choice-inputs">
+          <label>
+            선택 A 이름
+            <input data-choice-a type="text" maxlength="40" placeholder="예: 지금 직장에 남기" />
+          </label>
+          <label>
+            선택 B 이름
+            <input data-choice-b type="text" maxlength="40" placeholder="예: 이직 준비하기" />
+          </label>
+        </div>
+      ) : null}
+      <div class="reader-options">
+        <label class="check-option">
+          <input data-use-reversed type="checkbox" checked />
+          역방향 카드 포함
+        </label>
+        <label class="check-option">
+          <input data-save-reading type="checkbox" />
+          이 브라우저에 최근 리딩 저장하기
+        </label>
+      </div>
+      <p class="privacy-note">최근 리딩 저장을 선택한 경우에만 결과가 현재 브라우저에 저장됩니다.</p>
+    </div>
+
+    <div class="reader-actions-top">
+      <button class="primary-button" data-shuffle type="button">카드 섞기</button>
+      <button class="secondary-button" data-redraw type="button">다시 뽑기</button>
+      <span data-picked-status>{requiredCards}장을 선택하세요</span>
+    </div>
+  </div>
+
+  <div class="tarot-table" aria-live="polite">
+    {Array.from({ length: 12 }).map((_, index) => (
+      <button class="tarot-card-button" data-card-choice type="button" disabled aria-label={`타로 카드 ${index + 1} 선택`}>
+        <span class="tarot-card-back">
+          <span class="card-star">✦</span>
+          <span class="card-text">TAROT</span>
+        </span>
+        <span class="tarot-card-face" aria-hidden="true"></span>
+      </button>
+    ))}
+  </div>
+
+  <section class="reading-result" data-result hidden>
+    <div class="result-heading">
+      <span class="eyebrow">리딩 결과</span>
+      <h2 data-result-title>{reading.shortTitle} 결과</h2>
+      <p data-result-summary></p>
+    </div>
+    <div class="drawn-cards" data-result-cards></div>
+    <div class="result-sections" data-result-sections></div>
+    <div class="result-actions">
+      <button class="primary-button" data-copy-result type="button">결과 복사하기</button>
+      <button class="secondary-button" data-copy-share type="button">공유 문구 복사</button>
+      <button class="secondary-button" data-clear-history type="button">저장 기록 삭제</button>
+    </div>
+    <p class="disclaimer" data-result-disclaimer>본 타로 리딩은 오락 및 참고용 콘텐츠입니다.</p>
+  </section>
+
+  <section class="reading-history" data-history-wrap hidden>
+    <h2>최근 리딩</h2>
+    <div data-history></div>
+  </section>
+</section>
+
+<script>
+  import { initTarotReaders } from '../scripts/tarotEngine';
+  initTarotReaders();
+</script>

@@ -1,0 +1,73 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { tarotCards } from '../../data/tarotCards';
+const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '타로 카드 의미', path: '/cards/' }];
+const major = tarotCards.filter((card) => card.arcana === 'major');
+const minor = tarotCards.filter((card) => card.arcana === 'minor');
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: '타로 카드 의미 목록',
+  numberOfItems: tarotCards.length,
+  itemListElement: tarotCards.map((card, index) => ({ '@type': 'ListItem', position: index + 1, name: `${card.nameKo} (${card.nameEn})` }))
+}];
+---
+<Layout
+  title="타로 카드 의미 모음 | 타로마음"
+  description="메이저 아르카나와 마이너 아르카나 카드의 기본 키워드, 정방향·역방향 의미를 한눈에 확인할 수 있습니다."
+  canonicalPath="/cards/"
+  keywords={['타로 카드 의미', '메이저 아르카나', '마이너 아르카나', '정방향 타로', '역방향 타로']}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <section class="page-hero container">
+    <span class="eyebrow">카드 의미</span>
+    <h1>타로 카드 의미 모음</h1>
+    <p>78장 타로 카드의 기본 키워드와 정방향·역방향 의미를 간단히 확인하세요.</p>
+  </section>
+  <AdSlot position="top" />
+  <article class="container readable-content">
+    <section class="content-section">
+      <h2>메이저 아르카나 22장</h2>
+      <p>메이저 아르카나는 큰 흐름, 전환점, 중요한 주제를 상징합니다. 오늘의 타로에서 메이저 카드가 나오면 하루의 분위기보다 조금 더 큰 의미로 참고할 수 있습니다.</p>
+      <div class="meaning-grid">
+        {major.map((card) => (
+          <article class="meaning-card">
+            <span class="card-number">{card.number}</span>
+            <h3>{card.nameKo}</h3>
+            <p>{card.keywords.join(' · ')}</p>
+            <small>{card.upright.general}</small>
+          </article>
+        ))}
+      </div>
+    </section>
+    <section class="content-section">
+      <h2>마이너 아르카나 56장</h2>
+      <p>마이너 아르카나는 일상적인 감정, 선택, 행동, 현실 문제를 더 구체적으로 보여줍니다. 완드, 컵, 소드, 펜타클 네 가지 슈트로 나뉩니다.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>카드</th><th>영문</th><th>키워드</th></tr>
+          </thead>
+          <tbody>
+            {minor.map((card) => (
+              <tr>
+                <td>{card.nameKo}</td>
+                <td>{card.nameEn}</td>
+                <td>{card.keywords.join(', ')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="content-section warning-box">
+      <h2>카드 의미를 볼 때 주의할 점</h2>
+      <p>카드 의미는 질문, 위치, 주변 카드, 현실 상황에 따라 달라질 수 있습니다. 카드 하나만으로 중요한 결정을 단정하지 마세요.</p>
+    </section>
+  </article>
+  <AdSlot position="bottom" />
+</Layout>

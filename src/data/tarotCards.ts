@@ -1,0 +1,494 @@
+export type TarotCard = {
+  id: string;
+  nameKo: string;
+  nameEn: string;
+  arcana: 'major' | 'minor';
+  suit?: 'wands' | 'cups' | 'swords' | 'pentacles';
+  number?: number | string;
+  keywords: string[];
+  upright: {
+    general: string;
+    love: string;
+    career: string;
+    money: string;
+    advice: string;
+  };
+  reversed: {
+    general: string;
+    love: string;
+    career: string;
+    money: string;
+    advice: string;
+  };
+  caution: string;
+  action: string;
+};
+
+function cardMeaning(nameKo: string, keywords: string[], tone: string) {
+  const keyText = keywords.slice(0, 3).join(', ');
+  return `${nameKo} 카드는 ${keyText}의 흐름을 보여줍니다. ${tone}`;
+}
+
+const majorBaseRaw: Omit<TarotCard, 'arcana'>[] = [
+  {
+    id: 'the-fool', nameKo: '바보', nameEn: 'The Fool', number: 0, keywords: ['새 출발', '자유', '가능성'],
+    upright: {
+      general: '새로운 시작을 향한 가벼운 마음이 열립니다. 아직 모든 것이 정해진 것은 아니지만 가능성을 믿고 첫걸음을 내딛기 좋은 흐름입니다.',
+      love: '관계에서 새로운 분위기가 생길 수 있습니다. 너무 앞서 단정하기보다 가볍고 솔직한 대화가 도움이 됩니다.',
+      career: '새로운 업무, 지원, 이직 아이디어가 떠오르기 좋습니다. 준비는 필요하지만 처음부터 완벽할 필요는 없습니다.',
+      money: '충동적인 지출은 조심해야 하지만 새로운 돈 관리 습관을 시작하기 좋습니다.',
+      advice: '작게 시작하고, 배움의 태도로 움직여보세요.'
+    },
+    reversed: {
+      general: '준비 없이 뛰어들거나 상황을 너무 가볍게 볼 수 있습니다. 한 번 더 확인하는 태도가 필요합니다.',
+      love: '상대나 관계를 쉽게 단정하거나 책임을 미루지 않도록 주의하세요.',
+      career: '계획 없는 변화는 부담이 될 수 있습니다. 일정, 조건, 책임 범위를 확인하세요.',
+      money: '즉흥적인 소비나 검증되지 않은 제안에 조심하세요.',
+      advice: '설렘은 유지하되 체크리스트를 만들고 움직이세요.'
+    },
+    caution: '가벼운 선택이 나중에 부담이 되지 않도록 기본 조건을 확인하세요.', action: '오늘은 작은 첫걸음 하나를 정해 실행해보세요.'
+  },
+  {
+    id: 'the-magician', nameKo: '마법사', nameEn: 'The Magician', number: 1, keywords: ['실행력', '표현', '집중'],
+    upright: {
+      general: '필요한 도구와 능력을 어느 정도 갖춘 상태입니다. 생각만 하던 일을 말과 행동으로 꺼내기 좋은 흐름입니다.',
+      love: '솔직한 표현과 적극적인 태도가 관계의 분위기를 바꿀 수 있습니다.',
+      career: '기획, 발표, 제안, 포트폴리오 정리에 유리합니다. 가진 자원을 잘 조합해보세요.',
+      money: '수입 구조나 지출 관리 방식을 능동적으로 정리하기 좋은 때입니다.',
+      advice: '하고 싶은 말을 명확하게 정리하고 직접 움직이세요.'
+    },
+    reversed: {
+      general: '말과 행동이 어긋나거나 능력을 과장하기 쉬운 흐름입니다. 진정성과 검증이 중요합니다.',
+      love: '매력적인 말보다 꾸준한 태도가 더 필요합니다.',
+      career: '성과를 보여주려는 마음이 앞서 실수가 생길 수 있습니다.',
+      money: '겉보기에 좋아 보이는 제안은 조건을 자세히 확인하세요.',
+      advice: '보여주기보다 실제로 가능한 것부터 정리하세요.'
+    },
+    caution: '과장된 표현이나 성급한 약속을 피하세요.', action: '가장 중요한 목표 하나에 집중해보세요.'
+  },
+  {
+    id: 'the-high-priestess', nameKo: '여사제', nameEn: 'The High Priestess', number: 2, keywords: ['직감', '침묵', '내면'],
+    upright: {
+      general: '겉으로 드러난 정보보다 내면의 감각과 숨은 맥락을 살펴볼 때입니다. 서두르지 않는 관찰이 필요합니다.',
+      love: '상대의 말보다 행동과 분위기를 차분히 살펴보세요. 감정의 깊이를 급히 확인하려 하지 않는 편이 좋습니다.',
+      career: '자료 조사, 분석, 조용한 준비에 유리합니다. 공개하기 전 검토 시간이 필요합니다.',
+      money: '보이지 않는 조건이나 작은 지출을 확인하세요.',
+      advice: '답을 빨리 내기보다 조용히 관찰하고 기록하세요.'
+    },
+    reversed: {
+      general: '불안 때문에 상상과 사실이 섞일 수 있습니다. 확인되지 않은 추측에 휘둘리지 마세요.',
+      love: '상대의 마음을 혼자 해석해 단정하기 쉽습니다.',
+      career: '정보 부족이나 소통 단절이 문제가 될 수 있습니다.',
+      money: '감으로만 결정하지 말고 수치와 조건을 확인하세요.',
+      advice: '느낌은 참고하되 사실 확인을 우선하세요.'
+    },
+    caution: '침묵이 회피가 되지 않도록 필요한 말은 정리해 전달하세요.', action: '오늘 느낀 감정과 사실을 분리해서 적어보세요.'
+  },
+  {
+    id: 'the-empress', nameKo: '여황제', nameEn: 'The Empress', number: 3, keywords: ['풍요', '돌봄', '성장'],
+    upright: {
+      general: '관계와 일상에 따뜻함과 성장의 흐름이 들어옵니다. 돌보고 가꾸어 온 것이 서서히 모습을 드러낼 수 있습니다.',
+      love: '다정함과 안정감이 관계를 부드럽게 만듭니다. 표현을 아끼지 않는 것이 좋습니다.',
+      career: '창작, 기획, 고객 관리, 팀 케어에 유리합니다.',
+      money: '필요한 곳에 쓰는 소비와 장기적인 관리가 균형을 이룹니다.',
+      advice: '성과를 재촉하기보다 꾸준히 가꾸는 태도를 유지하세요.'
+    },
+    reversed: {
+      general: '지나친 배려나 과소비, 감정적 의존이 부담이 될 수 있습니다.',
+      love: '돌봄이 집착처럼 느껴지지 않도록 균형을 잡으세요.',
+      career: '모두를 챙기려다 내 에너지가 소진될 수 있습니다.',
+      money: '기분 전환 소비가 커지지 않도록 확인하세요.',
+      advice: '나와 타인의 경계를 건강하게 세우세요.'
+    },
+    caution: '좋은 마음으로 시작한 일이 과한 부담이 되지 않게 조절하세요.', action: '오늘은 나를 돌보는 작은 루틴을 하나 해보세요.'
+  },
+  {
+    id: 'the-emperor', nameKo: '황제', nameEn: 'The Emperor', number: 4, keywords: ['질서', '책임', '기준'],
+    upright: {
+      general: '흔들리는 상황을 정리하고 기준을 세울 때입니다. 책임감 있는 태도가 안정감을 만듭니다.',
+      love: '관계에서 약속, 경계, 현실적인 계획을 정리하기 좋습니다.',
+      career: '리더십, 관리, 일정 조율, 규칙 정비가 중요합니다.',
+      money: '예산을 세우고 지출 규칙을 정하면 안정적인 흐름을 만들 수 있습니다.',
+      advice: '감정만으로 판단하지 말고 구조와 기준을 세우세요.'
+    },
+    reversed: {
+      general: '통제하려는 마음이 강해지거나 융통성이 부족해질 수 있습니다.',
+      love: '상대를 내 기준에 맞추려는 태도는 갈등을 만들 수 있습니다.',
+      career: '권위적인 소통이나 경직된 방식에 주의하세요.',
+      money: '돈을 너무 조이거나 반대로 통제력을 잃지 않도록 균형을 잡으세요.',
+      advice: '기준은 세우되 사람의 감정도 함께 고려하세요.'
+    },
+    caution: '책임감이 부담과 고집으로 변하지 않게 조심하세요.', action: '오늘 해야 할 일을 우선순위 세 가지로 정리하세요.'
+  },
+  {
+    id: 'the-hierophant', nameKo: '교황', nameEn: 'The Hierophant', number: 5, keywords: ['조언', '전통', '배움'],
+    upright: {
+      general: '검증된 방법, 조언, 배움이 도움이 되는 시기입니다. 혼자 판단하기보다 신뢰할 만한 기준을 참고하세요.',
+      love: '관계의 가치관이나 약속에 대해 진지하게 이야기하기 좋습니다.',
+      career: '멘토, 교육, 절차, 규정이 중요한 역할을 합니다.',
+      money: '전문가 조언이나 공식 정보를 확인하는 태도가 좋습니다.',
+      advice: '기본으로 돌아가고, 신뢰할 수 있는 조언을 구하세요.'
+    },
+    reversed: {
+      general: '남의 기준에만 맞추거나 낡은 방식에 갇힐 수 있습니다.',
+      love: '사회적 기준보다 두 사람에게 맞는 방식을 찾아야 합니다.',
+      career: '형식만 따르다 본질을 놓치지 않도록 주의하세요.',
+      money: '남들이 한다는 이유로 결정하지 마세요.',
+      advice: '규칙을 참고하되 나에게 맞는지 점검하세요.'
+    },
+    caution: '권위 있는 말이라도 내 상황에 맞는지 확인하세요.', action: '필요한 정보를 공식 자료나 전문가에게 확인해보세요.'
+  },
+  {
+    id: 'the-lovers', nameKo: '연인', nameEn: 'The Lovers', number: 6, keywords: ['선택', '관계', '조화'],
+    upright: {
+      general: '중요한 선택과 관계의 조화가 핵심입니다. 마음과 현실 조건을 함께 살펴야 합니다.',
+      love: '감정적 끌림과 진심이 드러나기 좋은 흐름입니다. 솔직한 대화가 관계를 깊게 만들 수 있습니다.',
+      career: '협업, 파트너십, 가치관이 맞는 선택이 중요합니다.',
+      money: '소비나 계약에서 나의 우선순위를 분명히 하세요.',
+      advice: '내가 진짜 원하는 기준을 정직하게 바라보세요.'
+    },
+    reversed: {
+      general: '선택이 흔들리거나 관계에서 균형이 어긋날 수 있습니다.',
+      love: '감정은 있지만 방향이 맞지 않거나 소통이 부족할 수 있습니다.',
+      career: '팀워크나 의사결정에서 엇갈림이 생길 수 있습니다.',
+      money: '감정에 따른 소비나 충동적 결정에 주의하세요.',
+      advice: '선택을 미루기보다 기준을 다시 정리하세요.'
+    },
+    caution: '좋아 보이는 선택도 책임과 현실 조건을 함께 봐야 합니다.', action: '선택지별 장단점을 직접 적어 비교해보세요.'
+  },
+  {
+    id: 'the-chariot', nameKo: '전차', nameEn: 'The Chariot', number: 7, keywords: ['전진', '의지', '승부'],
+    upright: {
+      general: '목표를 향해 밀고 나갈 힘이 있습니다. 방향을 정했다면 집중과 추진력이 필요합니다.',
+      love: '관계에서 적극적인 표현이나 분명한 태도가 도움이 됩니다.',
+      career: '경쟁, 시험, 프로젝트 추진에 좋은 흐름입니다.',
+      money: '목표 금액이나 예산을 정하고 실행하기 좋습니다.',
+      advice: '흩어진 에너지를 하나의 방향으로 모으세요.'
+    },
+    reversed: {
+      general: '속도는 빠르지만 방향이 불안정할 수 있습니다. 감정적인 질주를 조심하세요.',
+      love: '상대를 밀어붙이면 부담으로 느껴질 수 있습니다.',
+      career: '무리한 일정이나 경쟁심이 실수를 만들 수 있습니다.',
+      money: '단기 성과에 집착해 위험한 선택을 하지 마세요.',
+      advice: '속도를 줄이고 방향을 다시 확인하세요.'
+    },
+    caution: '이기려는 마음이 관계나 판단을 흐리지 않게 하세요.', action: '오늘 가장 중요한 목표 하나를 정하고 끝까지 마무리하세요.'
+  },
+  {
+    id: 'strength', nameKo: '힘', nameEn: 'Strength', number: 8, keywords: ['인내', '용기', '부드러운 힘'],
+    upright: {
+      general: '강하게 밀어붙이기보다 부드럽게 버티는 힘이 필요합니다. 차분한 용기가 상황을 안정시킵니다.',
+      love: '감정을 억누르기보다 따뜻하게 조절하는 태도가 관계에 도움이 됩니다.',
+      career: '꾸준함, 인내, 팀을 다독이는 능력이 빛납니다.',
+      money: '장기적인 습관과 절제가 돈 관리에 도움이 됩니다.',
+      advice: '조용하지만 꾸준한 힘을 믿으세요.'
+    },
+    reversed: {
+      general: '자신감이 흔들리거나 감정을 억지로 누르기 쉬운 흐름입니다.',
+      love: '불안 때문에 과하게 확인하거나 참기만 하지 않도록 하세요.',
+      career: '번아웃이나 자기 의심을 조심하세요.',
+      money: '스트레스 소비가 늘지 않도록 마음을 돌보세요.',
+      advice: '나를 몰아붙이기보다 회복할 시간을 주세요.'
+    },
+    caution: '참는 것과 방치하는 것을 구분하세요.', action: '오늘은 감정을 차분히 표현하는 문장을 준비해보세요.'
+  },
+  {
+    id: 'the-hermit', nameKo: '은둔자', nameEn: 'The Hermit', number: 9, keywords: ['성찰', '거리두기', '지혜'],
+    upright: {
+      general: '잠시 물러나 생각을 정리할 때입니다. 조용한 시간이 더 깊은 답을 가져올 수 있습니다.',
+      love: '관계에서 거리와 시간을 두고 내 마음을 확인하는 것이 좋습니다.',
+      career: '혼자 집중하는 업무, 연구, 공부에 유리합니다.',
+      money: '지출 패턴을 돌아보고 필요한 조정을 하기 좋습니다.',
+      advice: '답을 밖에서만 찾지 말고 내 기준을 확인하세요.'
+    },
+    reversed: {
+      general: '고립감이 커지거나 필요한 소통을 피할 수 있습니다.',
+      love: '혼자 생각만 하다 오해가 커지지 않도록 주의하세요.',
+      career: '협업이 필요한 상황에서 지나치게 혼자 해결하려 할 수 있습니다.',
+      money: '정보를 너무 좁게 보지 말고 비교가 필요합니다.',
+      advice: '혼자 정리한 뒤 필요한 사람에게는 공유하세요.'
+    },
+    caution: '거리두기가 회피가 되지 않도록 하세요.', action: '오늘은 조용히 생각을 정리할 시간을 10분만 가져보세요.'
+  },
+  {
+    id: 'wheel-of-fortune', nameKo: '운명의 수레바퀴', nameEn: 'Wheel of Fortune', number: 10, keywords: ['변화', '전환', '흐름'],
+    upright: {
+      general: '상황의 흐름이 바뀌기 쉬운 시기입니다. 변화에 맞춰 유연하게 움직이면 기회를 잡을 수 있습니다.',
+      love: '예상 밖의 연락이나 관계 변화가 생길 수 있습니다.',
+      career: '새로운 일정, 제안, 역할 변화가 들어올 수 있습니다.',
+      money: '수입과 지출 흐름에 변동이 있을 수 있어 여유를 두세요.',
+      advice: '변화를 두려워하기보다 방향을 관찰하세요.'
+    },
+    reversed: {
+      general: '흐름이 지연되거나 반복되는 문제가 다시 보일 수 있습니다.',
+      love: '타이밍이 맞지 않거나 같은 패턴이 반복될 수 있습니다.',
+      career: '예상 밖의 변수에 대비가 필요합니다.',
+      money: '갑작스러운 지출이나 계획 변경을 조심하세요.',
+      advice: '지금 통제할 수 있는 것에 집중하세요.'
+    },
+    caution: '운에만 기대지 말고 변화에 대응할 준비를 하세요.', action: '변수에 대비해 대안 하나를 준비해보세요.'
+  },
+  {
+    id: 'justice', nameKo: '정의', nameEn: 'Justice', number: 11, keywords: ['균형', '판단', '책임'],
+    upright: {
+      general: '공정한 판단과 책임 있는 선택이 필요한 때입니다. 감정보다 사실과 기준을 확인하세요.',
+      love: '관계에서 서로의 책임과 기준을 솔직하게 나누는 것이 중요합니다.',
+      career: '계약, 문서, 평가, 규정 확인에 유리합니다.',
+      money: '숫자와 조건을 꼼꼼히 확인해야 합니다.',
+      advice: '사실, 기준, 결과를 차분히 따져보세요.'
+    },
+    reversed: {
+      general: '불균형하거나 한쪽으로 치우친 판단에 주의해야 합니다.',
+      love: '상대 탓만 하거나 내 책임을 외면하지 않도록 하세요.',
+      career: '문서 누락, 불공정한 상황, 기준 혼선에 주의하세요.',
+      money: '계약 조건이나 수수료를 놓칠 수 있습니다.',
+      advice: '감정과 사실을 분리해서 판단하세요.'
+    },
+    caution: '공정함을 말하기 전에 내 기준도 일관적인지 확인하세요.', action: '중요한 문서나 조건을 한 번 더 읽어보세요.'
+  },
+  {
+    id: 'the-hanged-man', nameKo: '매달린 사람', nameEn: 'The Hanged Man', number: 12, keywords: ['멈춤', '관점 전환', '기다림'],
+    upright: {
+      general: '지금은 억지로 밀어붙이기보다 관점을 바꿔볼 때입니다. 멈춤이 새로운 이해를 가져올 수 있습니다.',
+      love: '관계에서 기다림과 이해가 필요합니다. 상대의 입장도 생각해보세요.',
+      career: '진행이 느려도 새로운 방식으로 문제를 보면 실마리가 보입니다.',
+      money: '큰 결정보다 보류와 검토가 유리합니다.',
+      advice: '멈춘 시간을 낭비로 보지 말고 관찰의 시간으로 쓰세요.'
+    },
+    reversed: {
+      general: '불필요하게 자신을 희생하거나 답 없는 기다림에 묶일 수 있습니다.',
+      love: '혼자만 참는 관계가 아닌지 확인하세요.',
+      career: '미루기와 전략적 보류를 구분해야 합니다.',
+      money: '결정을 피하다 기회를 놓치지 않도록 하세요.',
+      advice: '기다릴 이유와 멈춰 있는 이유를 구분하세요.'
+    },
+    caution: '희생이 습관이 되지 않도록 하세요.', action: '문제를 반대 입장에서 한 번 적어보세요.'
+  },
+  {
+    id: 'death', nameKo: '죽음', nameEn: 'Death', number: 13, keywords: ['끝맺음', '전환', '새로움'],
+    upright: {
+      general: '한 단계가 끝나고 새로운 흐름으로 넘어가는 전환점입니다. 놓아야 다음이 보입니다.',
+      love: '관계의 낡은 패턴을 정리해야 할 수 있습니다. 끝이 꼭 부정만을 뜻하지는 않습니다.',
+      career: '업무 방식, 역할, 계획을 과감히 바꾸기 좋은 시기입니다.',
+      money: '불필요한 지출이나 오래된 관리 방식을 정리하세요.',
+      advice: '끝내야 할 것을 인정하면 다음 선택이 선명해집니다.'
+    },
+    reversed: {
+      general: '끝난 것을 붙잡거나 변화를 미루며 피로가 쌓일 수 있습니다.',
+      love: '이미 반복되는 문제를 외면하지 않도록 하세요.',
+      career: '변화가 두려워 낡은 방식을 고수할 수 있습니다.',
+      money: '정리해야 할 비용이나 습관을 미루지 마세요.',
+      advice: '작은 정리부터 시작해 변화의 부담을 낮추세요.'
+    },
+    caution: '두려움 때문에 필요한 변화를 미루지 마세요.', action: '오늘 버릴 것 하나와 새로 시작할 것 하나를 정하세요.'
+  },
+  {
+    id: 'temperance', nameKo: '절제', nameEn: 'Temperance', number: 14, keywords: ['균형', '조화', '조절'],
+    upright: {
+      general: '서로 다른 요소를 섞어 균형을 맞추는 흐름입니다. 급하지 않게 조율하면 안정됩니다.',
+      love: '서로의 속도와 감정을 맞추는 대화가 중요합니다.',
+      career: '협업, 일정 조정, 중재 역할에 유리합니다.',
+      money: '수입과 지출의 균형을 맞추기에 좋습니다.',
+      advice: '극단을 피하고 적당한 속도를 찾으세요.'
+    },
+    reversed: {
+      general: '균형이 깨지고 과하거나 부족한 상태가 될 수 있습니다.',
+      love: '한쪽만 맞추거나 속도 차이가 커질 수 있습니다.',
+      career: '일정과 역할 조율이 필요합니다.',
+      money: '과소비와 지나친 절약 사이에서 균형을 찾으세요.',
+      advice: '생활 리듬부터 다시 맞춰보세요.'
+    },
+    caution: '조율한다는 이유로 내 필요를 계속 미루지 마세요.', action: '오늘 일정에서 무리한 부분 하나를 줄여보세요.'
+  },
+  {
+    id: 'the-devil', nameKo: '악마', nameEn: 'The Devil', number: 15, keywords: ['집착', '유혹', '의존'],
+    upright: {
+      general: '알면서도 끌리는 습관이나 집착을 살펴볼 때입니다. 욕망을 부정하기보다 다루는 힘이 필요합니다.',
+      love: '강한 끌림이 있을 수 있지만 의존이나 소유욕은 조심하세요.',
+      career: '성과 욕심, 경쟁심, 과로가 커질 수 있습니다.',
+      money: '충동 소비, 빚, 위험한 제안에 주의하세요.',
+      advice: '나를 묶는 습관이 무엇인지 정직하게 보세요.'
+    },
+    reversed: {
+      general: '묶여 있던 패턴을 알아차리고 벗어날 기회가 보입니다.',
+      love: '의존적인 관계를 건강하게 조정할 수 있습니다.',
+      career: '과로와 압박에서 벗어날 방법을 찾을 수 있습니다.',
+      money: '불필요한 지출이나 위험한 선택을 줄일 수 있습니다.',
+      advice: '작은 절제부터 시작하면 흐름이 바뀝니다.'
+    },
+    caution: '강한 끌림이 항상 좋은 선택은 아닙니다.', action: '오늘 반복되는 유혹 하나를 의식적으로 멈춰보세요.'
+  },
+  {
+    id: 'the-tower', nameKo: '탑', nameEn: 'The Tower', number: 16, keywords: ['충격', '해체', '깨달음'],
+    upright: {
+      general: '예상치 못한 변화가 기존 구조를 흔들 수 있습니다. 불편하더라도 사실을 직면하면 재정비가 가능합니다.',
+      love: '감춰졌던 문제가 드러날 수 있습니다. 감정적인 반응보다 사실 확인이 중요합니다.',
+      career: '계획 변경, 일정 차질, 구조 조정에 대비하세요.',
+      money: '갑작스러운 지출이나 손실 위험을 점검하세요.',
+      advice: '무너지는 것을 붙잡기보다 무엇을 다시 세울지 보세요.'
+    },
+    reversed: {
+      general: '큰 충돌은 피했지만 불안정한 구조가 남아 있을 수 있습니다.',
+      love: '문제를 덮어두면 다시 흔들릴 수 있습니다.',
+      career: '위험 신호를 무시하지 말고 사전에 정리하세요.',
+      money: '작은 균열을 빠르게 점검하면 큰 손실을 줄일 수 있습니다.',
+      advice: '피하고 싶은 문제부터 천천히 확인하세요.'
+    },
+    caution: '충격적인 감정에 휘둘려 즉흥 결정하지 마세요.', action: '위험한 부분 하나를 점검하고 대안을 마련하세요.'
+  },
+  {
+    id: 'the-star', nameKo: '별', nameEn: 'The Star', number: 17, keywords: ['희망', '회복', '영감'],
+    upright: {
+      general: '희망과 회복의 기운이 들어옵니다. 급한 성과보다 마음을 회복하고 가능성을 다시 보는 흐름입니다.',
+      love: '상처가 있었다면 조금씩 마음이 열릴 수 있습니다. 부드러운 소통이 좋습니다.',
+      career: '창의력, 장기 목표, 브랜딩, 공부에 좋은 신호입니다.',
+      money: '장기적인 계획을 다시 세우기 좋습니다.',
+      advice: '멀리 보고 나를 회복시키는 선택을 하세요.'
+    },
+    reversed: {
+      general: '희망이 흐려지거나 자신감이 낮아질 수 있습니다.',
+      love: '상처 때문에 좋은 신호도 믿기 어려울 수 있습니다.',
+      career: '목표가 멀게 느껴져 동기 저하가 올 수 있습니다.',
+      money: '장기 계획을 포기하기보다 작게 조정하세요.',
+      advice: '작은 회복부터 시작하세요.'
+    },
+    caution: '희망만으로 현실 점검을 놓치지 마세요.', action: '오늘 나에게 힘이 되는 문장 하나를 적어보세요.'
+  },
+  {
+    id: 'the-moon', nameKo: '달', nameEn: 'The Moon', number: 18, keywords: ['불안', '환상', '무의식'],
+    upright: {
+      general: '불확실함과 감정의 흔들림이 커질 수 있습니다. 지금은 사실과 상상을 구분하는 것이 중요합니다.',
+      love: '관계에서 오해나 불안이 커질 수 있으니 추측을 조심하세요.',
+      career: '정보가 불완전할 수 있습니다. 확인 전 결론을 내리지 마세요.',
+      money: '불확실한 제안이나 감정적인 소비를 조심하세요.',
+      advice: '불안한 마음을 사실처럼 믿지 말고 확인하세요.'
+    },
+    reversed: {
+      general: '흐릿하던 것이 조금씩 드러나고 오해가 풀릴 수 있습니다.',
+      love: '숨겨진 감정이나 진짜 이유를 알게 될 수 있습니다.',
+      career: '혼란스러운 상황이 정리될 실마리가 보입니다.',
+      money: '불확실한 지출을 정리할 수 있습니다.',
+      advice: '천천히 확인하면 불안이 줄어듭니다.'
+    },
+    caution: '추측을 사실로 단정하지 마세요.', action: '불안한 생각과 확인된 사실을 나누어 적어보세요.'
+  },
+  {
+    id: 'the-sun', nameKo: '태양', nameEn: 'The Sun', number: 19, keywords: ['긍정', '성취', '활력'],
+    upright: {
+      general: '밝고 긍정적인 흐름이 들어옵니다. 자신감을 가지고 드러내면 좋은 반응을 얻기 쉽습니다.',
+      love: '솔직한 표현과 즐거운 시간이 관계에 활력을 줍니다.',
+      career: '성과 발표, 홍보, 협업에서 좋은 분위기가 기대됩니다.',
+      money: '돈 관리에서 명확한 계획과 긍정적인 진전이 있을 수 있습니다.',
+      advice: '숨지 말고 당신의 장점을 드러내세요.'
+    },
+    reversed: {
+      general: '긍정은 있지만 에너지가 약하거나 기대가 과할 수 있습니다.',
+      love: '밝은 분위기를 원하지만 현실적인 대화도 필요합니다.',
+      career: '성과를 과신하거나 세부 사항을 놓치지 마세요.',
+      money: '좋은 기분의 소비가 커지지 않게 확인하세요.',
+      advice: '긍정과 현실 확인을 함께 하세요.'
+    },
+    caution: '낙관이 방심으로 바뀌지 않게 하세요.', action: '오늘 좋은 소식이나 작은 성취를 누군가와 나눠보세요.'
+  },
+  {
+    id: 'judgement', nameKo: '심판', nameEn: 'Judgement', number: 20, keywords: ['각성', '결정', '재평가'],
+    upright: {
+      general: '과거의 경험을 바탕으로 중요한 깨달음이나 결정을 내릴 수 있습니다. 다시 시작할 기회가 보입니다.',
+      love: '관계를 다시 평가하고 솔직한 대화를 나누기 좋습니다.',
+      career: '평가, 결과 발표, 재도전, 방향 전환에 의미가 있습니다.',
+      money: '지난 소비와 수입 구조를 재점검하기 좋은 시기입니다.',
+      advice: '과거를 탓하기보다 배운 것을 기준으로 선택하세요.'
+    },
+    reversed: {
+      general: '결정을 미루거나 과거의 후회에 묶일 수 있습니다.',
+      love: '지난 일을 계속 끌고 오면 현재 대화가 어려워질 수 있습니다.',
+      career: '평가를 두려워해 기회를 놓치지 않도록 하세요.',
+      money: '잘못된 습관을 알면서도 반복하지 않도록 점검하세요.',
+      advice: '후회보다 다음 행동을 정하세요.'
+    },
+    caution: '판단을 내릴 때 자신이나 타인을 지나치게 몰아붙이지 마세요.', action: '지난 경험에서 배운 점 하나를 오늘의 선택에 적용하세요.'
+  },
+  {
+    id: 'the-world', nameKo: '세계', nameEn: 'The World', number: 21, keywords: ['완성', '통합', '성취'],
+    upright: {
+      general: '하나의 사이클이 완성되고 더 넓은 단계로 넘어갈 준비가 됩니다. 성취를 인정하고 다음을 바라보세요.',
+      love: '관계가 안정되거나 한 단계 정리될 수 있습니다.',
+      career: '프로젝트 마무리, 성과 정리, 확장에 유리합니다.',
+      money: '장기 목표나 재정 계획에서 마무리와 점검이 필요합니다.',
+      advice: '완성한 것을 인정하고 다음 목표를 정하세요.'
+    },
+    reversed: {
+      general: '마무리가 지연되거나 완성 직전의 점검이 필요합니다.',
+      love: '관계의 다음 단계로 가기 전에 정리할 것이 남아 있습니다.',
+      career: '마감 전 세부 사항을 놓치지 마세요.',
+      money: '목표는 보이지만 마지막 관리가 필요합니다.',
+      advice: '끝내지 못한 일을 작게 나누어 마무리하세요.'
+    },
+    caution: '완성에 취해 마지막 확인을 놓치지 마세요.', action: '오늘 끝낼 수 있는 일을 하나 마무리하세요.'
+  }
+];
+
+const majorBase: TarotCard[] = majorBaseRaw.map((card) => ({ ...card, arcana: 'major' as const }));
+
+const suitMeta = {
+  wands: { ko: '완드', en: 'Wands', theme: '열정과 행동', love: '관계에서 표현과 움직임', career: '일과 프로젝트의 추진력', money: '수입 기회와 행동력' },
+  cups: { ko: '컵', en: 'Cups', theme: '감정과 관계', love: '감정의 흐름과 공감', career: '사람과 협업의 분위기', money: '감정 소비와 만족감' },
+  swords: { ko: '소드', en: 'Swords', theme: '생각과 판단', love: '소통과 오해의 정리', career: '분석과 의사결정', money: '조건 검토와 리스크 판단' },
+  pentacles: { ko: '펜타클', en: 'Pentacles', theme: '현실과 안정', love: '관계의 현실성과 안정감', career: '성과와 실무 안정', money: '재정 관리와 현실적 이익' }
+} as const;
+
+const rankMeta = [
+  { key: 'ace', ko: '에이스', en: 'Ace', num: 'A', keywords: ['시작', '씨앗', '가능성'], tone: '작은 출발이지만 의미 있는 가능성이 들어옵니다.' },
+  { key: 'two', ko: '2', en: 'Two', num: 2, keywords: ['균형', '선택', '관계'], tone: '두 가지 흐름 사이에서 균형을 잡아야 합니다.' },
+  { key: 'three', ko: '3', en: 'Three', num: 3, keywords: ['확장', '협력', '성장'], tone: '혼자보다 함께할 때 더 넓어지는 흐름입니다.' },
+  { key: 'four', ko: '4', en: 'Four', num: 4, keywords: ['안정', '기반', '정리'], tone: '기반을 다지고 안정적인 구조를 만드는 것이 중요합니다.' },
+  { key: 'five', ko: '5', en: 'Five', num: 5, keywords: ['갈등', '변화', '도전'], tone: '불편한 변화가 있지만 이를 통해 배울 점이 있습니다.' },
+  { key: 'six', ko: '6', en: 'Six', num: 6, keywords: ['회복', '도움', '조화'], tone: '회복과 조율의 가능성이 보입니다.' },
+  { key: 'seven', ko: '7', en: 'Seven', num: 7, keywords: ['점검', '선택지', '인내'], tone: '여러 가능성 중 무엇을 선택할지 점검해야 합니다.' },
+  { key: 'eight', ko: '8', en: 'Eight', num: 8, keywords: ['집중', '반복', '숙련'], tone: '꾸준히 반복하고 다듬는 힘이 필요합니다.' },
+  { key: 'nine', ko: '9', en: 'Nine', num: 9, keywords: ['완성 직전', '성찰', '준비'], tone: '거의 다 왔지만 마지막 정리가 필요합니다.' },
+  { key: 'ten', ko: '10', en: 'Ten', num: 10, keywords: ['완성', '부담', '결과'], tone: '하나의 흐름이 결실을 맺거나 부담으로 드러납니다.' },
+  { key: 'page', ko: '페이지', en: 'Page', num: 'Page', keywords: ['소식', '배움', '호기심'], tone: '새로운 소식이나 배움의 흐름이 들어올 수 있습니다.' },
+  { key: 'knight', ko: '나이트', en: 'Knight', num: 'Knight', keywords: ['움직임', '추진', '변화'], tone: '상황이 움직이기 시작하며 적극적인 태도가 필요합니다.' },
+  { key: 'queen', ko: '퀸', en: 'Queen', num: 'Queen', keywords: ['성숙', '돌봄', '이해'], tone: '성숙한 태도와 세심한 이해가 흐름을 부드럽게 만듭니다.' },
+  { key: 'king', ko: '킹', en: 'King', num: 'King', keywords: ['책임', '리더십', '완성도'], tone: '책임감과 명확한 기준이 중요합니다.' }
+] as const;
+
+function createMinorCards(): TarotCard[] {
+  const cards: TarotCard[] = [];
+  Object.entries(suitMeta).forEach(([suit, meta]) => {
+    rankMeta.forEach((rank) => {
+      const nameKo = `${meta.ko} ${rank.ko}`;
+      const nameEn = `${rank.en} of ${meta.en}`;
+      const keywords = [...rank.keywords, meta.theme];
+      cards.push({
+        id: `${suit}-${rank.key}`,
+        nameKo,
+        nameEn,
+        arcana: 'minor',
+        suit: suit as TarotCard['suit'],
+        number: rank.num,
+        keywords,
+        upright: {
+          general: cardMeaning(nameKo, keywords, rank.tone),
+          love: `${nameKo}는 ${meta.love}을 살펴보게 합니다. ${rank.tone}`,
+          career: `${nameKo}는 ${meta.career}을 보여줍니다. ${rank.tone}`,
+          money: `${nameKo}는 ${meta.money}을 점검하게 합니다. ${rank.tone}`,
+          advice: `지금은 ${rank.keywords[0]}의 태도를 의식하고, ${meta.theme}을 현실적으로 다루는 것이 좋습니다.`
+        },
+        reversed: {
+          general: `${nameKo} 역방향은 ${keywords[0]}의 흐름이 막히거나 과해질 수 있음을 보여줍니다. 속도와 균형을 다시 확인하세요.`,
+          love: `${nameKo} 역방향은 관계에서 ${meta.love}이 어긋날 수 있음을 말합니다. 감정적인 단정은 피하세요.`,
+          career: `${nameKo} 역방향은 일에서 ${meta.career}이 지연되거나 부담으로 느껴질 수 있음을 보여줍니다.`,
+          money: `${nameKo} 역방향은 돈 문제에서 ${meta.money}을 다시 점검하라는 신호입니다.`,
+          advice: `서두르거나 한쪽으로 치우치지 말고 ${rank.keywords[0]}의 의미를 균형 있게 조정하세요.`
+        },
+        caution: `${nameKo}는 ${rank.keywords[0]}이 과하거나 부족하지 않은지 살펴보라고 말합니다.`,
+        action: `오늘은 ${meta.theme}과 관련해 작은 점검 하나를 해보세요.`
+      });
+    });
+  });
+  return cards;
+}
+
+export const tarotCards: TarotCard[] = [...majorBase, ...createMinorCards()];
