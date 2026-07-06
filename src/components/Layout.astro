@@ -42,7 +42,7 @@ const canonicalUrl = new URL(canonicalPath, `${siteUrl}/`).toString();
 const imageUrl = new URL(ogImage, `${siteUrl}/`).toString();
 const rssUrl = new URL('/rss.xml', `${siteUrl}/`).toString();
 const naverVerification = getNaverVerification();
-const robotsContent = hasConfiguredSiteUrl ? robots : 'noindex, nofollow, noarchive';
+const robotsContent = robots;
 const uniqueKeywords = [...new Set(keywords.map((keyword) => keyword.trim()).filter(Boolean))];
 const keywordContent = uniqueKeywords.join(', ');
 const siteId = `${siteUrl}/#website`;

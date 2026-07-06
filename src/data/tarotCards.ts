@@ -454,13 +454,81 @@ const rankMeta = [
   { key: 'king', ko: '킹', en: 'King', num: 'King', keywords: ['책임', '리더십', '완성도'], tone: '책임감과 명확한 기준이 중요합니다.' }
 ] as const;
 
+const suitRankDetails = {
+  wands: {
+    ace: { keywords: ['아이디어', '시작 신호', '열정'], tone: '새로운 행동의 불씨가 생기며 지금 떠오른 아이디어를 작게 실험하기 좋습니다.' },
+    two: { keywords: ['계획', '확장 가능성', '다음 행동'], tone: '이미 손에 쥔 것 너머를 보며 다음 행동과 확장 방향을 정해야 하는 시점입니다.' },
+    three: { keywords: ['진전', '협력', '기다린 성과'], tone: '움직인 결과가 서서히 보이며 협력과 장기 계획이 힘을 얻습니다.' },
+    four: { keywords: ['축하', '기반', '안정된 열정'], tone: '노력한 일에 잠시 머물며 관계와 생활의 기반을 확인하기 좋습니다.' },
+    five: { keywords: ['경쟁', '의견 충돌', '분산된 에너지'], tone: '여러 사람이 각자 목소리를 내기 쉬우니 승부보다 방향 정리가 필요합니다.' },
+    six: { keywords: ['인정', '성과', '자신감'], tone: '앞으로 나선 행동이 인정받을 수 있지만 자만보다 다음 책임을 함께 봐야 합니다.' },
+    seven: { keywords: ['방어', '버티기', '입장 고수'], tone: '내가 세운 방향을 지키는 힘이 필요하지만 혼자 모든 것을 막으려 하지는 마세요.' },
+    eight: { keywords: ['빠른 전개', '소식', '속도'], tone: '멈춰 있던 일이 빠르게 움직일 수 있어 즉시 대응할 준비가 필요합니다.' },
+    nine: { keywords: ['경계', '지친 의지', '마지막 점검'], tone: '많이 버텨온 만큼 예민해질 수 있으니 방어와 회복의 균형이 중요합니다.' },
+    ten: { keywords: ['과부하', '책임 집중', '마무리 부담'], tone: '목표는 보이지만 짐이 한쪽으로 몰렸다면 역할을 나누어야 합니다.' },
+    page: { keywords: ['새 소식', '호기심', '도전'], tone: '가볍지만 설레는 제안이나 배움이 들어오며 시도 자체가 의미 있습니다.' },
+    knight: { keywords: ['돌진', '변화 욕구', '추진력'], tone: '강한 추진력이 있지만 방향을 확인하지 않으면 성급한 이동이 될 수 있습니다.' },
+    queen: { keywords: ['매력', '자신감', '따뜻한 리더십'], tone: '자신의 열정을 자연스럽게 드러낼 때 주변도 함께 움직입니다.' },
+    king: { keywords: ['비전', '결단', '주도권'], tone: '큰 그림을 보고 책임 있게 결정해야 하며 말보다 실행이 신뢰를 만듭니다.' }
+  },
+  cups: {
+    ace: { keywords: ['감정의 시작', '호감', '마음 열림'], tone: '마음이 열리고 정서적인 시작이 생길 수 있으니 감정을 섬세하게 다루세요.' },
+    two: { keywords: ['감정의 교류', '호감', '화해', '관계의 상호성'], tone: '서로의 마음이 오가며 호감, 화해, 관계의 상호성을 확인하기 좋은 흐름입니다.' },
+    three: { keywords: ['기쁨', '친밀한 모임', '정서적 지지'], tone: '혼자보다 함께 나눌 때 회복과 즐거움이 커지는 흐름입니다.' },
+    four: { keywords: ['권태', '감정 정체', '제안 보류'], tone: '마음이 닫히거나 익숙함에 지칠 수 있어 새로운 관점을 받아들일 필요가 있습니다.' },
+    five: { keywords: ['상실감', '후회', '남은 가능성'], tone: '아쉬운 감정에 머물기 쉽지만 아직 남아 있는 관계와 기회를 함께 봐야 합니다.' },
+    six: { keywords: ['추억', '그리움', '순수한 마음'], tone: '과거의 감정이 떠오르며 따뜻함과 미련을 구분하는 일이 중요합니다.' },
+    seven: { keywords: ['환상', '선택 과잉', '감정의 혼란'], tone: '끌리는 가능성이 많지만 실제로 무엇이 가능한지 구분해야 합니다.' },
+    eight: { keywords: ['정리', '떠남', '마음의 거리'], tone: '정서적으로 맞지 않는 흐름에서 벗어나 더 나은 방향을 찾게 됩니다.' },
+    nine: { keywords: ['만족', '소원', '정서적 충족'], tone: '원하던 감정적 만족이 가까워지지만 자기만족에 갇히지 않는 균형이 필요합니다.' },
+    ten: { keywords: ['행복', '가족적 안정', '정서적 완성'], tone: '관계와 마음의 안정이 커지며 함께 누리는 만족이 중요해집니다.' },
+    page: { keywords: ['감정 표현', '다정한 소식', '상상력'], tone: '서툴지만 진심 어린 표현이나 다정한 소식이 분위기를 부드럽게 합니다.' },
+    knight: { keywords: ['고백', '초대', '낭만'], tone: '감정을 전하고 다가가는 움직임이 생기지만 현실감도 함께 확인해야 합니다.' },
+    queen: { keywords: ['공감', '돌봄', '감정의 깊이'], tone: '감정을 깊이 이해하고 돌보는 힘이 커지며 직감이 중요한 역할을 합니다.' },
+    king: { keywords: ['감정 조절', '성숙한 이해', '차분한 지지'], tone: '감정에 휩쓸리지 않고 안정적으로 받아주는 태도가 신뢰를 만듭니다.' }
+  },
+  swords: {
+    ace: { keywords: ['명확함', '진실', '결단'], tone: '흐릿했던 생각이 정리되고 사실을 기준으로 결단할 수 있습니다.' },
+    two: { keywords: ['결정을 미룸', '저울질', '마음의 방어'], tone: '양쪽을 저울질하며 결정을 미루기 쉽고 마음을 방어하는 태도가 강해질 수 있습니다.' },
+    three: { keywords: ['상처', '실망', '아픈 진실'], tone: '마음 아픈 사실을 마주할 수 있지만 직면해야 회복의 방향도 보입니다.' },
+    four: { keywords: ['휴식', '생각 멈춤', '회복'], tone: '더 생각한다고 답이 나오지 않을 수 있으니 잠시 멈추고 회복하는 시간이 필요합니다.' },
+    five: { keywords: ['논쟁', '상처 주는 승리', '불편한 말'], tone: '이기는 말보다 관계와 신뢰에 남을 흔적을 생각해야 합니다.' },
+    six: { keywords: ['이동', '거리두기', '문제에서 벗어남'], tone: '완전한 해결은 아니어도 더 차분한 곳으로 옮겨갈 수 있는 흐름입니다.' },
+    seven: { keywords: ['전략', '숨은 의도', '우회'], tone: '정면 돌파보다 전략이 필요하지만 숨김과 회피가 커지지 않게 주의하세요.' },
+    eight: { keywords: ['제한감', '생각의 감옥', '두려움'], tone: '상황보다 생각이 나를 묶고 있을 수 있으니 가능한 선택지를 다시 확인하세요.' },
+    nine: { keywords: ['불안', '걱정', '밤의 생각'], tone: '걱정이 커져 현실보다 무겁게 느껴질 수 있어 사실 확인과 휴식이 필요합니다.' },
+    ten: { keywords: ['끝', '소진', '고통의 마무리'], tone: '힘든 흐름이 바닥을 보이며 더는 같은 방식으로 버티기 어렵다는 신호입니다.' },
+    page: { keywords: ['관찰', '정보 탐색', '조심스러운 말'], tone: '아직 미숙하지만 필요한 정보를 찾고 말의 방향을 다듬기 좋은 때입니다.' },
+    knight: { keywords: ['직설', '빠른 판단', '논리적 돌파'], tone: '빠르게 밀고 나가는 말과 판단이 강해지니 속도보다 정확성이 중요합니다.' },
+    queen: { keywords: ['분별력', '경계', '명료한 대화'], tone: '감정과 사실을 분리하고 필요한 경계를 세울 때 설득력이 생깁니다.' },
+    king: { keywords: ['판단력', '원칙', '이성적 권위'], tone: '원칙과 논리로 결론을 내리되 사람의 감정을 배제하지 않는 균형이 필요합니다.' }
+  },
+  pentacles: {
+    ace: { keywords: ['현실적 기회', '돈의 씨앗', '안정의 시작'], tone: '작지만 실제적인 기회가 들어오며 돈, 일, 생활 기반을 만들기 좋습니다.' },
+    two: { keywords: ['돈과 일정의 균형', '우선순위 조정', '현실 관리'], tone: '돈과 일정의 균형을 맞추며 현실적인 우선순위를 조정해야 하는 흐름입니다.' },
+    three: { keywords: ['협업', '기술', '실무 성과'], tone: '실력과 협업이 맞물릴 때 눈에 보이는 결과를 만들 수 있습니다.' },
+    four: { keywords: ['보유', '안정 집착', '재정 방어'], tone: '지키는 힘은 좋지만 지나친 움켜쥠이 흐름을 막지 않는지 봐야 합니다.' },
+    five: { keywords: ['부족감', '재정 불안', '도움 요청'], tone: '부족함이 크게 느껴질 수 있으니 혼자 견디기보다 도움과 대안을 찾아야 합니다.' },
+    six: { keywords: ['나눔', '지원', '공정한 교환'], tone: '주고받는 균형이 중요하며 지원을 받거나 제공하는 일이 생길 수 있습니다.' },
+    seven: { keywords: ['평가', '기다림', '장기 투자'], tone: '지금까지 쌓은 것을 평가하고 성급한 결론보다 장기 흐름을 봐야 합니다.' },
+    eight: { keywords: ['숙련', '반복 훈련', '일의 완성도'], tone: '꾸준한 연습과 반복이 실제 실력과 수입 기반으로 이어질 수 있습니다.' },
+    nine: { keywords: ['자립', '여유', '현실적 성취'], tone: '스스로 만든 안정과 여유를 누릴 수 있지만 고립된 만족은 점검하세요.' },
+    ten: { keywords: ['자산', '가족 기반', '장기 안정'], tone: '장기적인 안정, 자산, 가족이나 조직의 기반을 생각해야 하는 흐름입니다.' },
+    page: { keywords: ['공부', '실무 기회', '현실적 계획'], tone: '배우고 익히는 태도가 실제 기회로 이어질 수 있으니 기본기를 다지세요.' },
+    knight: { keywords: ['성실함', '꾸준한 실행', '느린 진전'], tone: '속도는 느려도 꾸준히 해내는 힘이 결과를 만듭니다.' },
+    queen: { keywords: ['생활력', '돌봄', '재정 감각'], tone: '현실을 돌보고 생활의 안정감을 만드는 능력이 중요한 역할을 합니다.' },
+    king: { keywords: ['성과', '관리 능력', '물질적 안정'], tone: '성과와 자원을 안정적으로 관리하는 힘이 커지며 책임 있는 운영이 필요합니다.' }
+  }
+} as const;
+
 function createMinorCards(): TarotCard[] {
   const cards: TarotCard[] = [];
   Object.entries(suitMeta).forEach(([suit, meta]) => {
     rankMeta.forEach((rank) => {
+      const detail = suitRankDetails[suit as keyof typeof suitRankDetails][rank.key as keyof typeof suitRankDetails.wands];
       const nameKo = `${meta.ko} ${rank.ko}`;
       const nameEn = `${rank.en} of ${meta.en}`;
-      const keywords = [...rank.keywords, meta.theme];
+      const keywords = [...detail.keywords, meta.theme];
       cards.push({
         id: `${suit}-${rank.key}`,
         nameKo,
@@ -470,20 +538,20 @@ function createMinorCards(): TarotCard[] {
         number: rank.num,
         keywords,
         upright: {
-          general: cardMeaning(nameKo, keywords, rank.tone),
-          love: `${nameKo}는 ${meta.love}을 살펴보게 합니다. ${rank.tone}`,
-          career: `${nameKo}는 ${meta.career}을 보여줍니다. ${rank.tone}`,
-          money: `${nameKo}는 ${meta.money}을 점검하게 합니다. ${rank.tone}`,
-          advice: `지금은 ${rank.keywords[0]}의 태도를 의식하고, ${meta.theme}을 현실적으로 다루는 것이 좋습니다.`
+          general: cardMeaning(nameKo, keywords, detail.tone),
+          love: `${nameKo}는 ${meta.love}을 살펴보게 합니다. ${detail.tone}`,
+          career: `${nameKo}는 ${meta.career}을 보여줍니다. ${detail.tone}`,
+          money: `${nameKo}는 ${meta.money}을 점검하게 합니다. ${detail.tone}`,
+          advice: `지금은 ${keywords[0]}의 태도를 의식하고, ${meta.theme}을 현실적으로 다루는 것이 좋습니다.`
         },
         reversed: {
           general: `${nameKo} 역방향은 ${keywords[0]}의 흐름이 막히거나 과해질 수 있음을 보여줍니다. 속도와 균형을 다시 확인하세요.`,
           love: `${nameKo} 역방향은 관계에서 ${meta.love}이 어긋날 수 있음을 말합니다. 감정적인 단정은 피하세요.`,
           career: `${nameKo} 역방향은 일에서 ${meta.career}이 지연되거나 부담으로 느껴질 수 있음을 보여줍니다.`,
           money: `${nameKo} 역방향은 돈 문제에서 ${meta.money}을 다시 점검하라는 신호입니다.`,
-          advice: `서두르거나 한쪽으로 치우치지 말고 ${rank.keywords[0]}의 의미를 균형 있게 조정하세요.`
+          advice: `서두르거나 한쪽으로 치우치지 말고 ${keywords[0]}의 의미를 균형 있게 조정하세요.`
         },
-        caution: `${nameKo}는 ${rank.keywords[0]}이 과하거나 부족하지 않은지 살펴보라고 말합니다.`,
+        caution: `${nameKo}는 ${keywords[0]}이 과하거나 부족하지 않은지 살펴보라고 말합니다.`,
         action: `오늘은 ${meta.theme}과 관련해 작은 점검 하나를 해보세요.`
       });
     });

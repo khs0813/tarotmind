@@ -13,10 +13,9 @@ const unitMap: Record<string, string | undefined> = {
 const unitId = unitMap[position];
 const size = position === 'top' ? { width: 320, height: 100 } : { width: 320, height: 100 };
 ---
-<section class={`ad-slot ad-slot-${position}`} aria-label="광고 영역">
-  <span class="ad-label">{label}</span>
-  {unitId ? (
-    <>
+{unitId && (
+  <section class={`ad-slot ad-slot-${position}`} aria-label="광고 영역">
+    <span class="ad-label">{label}</span>
       <ins
         class="kakao_ad_area"
         style={`display:none;width:${size.width}px;height:${size.height}px;`}
@@ -25,8 +24,5 @@ const size = position === 'top' ? { width: 320, height: 100 } : { width: 320, he
         data-ad-height={String(size.height)}
       />
       <script is:inline async type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script>
-    </>
-  ) : (
-    <div class="ad-placeholder">카카오 애드핏 광고 영역</div>
-  )}
-</section>
+  </section>
+)}

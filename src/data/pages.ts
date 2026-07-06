@@ -1,6 +1,7 @@
 import { DEFAULT_LASTMOD, SITE_DESCRIPTION, type SitePage } from './site';
 import { tarotReadings } from './tarotReadings';
 import { guides } from './guides';
+import { tarotCards } from './tarotCards';
 
 export function getAllPages(): SitePage[] {
   return [
@@ -8,6 +9,17 @@ export function getAllPages(): SitePage[] {
     { path: '/tarot/', title: '무료 타로 리딩 모음 | 타로마음', description: '오늘의 타로, 연애 타로, 재회 타로, 직장운 타로, 금전운 타로 등 무료 AI 스타일 타로 리딩을 모아볼 수 있습니다.', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly', priority: 0.9 },
     ...tarotReadings.map((reading) => ({ path: `/tarot/${reading.slug}/`, title: reading.title, description: reading.description, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly' as const, priority: 0.85 })),
     { path: '/cards/', title: '타로 카드 의미 모음 | 타로마음', description: '메이저 아르카나와 마이너 아르카나 카드의 기본 키워드, 정방향·역방향 의미를 한눈에 확인할 수 있습니다.', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly', priority: 0.8 },
+    ...tarotCards
+      .filter((card) => card.arcana === 'major')
+      .map((card) => ({
+        path: `/cards/${card.id}/`,
+        title: `${card.nameKo} 카드 의미 | ${card.nameEn} 정방향·역방향 해석`,
+        description: `${card.nameKo}(${card.nameEn}) 카드의 기본 의미, 정방향, 역방향, 연애, 직장과 금전 해석을 확인할 수 있습니다.`,
+        lastmod: DEFAULT_LASTMOD,
+        rss: true,
+        changefreq: 'monthly' as const,
+        priority: 0.72
+      })),
     { path: '/guides/', title: '타로 가이드 모음 | 타로마음', description: '타로 카드 의미, 타로 보는 법, 메이저 아르카나, 타로 스프레드 등 초보자를 위한 타로 가이드를 모았습니다.', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly', priority: 0.75 },
     ...guides.map((guide) => ({ path: `/guides/${guide.slug}/`, title: guide.title, description: guide.description, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly' as const, priority: 0.7 })),
     { path: '/about/', title: '사이트 소개 | 타로마음', description: '타로마음은 서버 저장 없이 브라우저에서 무료 AI 스타일 타로 리딩을 제공하는 정적 웹사이트입니다.', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.3 },

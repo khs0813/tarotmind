@@ -6,7 +6,6 @@ export const GET: APIRoute = () => {
     return new Response('User-agent: *\nDisallow: /\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
   }
   const siteUrl = getSiteUrl();
-  const commonRules = `Allow: /\nDisallow: /tarot/rws/LICENSE.txt\nDisallow: /tarot/rws/MANIFEST.json\nDisallow: /tarot/rws/SHA256SUMS`;
-  const body = `User-agent: Yeti\n${commonRules}\n\nUser-agent: *\n${commonRules}\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
+  const body = `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`;
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 };

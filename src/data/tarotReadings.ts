@@ -60,7 +60,7 @@ const choice: TarotPosition[] = [
 export const tarotReadings: TarotReadingPage[] = [
   {
     slug: 'today',
-    title: '오늘의 타로 | 무료 AI 타로 리딩',
+    title: '오늘의 타로 | 무료 AI 스타일 타로 리딩',
     shortTitle: '오늘의 타로',
     description: '카드 한 장을 뽑아 오늘의 흐름, 조언, 주의할 점을 확인할 수 있는 무료 AI 스타일 타로 리딩입니다.',
     category: 'daily',

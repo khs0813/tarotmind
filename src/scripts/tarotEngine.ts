@@ -272,7 +272,7 @@ function initReader(root: HTMLElement): void {
   const resultDisclaimer = root.querySelector<HTMLElement>('[data-result-disclaimer]');
   const copyResult = root.querySelector<HTMLButtonElement>('[data-copy-result]');
   const copyShare = root.querySelector<HTMLButtonElement>('[data-copy-share]');
-  const clearHistory = root.querySelector<HTMLButtonElement>('[data-clear-history]');
+  const clearHistoryButtons = [...root.querySelectorAll<HTMLButtonElement>('[data-clear-history]')];
 
   let deck: TarotCard[] = [];
   let selected: DrawnCard[] = [];
@@ -372,10 +372,10 @@ function initReader(root: HTMLElement): void {
     copyShare.textContent = '공유 문구 복사 완료';
     window.setTimeout(() => { copyShare.textContent = '공유 문구 복사'; }, 1600);
   });
-  clearHistory?.addEventListener('click', () => {
+  clearHistoryButtons.forEach((clearHistory) => clearHistory.addEventListener('click', () => {
     safeRemoveItem(`tarotmind.readings.${config.slug}`);
     renderHistory(root, config.slug);
-  });
+  }));
 
   startShuffle();
   renderHistory(root, config.slug);

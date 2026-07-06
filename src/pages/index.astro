@@ -9,7 +9,7 @@ import { DEFAULT_LASTMOD, getSiteUrl, SITE_DESCRIPTION, SITE_NAME } from '../dat
 
 const siteUrl = getSiteUrl();
 const faqs = [
-  { question: '타로마음은 진짜 AI API를 사용하나요?', answer: 'MVP에서는 외부 AI API를 사용하지 않고, 78장 타로 카드 데이터와 해석 템플릿을 조합해 AI처럼 자연스러운 리딩 결과를 생성합니다.' },
+  { question: '타로마음은 진짜 AI API를 사용하나요?', answer: 'MVP에서는 외부 AI API를 사용하지 않고, 78장 타로 카드 데이터와 해석 템플릿을 조합해 AI 스타일 문장으로 리딩 결과를 생성합니다.' },
   { question: '리딩 결과가 서버에 저장되나요?', answer: '아니요. 리딩 결과는 서버에 저장되지 않습니다. 최근 리딩 저장을 선택한 경우에만 현재 브라우저에 저장됩니다.' },
   { question: '타로 결과를 중요한 결정에 사용해도 되나요?', answer: '본 콘텐츠는 오락 및 참고용입니다. 건강, 법률, 투자, 금전, 인간관계의 중대한 결정은 전문가 조언과 현실적인 정보를 함께 확인하세요.' }
 ];
@@ -37,10 +37,10 @@ const jsonLd = [
 ];
 ---
 <Layout
-  title={`${SITE_NAME} | 무료 AI 타로 리딩`}
+  title={`${SITE_NAME} | 무료 AI 스타일 타로 리딩`}
   description={SITE_DESCRIPTION}
   canonicalPath="/"
-  keywords={['무료 타로', 'AI 타로', '오늘의 타로', '연애 타로', '재회 타로', '직장운 타로', '금전운 타로']}
+  keywords={['무료 타로', 'AI 스타일 타로', '오늘의 타로', '연애 타로', '재회 타로', '직장운 타로', '금전운 타로']}
   jsonLd={jsonLd}
   datePublished={DEFAULT_LASTMOD}
   dateModified={DEFAULT_LASTMOD}

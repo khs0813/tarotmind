@@ -3,16 +3,22 @@ import Layout from '../../components/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import { tarotCards } from '../../data/tarotCards';
-import { DEFAULT_LASTMOD } from '../../data/site';
+import { DEFAULT_LASTMOD, getSiteUrl } from '../../data/site';
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '타로 카드 의미', path: '/cards/' }];
 const major = tarotCards.filter((card) => card.arcana === 'major');
 const minor = tarotCards.filter((card) => card.arcana === 'minor');
+const siteUrl = getSiteUrl();
 const jsonLd = [{
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: '타로 카드 의미 목록',
   numberOfItems: tarotCards.length,
-  itemListElement: tarotCards.map((card, index) => ({ '@type': 'ListItem', position: index + 1, name: `${card.nameKo} (${card.nameEn})` }))
+  itemListElement: tarotCards.map((card, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: `${card.nameKo} (${card.nameEn})`,
+    ...(card.arcana === 'major' ? { url: `${siteUrl}/cards/${card.id}/` } : {})
+  }))
 }];
 ---
 <Layout
@@ -44,6 +50,7 @@ const jsonLd = [{
             <h3>{card.nameKo}</h3>
             <p>{card.keywords.join(' · ')}</p>
             <small>{card.upright.general}</small>
+            <a class="text-link" href={`/cards/${card.id}/`}>{card.nameKo} 상세 의미 보기 →</a>
           </article>
         ))}
       </div>
