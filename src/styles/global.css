@@ -104,7 +104,7 @@ button, input, textarea, select { font: inherit; }
   margin: 10px 0 16px;
   font-size: clamp(2.1rem, 6vw, 4.6rem);
   line-height: 1.08;
-  letter-spacing: -0.05em;
+  letter-spacing: 0;
 }
 .hero p, .page-hero p {
   color: var(--muted);
@@ -117,7 +117,7 @@ button, input, textarea, select { font: inherit; }
   align-items: center;
   color: #fde68a;
   font-weight: 800;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   font-size: 0.86rem;
 }
 
@@ -222,7 +222,7 @@ button:disabled { cursor: not-allowed; opacity: 0.58; }
 .section-heading h2, .content-section h2 {
   font-size: clamp(1.55rem, 3vw, 2.2rem);
   line-height: 1.2;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   margin: 8px 0 12px;
 }
 .section-heading p, .content-section p { color: var(--muted); }

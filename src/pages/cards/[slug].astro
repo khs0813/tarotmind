@@ -7,11 +7,8 @@ import RelatedReadings from '../../components/RelatedReadings.astro';
 import { tarotCards, type TarotCard } from '../../data/tarotCards';
 import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, SITE_NAME, getSiteUrl } from '../../data/site';
 
-const majorCards = tarotCards.filter((item) => item.arcana === 'major');
-
 export function getStaticPaths() {
   return tarotCards
-    .filter((item) => item.arcana === 'major')
     .map((card) => ({ params: { slug: card.id }, props: { card } }));
 }
 
@@ -19,11 +16,11 @@ const { card } = Astro.props as { card: TarotCard };
 const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/cards/${card.id}/`;
 const imageUrl = new URL(DEFAULT_OG_IMAGE, `${siteUrl}/`).toString();
-const currentIndex = majorCards.findIndex((item) => item.id === card.id);
+const currentIndex = tarotCards.findIndex((item) => item.id === card.id);
 const relatedCards = [
-  majorCards[(currentIndex + majorCards.length - 1) % majorCards.length],
-  majorCards[(currentIndex + 1) % majorCards.length],
-  majorCards[(currentIndex + 6) % majorCards.length]
+  tarotCards[(currentIndex + tarotCards.length - 1) % tarotCards.length],
+  tarotCards[(currentIndex + 1) % tarotCards.length],
+  tarotCards[(currentIndex + 22) % tarotCards.length]
 ].filter((item, index, arr) => item.id !== card.id && arr.findIndex((other) => other.id === item.id) === index);
 const relatedReadingSlugs = card.keywords.some((keyword) => ['관계', '선택', '조화', '사랑'].includes(keyword))
   ? ['love', 'choice', 'three-card']
@@ -37,13 +34,21 @@ const faqs = [
   },
   {
     question: `${card.nameKo} 역방향은 무조건 나쁜 뜻인가요?`,
-    answer: `아닙니다. 역방향은 ${card.reversed.general}처럼 흐름이 막히거나 조절이 필요한 상태를 보여줄 수 있습니다.`
+    answer: `아닙니다. 역방향은 흐름이 막히거나 조절이 필요한 상태를 보여줄 수 있습니다. ${card.reversed.advice}`
   },
   {
     question: `${card.nameKo}가 연애 타로에서 나오면 어떻게 보나요?`,
     answer: card.upright.love
   }
 ];
+const arcanaLabel = card.arcana === 'major' ? `메이저 아르카나 ${card.number}` : `마이너 아르카나 ${card.nameKo}`;
+const symbolSummary = card.arcana === 'major'
+  ? `${card.nameKo} 카드 그림은 ${card.keywords.join(', ')}라는 큰 삶의 흐름을 상징합니다. 이미지의 세부 요소는 질문자의 현재 상황과 연결해 읽고, 카드가 놓인 위치에 따라 시작, 전환, 성찰, 완성 같은 메시지로 확장해서 해석합니다.`
+  : `${card.nameKo} 카드는 ${card.suit === 'wands' ? '완드의 열정과 행동' : card.suit === 'cups' ? '컵의 감정과 관계' : card.suit === 'swords' ? '소드의 생각과 판단' : '펜타클의 현실과 안정'} 영역을 바탕으로 ${card.keywords.slice(0, 3).join(', ')}의 메시지를 전합니다. 숫자나 궁정 카드의 성격을 함께 보면 일상에서 어떤 태도가 필요한지 더 구체적으로 읽을 수 있습니다.`;
+const reunionMeaning = `${card.nameKo}가 재회운에서 나오면 ${card.upright.love} 다만 재회 여부를 단정하기보다 ${card.caution}`;
+const cardCombinationText = relatedCards.length > 0
+  ? `${relatedCards.map((item) => item.nameKo).join(', ')} 카드와 함께 나오면 ${card.keywords[0]}의 흐름이 더 선명해질 수 있습니다. 서로 비슷한 키워드는 현재 상황의 핵심으로, 반대되는 키워드는 조율해야 할 과제로 읽어보세요.`
+  : `${card.nameKo}는 주변 카드의 방향에 따라 조언이 달라집니다. 비슷한 키워드가 반복되면 그 주제가 강해지고, 상반된 카드가 나오면 균형과 조율이 중요해집니다.`;
 const breadcrumbs = [
   { name: '타로마음', path: '/' },
   { name: '타로 카드 의미', path: '/cards/' },
@@ -54,7 +59,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: `${card.nameKo} 카드 의미`,
-    description: `${card.nameKo}(${card.nameEn}) 카드의 기본 의미, 정방향, 역방향, 연애, 직장, 금전 해석을 정리했습니다.`,
+    description: `${card.nameKo} 타로 카드의 핵심 의미, 정방향과 역방향 해석, 연애운, 재회운, 직장운, 금전운에서의 메시지를 확인하세요.`,
     url: pageUrl,
     mainEntityOfPage: pageUrl,
     inLanguage: 'ko-KR',
@@ -74,8 +79,8 @@ const jsonLd = [
 ];
 ---
 <Layout
-  title={`${card.nameKo} 카드 의미 | ${card.nameEn} 정방향·역방향 해석`}
-  description={`${card.nameKo}(${card.nameEn}) 카드의 기본 의미, 정방향, 역방향, 연애, 직장과 금전 해석, 오늘의 조언을 확인하세요.`}
+  title={`${card.nameKo} 카드 의미 | 정방향·역방향·연애·금전 해석`}
+  description={`${card.nameKo} 타로 카드의 핵심 의미, 정방향과 역방향 해석, 연애운, 재회운, 직장운, 금전운에서의 메시지를 확인하세요.`}
   canonicalPath={`/cards/${card.id}/`}
   ogType="article"
   pageType="Article"
@@ -87,7 +92,7 @@ const jsonLd = [
 >
   <Breadcrumbs items={breadcrumbs} />
   <section class="page-hero container">
-    <span class="eyebrow">메이저 아르카나 {card.number}</span>
+    <span class="eyebrow">{arcanaLabel}</span>
     <h1>{card.nameKo} 카드 의미</h1>
     <p>{card.nameEn} 카드는 {card.keywords.join(', ')}의 흐름을 보여줍니다.</p>
     <div class="keyword-chips">{card.keywords.map((keyword) => <span>{keyword}</span>)}</div>
@@ -97,9 +102,13 @@ const jsonLd = [
 
   <article class="container readable-content">
     <section class="content-section">
-      <h2>카드 기본 의미</h2>
+      <h2>카드 핵심 키워드</h2>
       <p>{card.upright.general}</p>
       <p>{card.caution}</p>
+    </section>
+    <section class="content-section">
+      <h2>카드 그림과 상징 해석</h2>
+      <p>{symbolSummary}</p>
     </section>
     <section class="content-section">
       <h2>정방향 의미</h2>
@@ -112,36 +121,42 @@ const jsonLd = [
       <p>{card.reversed.advice}</p>
     </section>
     <section class="content-section">
-      <h2>연애 해석</h2>
+      <h2>연애운에서의 의미</h2>
       <p>{card.upright.love}</p>
       <p>역방향에서는 {card.reversed.love}</p>
     </section>
     <section class="content-section">
-      <h2>직장/금전 해석</h2>
+      <h2>재회운에서의 의미</h2>
+      <p>{reunionMeaning}</p>
+    </section>
+    <section class="content-section">
+      <h2>직장/이직운에서의 의미</h2>
       <p>{card.upright.career}</p>
+      <p>역방향에서는 {card.reversed.career}</p>
+    </section>
+    <section class="content-section">
+      <h2>금전운에서의 의미</h2>
       <p>{card.upright.money}</p>
-      <p>역방향에서는 {card.reversed.career} {card.reversed.money}</p>
+      <p>역방향에서는 {card.reversed.money}</p>
     </section>
     <section class="content-section warning-box">
       <h2>오늘의 조언</h2>
       <p>{card.action}</p>
     </section>
     <section class="content-section">
-      <h2>함께 보면 좋은 카드</h2>
+      <h2>함께 나오면 의미가 강해지는 카드 조합</h2>
+      <p>{cardCombinationText}</p>
       <div class="card-grid-list">
         {relatedCards.map((item) => (
           <a class="feature-card" href={`/cards/${item.id}/`}>
-            <span class="eyebrow">메이저 {item.number}</span>
+            <span class="eyebrow">{item.arcana === 'major' ? `메이저 ${item.number}` : '마이너 아르카나'}</span>
             <h3>{item.nameKo}</h3>
             <p>{item.keywords.join(' · ')}</p>
           </a>
         ))}
       </div>
     </section>
-    <section class="content-section">
-      <h2>관련 타로 리딩</h2>
-      <RelatedReadings slugs={relatedReadingSlugs} />
-    </section>
+    <RelatedReadings slugs={relatedReadingSlugs} />
     <FAQ faqs={faqs} />
   </article>
 

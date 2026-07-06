@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getAllPages } from '../data/pages';
-import { DEFAULT_OG_IMAGE, SITE_NAME, getSiteUrl, isSiteUrlConfigured } from '../data/site';
+import { DEFAULT_OG_IMAGE, SITE_NAME, buildSiteUrl, isSiteUrlConfigured } from '../data/site';
 
 function escapeXml(value: string): string {
   return value
@@ -17,11 +17,10 @@ export const GET: APIRoute = () => {
       headers: { 'Content-Type': 'application/xml; charset=utf-8' }
     });
   }
-  const siteUrl = getSiteUrl();
   const imageTitle = escapeXml(`${SITE_NAME} 대표 이미지`);
   const urls = getAllPages().map((page) => {
-    const loc = escapeXml(new URL(page.path, `${siteUrl}/`).toString());
-    const imageLoc = escapeXml(new URL(page.image ?? DEFAULT_OG_IMAGE, `${siteUrl}/`).toString());
+    const loc = escapeXml(buildSiteUrl(page.path));
+    const imageLoc = escapeXml(buildSiteUrl(page.image ?? DEFAULT_OG_IMAGE));
     const lastmod = page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : '';
     const changefreq = page.changefreq ? `\n    <changefreq>${page.changefreq}</changefreq>` : '';
     const priority = typeof page.priority === 'number' ? `\n    <priority>${page.priority.toFixed(1)}</priority>` : '';

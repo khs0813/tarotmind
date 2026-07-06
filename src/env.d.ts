@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly SITE_URL?: string;
+  readonly NEXT_PUBLIC_SITE_URL?: string;
   readonly NAVER_SITE_VERIFICATION?: string;
   readonly PUBLIC_ADFIT_TOP_UNIT?: string;
   readonly PUBLIC_ADFIT_MIDDLE_UNIT?: string;

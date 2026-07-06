@@ -4,7 +4,7 @@ import '../styles/tarot.css';
 import '../styles/cards.css';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
-import { DEFAULT_OG_IMAGE, getNaverVerification, getSiteUrl, isSiteUrlConfigured, SITE_NAME, SITE_DESCRIPTION, SITE_LOCALE, type BreadcrumbItem } from '../data/site';
+import { DEFAULT_OG_IMAGE, buildSiteUrl, getNaverVerification, getSiteUrl, isSiteUrlConfigured, normalizePath, safeJsonLd, SITE_NAME, SITE_DESCRIPTION, SITE_LOCALE, type BreadcrumbItem } from '../data/site';
 
 type Props = {
   title: string;
@@ -38,7 +38,8 @@ const {
 
 const siteUrl = getSiteUrl();
 const hasConfiguredSiteUrl = isSiteUrlConfigured();
-const canonicalUrl = new URL(canonicalPath, `${siteUrl}/`).toString();
+const normalizedCanonicalPath = normalizePath(canonicalPath);
+const canonicalUrl = buildSiteUrl(normalizedCanonicalPath);
 const imageUrl = new URL(ogImage, `${siteUrl}/`).toString();
 const rssUrl = new URL('/rss.xml', `${siteUrl}/`).toString();
 const naverVerification = getNaverVerification();
@@ -84,7 +85,7 @@ const webPageLd = {
   ...(dateModified ? { dateModified } : {})
 };
 
-const webSiteLd = canonicalPath === '/' ? [{
+const webSiteLd = normalizedCanonicalPath === '/' ? [{
   '@context': 'https://schema.org',
   '@id': siteId,
   '@type': 'WebSite',
@@ -102,7 +103,7 @@ const breadcrumbLd = breadcrumbs.length > 0 ? [{
     '@type': 'ListItem',
     position: index + 1,
     name: item.name,
-    item: new URL(item.path, `${siteUrl}/`).toString()
+    item: buildSiteUrl(item.path)
   }))
 }] : [];
 
@@ -153,7 +154,7 @@ const allJsonLd = hasConfiguredSiteUrl ? [organizationLd, ...webSiteLd, webPageL
     <link rel="alternate" hreflang="ko-KR" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 
-    {allJsonLd.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
+    {allJsonLd.map((item) => <script is:inline type="application/ld+json" set:html={safeJsonLd(item)} />)}
   </head>
   <body>
     <Header />

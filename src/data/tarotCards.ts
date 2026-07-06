@@ -539,20 +539,20 @@ function createMinorCards(): TarotCard[] {
         keywords,
         upright: {
           general: cardMeaning(nameKo, keywords, detail.tone),
-          love: `${nameKo}는 ${meta.love}을 살펴보게 합니다. ${detail.tone}`,
-          career: `${nameKo}는 ${meta.career}을 보여줍니다. ${detail.tone}`,
-          money: `${nameKo}는 ${meta.money}을 점검하게 합니다. ${detail.tone}`,
-          advice: `지금은 ${keywords[0]}의 태도를 의식하고, ${meta.theme}을 현실적으로 다루는 것이 좋습니다.`
+          love: `${nameKo}는 ${meta.love} 영역을 살펴보게 합니다. ${detail.tone}`,
+          career: `${nameKo}는 ${meta.career} 영역을 보여줍니다. ${detail.tone}`,
+          money: `${nameKo}는 ${meta.money} 영역을 점검하게 합니다. ${detail.tone}`,
+          advice: `지금은 ${keywords[0]} 키워드를 의식하고, ${meta.theme} 영역을 현실적으로 다루는 것이 좋습니다.`
         },
         reversed: {
           general: `${nameKo} 역방향은 ${keywords[0]}의 흐름이 막히거나 과해질 수 있음을 보여줍니다. 속도와 균형을 다시 확인하세요.`,
           love: `${nameKo} 역방향은 관계에서 ${meta.love}이 어긋날 수 있음을 말합니다. 감정적인 단정은 피하세요.`,
           career: `${nameKo} 역방향은 일에서 ${meta.career}이 지연되거나 부담으로 느껴질 수 있음을 보여줍니다.`,
           money: `${nameKo} 역방향은 돈 문제에서 ${meta.money}을 다시 점검하라는 신호입니다.`,
-          advice: `서두르거나 한쪽으로 치우치지 말고 ${keywords[0]}의 의미를 균형 있게 조정하세요.`
+          advice: `서두르거나 한쪽으로 치우치지 말고 ${keywords[0]} 키워드를 균형 있게 조정하세요.`
         },
         caution: `${nameKo}는 ${keywords[0]}이 과하거나 부족하지 않은지 살펴보라고 말합니다.`,
-        action: `오늘은 ${meta.theme}과 관련해 작은 점검 하나를 해보세요.`
+        action: `오늘은 ${meta.theme} 영역과 관련해 작은 점검 하나를 해보세요.`
       });
     });
   });

@@ -15,6 +15,63 @@ const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/guides/${guide.slug}/`;
 const imageUrl = new URL(DEFAULT_OG_IMAGE, `${siteUrl}/`).toString();
 const guideKeywords = [guide.title.split('|')[0].trim(), '타로 가이드', '타로 보는 법', '타로 카드 의미'];
+const relatedLinksBySlug: Record<string, { href: string; label: string; description: string }[]> = {
+  'tarot-card-meaning': [
+    { href: '/cards/', label: '타로 카드 의미 78장 보기', description: '메이저·마이너 카드의 정방향과 역방향 해석을 확인하세요.' },
+    { href: '/cards/the-fool/', label: '바보 카드 의미 보기', description: '새 출발과 가능성을 상징하는 대표 메이저 카드를 살펴보세요.' },
+    { href: '/tarot/today/', label: '오늘의 타로 보기', description: '카드 의미를 실제 리딩 문장으로 연결해 볼 수 있습니다.' }
+  ],
+  'how-to-read-tarot': [
+    { href: '/tarot/today/', label: '오늘의 타로 보기', description: '한 장 리딩으로 질문과 결과 활용법을 연습해 보세요.' },
+    { href: '/tarot/three-card/', label: '3장 타로 보기', description: '과거·현재·미래 흐름을 나누어 읽는 기본 스프레드입니다.' },
+    { href: '/guides/tarot-question-examples-50/', label: '타로 질문 예시 보기', description: '상황별 질문 문장을 참고해 리딩을 더 구체화하세요.' }
+  ],
+  'major-arcana': [
+    { href: '/cards/the-fool/', label: '바보 카드 의미 보기', description: '메이저 아르카나 여정의 시작을 확인하세요.' },
+    { href: '/cards/the-lovers/', label: '연인 카드 의미 보기', description: '선택과 관계를 상징하는 카드를 자세히 봅니다.' },
+    { href: '/cards/the-world/', label: '세계 카드 의미 보기', description: '완성과 통합의 메시지를 살펴보세요.' }
+  ],
+  'tarot-spread': [
+    { href: '/tarot/today/', label: '오늘의 타로 보기', description: '1장 스프레드를 바로 사용해 볼 수 있습니다.' },
+    { href: '/tarot/three-card/', label: '3장 타로 보기', description: '과거·현재·미래 배열을 직접 확인하세요.' },
+    { href: '/tarot/choice/', label: '선택 고민 타로 보기', description: '두 선택지를 비교하는 리딩입니다.' }
+  ],
+  'love-tarot-question-examples': [
+    { href: '/tarot/love/', label: '연애 타로 보기', description: '관계 흐름과 조언을 카드 3장으로 확인하세요.' },
+    { href: '/tarot/reunion/', label: '재회 타로 보기', description: '이별 후 관계 흐름을 차분히 점검합니다.' },
+    { href: '/cards/the-lovers/', label: '연인 카드 의미 보기', description: '연애 리딩에서 자주 중요하게 읽히는 카드입니다.' }
+  ],
+  'reunion-tarot-question-guide': [
+    { href: '/tarot/reunion/', label: '재회 타로 보기', description: '재회 가능성과 관계 회복 조언을 확인하세요.' },
+    { href: '/tarot/love/', label: '연애 타로 보기', description: '현재 관계의 감정과 흐름을 함께 살펴보세요.' },
+    { href: '/cards/judgement/', label: '심판 카드 의미 보기', description: '재평가와 다시 시작의 메시지를 가진 카드입니다.' }
+  ],
+  'yes-or-no-tarot-question-examples': [
+    { href: '/tarot/yes-or-no/', label: 'Yes or No 타로 보기', description: '예/아니오 고민을 간단히 확인하세요.' },
+    { href: '/tarot/choice/', label: '선택 고민 타로 보기', description: '두 선택지를 비교해 생각을 정리합니다.' },
+    { href: '/tarot/three-card/', label: '3장 타로 보기', description: '선택의 이유와 흐름을 조금 더 자세히 봅니다.' }
+  ],
+  'three-card-tarot-spread-guide': [
+    { href: '/tarot/three-card/', label: '3장 타로 보기', description: '과거·현재·미래 스프레드를 바로 사용해 보세요.' },
+    { href: '/tarot/career/', label: '직장운 타로 보기', description: '상황·변수·조언 배열로 커리어 고민을 확인합니다.' },
+    { href: '/tarot/money/', label: '금전운 타로 보기', description: '돈의 흐름과 주의할 지출을 나누어 봅니다.' }
+  ],
+  'when-tarot-result-is-bad': [
+    { href: '/cards/the-tower/', label: '탑 카드 의미 보기', description: '갑작스러운 변화의 메시지를 조언으로 읽어보세요.' },
+    { href: '/cards/death/', label: '죽음 카드 의미 보기', description: '끝맺음과 전환의 의미를 확인하세요.' },
+    { href: '/tarot/today/', label: '오늘의 타로 다시 보기', description: '불안보다 오늘 할 수 있는 행동을 정리해 보세요.' }
+  ],
+  'tarot-suits-wands-cups-swords-pentacles': [
+    { href: '/cards/wands-ace/', label: '완드 에이스 의미 보기', description: '완드 슈트의 시작과 열정을 확인하세요.' },
+    { href: '/cards/cups-ace/', label: '컵 에이스 의미 보기', description: '컵 슈트의 감정과 관계 흐름을 봅니다.' },
+    { href: '/cards/pentacles-ace/', label: '펜타클 에이스 의미 보기', description: '현실적 기회와 안정의 시작을 확인하세요.' }
+  ]
+};
+const relatedLinks = relatedLinksBySlug[guide.slug] ?? [
+  { href: '/tarot/today/', label: '오늘의 타로 보기', description: '가이드 내용을 한 장 리딩으로 가볍게 적용해 보세요.' },
+  { href: '/cards/', label: '타로 카드 의미 보기', description: '78장 카드의 기본 의미와 상황별 해석을 확인하세요.' },
+  { href: '/guides/tarot-question-examples-50/', label: '타로 질문 예시 보기', description: '리딩 전에 떠올릴 질문을 구체적으로 정리합니다.' }
+];
 const breadcrumbs = [
   { name: '타로마음', path: '/' },
   { name: '타로 가이드', path: '/guides/' },
@@ -55,6 +112,7 @@ const jsonLd = [
   description={guide.description}
   canonicalPath={`/guides/${guide.slug}/`}
   ogType="article"
+  pageType="Article"
   keywords={guideKeywords}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
@@ -75,6 +133,18 @@ const jsonLd = [
         <p>{section.content}</p>
       </section>
     ))}
+    <section class="content-section">
+      <h2>관련해서 함께 보면 좋은 글과 리딩</h2>
+      <div class="card-grid-list">
+        {relatedLinks.map((link) => (
+          <a class="feature-card" href={link.href}>
+            <span class="eyebrow">관련 링크</span>
+            <h3>{link.label}</h3>
+            <p>{link.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
     <FAQ faqs={guide.faqs} />
   </article>
   <AdSlot position="bottom" />
