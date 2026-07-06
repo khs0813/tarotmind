@@ -1,3 +1,5 @@
+import { josa } from './site';
+
 export type TarotCard = {
   id: string;
   nameKo: string;
@@ -26,7 +28,7 @@ export type TarotCard = {
 
 function cardMeaning(nameKo: string, keywords: string[], tone: string) {
   const keyText = keywords.slice(0, 3).join(', ');
-  return `${nameKo} 카드는 ${keyText}의 흐름을 보여줍니다. ${tone}`;
+  return `${nameKo} 카드는 ${keyText} 흐름을 보여줍니다. ${tone}`;
 }
 
 const majorBaseRaw: Omit<TarotCard, 'arcana'>[] = [
@@ -431,7 +433,7 @@ const majorBaseRaw: Omit<TarotCard, 'arcana'>[] = [
 const majorBase: TarotCard[] = majorBaseRaw.map((card) => ({ ...card, arcana: 'major' as const }));
 
 const suitMeta = {
-  wands: { ko: '완드', en: 'Wands', theme: '열정과 행동', love: '관계에서 표현과 움직임', career: '일과 프로젝트의 추진력', money: '수입 기회와 행동력' },
+  wands: { ko: '완드', en: 'Wands', theme: '열정과 행동', love: '표현과 움직임', career: '일과 프로젝트의 추진력', money: '수입 기회와 행동력' },
   cups: { ko: '컵', en: 'Cups', theme: '감정과 관계', love: '감정의 흐름과 공감', career: '사람과 협업의 분위기', money: '감정 소비와 만족감' },
   swords: { ko: '소드', en: 'Swords', theme: '생각과 판단', love: '소통과 오해의 정리', career: '분석과 의사결정', money: '조건 검토와 리스크 판단' },
   pentacles: { ko: '펜타클', en: 'Pentacles', theme: '현실과 안정', love: '관계의 현실성과 안정감', career: '성과와 실무 안정', money: '재정 관리와 현실적 이익' }
@@ -529,6 +531,11 @@ function createMinorCards(): TarotCard[] {
       const nameKo = `${meta.ko} ${rank.ko}`;
       const nameEn = `${rank.en} of ${meta.en}`;
       const keywords = [...detail.keywords, meta.theme];
+      const subject = josa(nameKo, '은/는');
+      const firstKeyword = josa(keywords[0], '이/가');
+      const loveFocus = josa(meta.love, '을/를');
+      const careerFocus = josa(meta.career, '을/를');
+      const moneyFocus = josa(meta.money, '을/를');
       cards.push({
         id: `${suit}-${rank.key}`,
         nameKo,
@@ -539,19 +546,19 @@ function createMinorCards(): TarotCard[] {
         keywords,
         upright: {
           general: cardMeaning(nameKo, keywords, detail.tone),
-          love: `${nameKo}는 ${meta.love} 영역을 살펴보게 합니다. ${detail.tone}`,
-          career: `${nameKo}는 ${meta.career} 영역을 보여줍니다. ${detail.tone}`,
-          money: `${nameKo}는 ${meta.money} 영역을 점검하게 합니다. ${detail.tone}`,
+          love: `${subject} 연애운에서 ${loveFocus} 살펴보게 합니다. ${detail.tone}`,
+          career: `${subject} 직장운에서 ${careerFocus} 보여줍니다. ${detail.tone}`,
+          money: `${subject} 금전운에서 ${moneyFocus} 점검하게 합니다. ${detail.tone}`,
           advice: `지금은 ${keywords[0]} 키워드를 의식하고, ${meta.theme} 영역을 현실적으로 다루는 것이 좋습니다.`
         },
         reversed: {
-          general: `${nameKo} 역방향은 ${keywords[0]}의 흐름이 막히거나 과해질 수 있음을 보여줍니다. 속도와 균형을 다시 확인하세요.`,
-          love: `${nameKo} 역방향은 관계에서 ${meta.love}이 어긋날 수 있음을 말합니다. 감정적인 단정은 피하세요.`,
-          career: `${nameKo} 역방향은 일에서 ${meta.career}이 지연되거나 부담으로 느껴질 수 있음을 보여줍니다.`,
-          money: `${nameKo} 역방향은 돈 문제에서 ${meta.money}을 다시 점검하라는 신호입니다.`,
+          general: `역방향의 ${nameKo} 카드는 ${keywords[0]} 흐름이 막히거나 과해질 수 있음을 보여줍니다. 속도와 균형을 다시 확인하세요.`,
+          love: `역방향의 ${nameKo} 카드는 연애운에서 ${josa(meta.love, '이/가')} 어긋나거나 행동으로 이어지지 않는 상황을 나타낼 수 있습니다.`,
+          career: `역방향의 ${nameKo} 카드는 직장운에서 ${josa(meta.career, '이/가')} 지연되거나 부담으로 느껴질 수 있음을 보여줍니다.`,
+          money: `역방향의 ${nameKo} 카드는 금전운에서 ${moneyFocus} 다시 점검하라는 신호입니다.`,
           advice: `서두르거나 한쪽으로 치우치지 말고 ${keywords[0]} 키워드를 균형 있게 조정하세요.`
         },
-        caution: `${nameKo}는 ${keywords[0]}이 과하거나 부족하지 않은지 살펴보라고 말합니다.`,
+        caution: `${subject} ${firstKeyword} 너무 앞서가거나 충분히 표현되지 못하고 있지는 않은지 살펴보라고 말합니다.`,
         action: `오늘은 ${meta.theme} 영역과 관련해 작은 점검 하나를 해보세요.`
       });
     });

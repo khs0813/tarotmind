@@ -4,7 +4,7 @@ import '../styles/tarot.css';
 import '../styles/cards.css';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
-import { DEFAULT_OG_IMAGE, buildSiteUrl, getNaverVerification, getSiteUrl, isSiteUrlConfigured, normalizePath, safeJsonLd, SITE_NAME, SITE_DESCRIPTION, SITE_LOCALE, type BreadcrumbItem } from '../data/site';
+import { DEFAULT_OG_IMAGE, buildSiteUrl, dedupeRepeatedLabel, getNaverVerification, getSiteUrl, isSiteUrlConfigured, normalizePath, safeJsonLd, SITE_NAME, SITE_DESCRIPTION, SITE_LOCALE, type BreadcrumbItem } from '../data/site';
 
 type Props = {
   title: string;
@@ -102,7 +102,7 @@ const breadcrumbLd = breadcrumbs.length > 0 ? [{
   itemListElement: breadcrumbs.map((item, index) => ({
     '@type': 'ListItem',
     position: index + 1,
-    name: item.name,
+    name: dedupeRepeatedLabel(item.name),
     item: buildSiteUrl(item.path)
   }))
 }] : [];

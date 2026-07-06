@@ -5,7 +5,7 @@ import AdSlot from '../../components/AdSlot.astro';
 import FAQ from '../../components/FAQ.astro';
 import RelatedReadings from '../../components/RelatedReadings.astro';
 import { tarotCards, type TarotCard } from '../../data/tarotCards';
-import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, SITE_NAME, getSiteUrl } from '../../data/site';
+import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, SITE_NAME, getSiteUrl, josa } from '../../data/site';
 
 export function getStaticPaths() {
   return tarotCards
@@ -37,7 +37,7 @@ const faqs = [
     answer: `아닙니다. 역방향은 흐름이 막히거나 조절이 필요한 상태를 보여줄 수 있습니다. ${card.reversed.advice}`
   },
   {
-    question: `${card.nameKo}가 연애 타로에서 나오면 어떻게 보나요?`,
+    question: `${josa(card.nameKo, '이/가')} 연애 타로에서 나오면 어떻게 보나요?`,
     answer: card.upright.love
   }
 ];
@@ -45,7 +45,8 @@ const arcanaLabel = card.arcana === 'major' ? `메이저 아르카나 ${card.num
 const symbolSummary = card.arcana === 'major'
   ? `${card.nameKo} 카드 그림은 ${card.keywords.join(', ')}라는 큰 삶의 흐름을 상징합니다. 이미지의 세부 요소는 질문자의 현재 상황과 연결해 읽고, 카드가 놓인 위치에 따라 시작, 전환, 성찰, 완성 같은 메시지로 확장해서 해석합니다.`
   : `${card.nameKo} 카드는 ${card.suit === 'wands' ? '완드의 열정과 행동' : card.suit === 'cups' ? '컵의 감정과 관계' : card.suit === 'swords' ? '소드의 생각과 판단' : '펜타클의 현실과 안정'} 영역을 바탕으로 ${card.keywords.slice(0, 3).join(', ')}의 메시지를 전합니다. 숫자나 궁정 카드의 성격을 함께 보면 일상에서 어떤 태도가 필요한지 더 구체적으로 읽을 수 있습니다.`;
-const reunionMeaning = `${card.nameKo}가 재회운에서 나오면 ${card.upright.love} 다만 재회 여부를 단정하기보다 ${card.caution}`;
+const reunionLove = card.upright.love.replace(`${card.nameKo}는 `, '').replace(`${card.nameKo}은 `, '');
+const reunionMeaning = `${josa(card.nameKo, '이/가')} 재회운에서 나오면 ${reunionLove} 다만 재회 여부를 단정하기보다 ${card.caution}`;
 const cardCombinationText = relatedCards.length > 0
   ? `${relatedCards.map((item) => item.nameKo).join(', ')} 카드와 함께 나오면 ${card.keywords[0]}의 흐름이 더 선명해질 수 있습니다. 서로 비슷한 키워드는 현재 상황의 핵심으로, 반대되는 키워드는 조율해야 할 과제로 읽어보세요.`
   : `${card.nameKo}는 주변 카드의 방향에 따라 조언이 달라집니다. 비슷한 키워드가 반복되면 그 주제가 강해지고, 상반된 카드가 나오면 균형과 조율이 중요해집니다.`;
@@ -83,7 +84,6 @@ const jsonLd = [
   description={`${card.nameKo} 타로 카드의 핵심 의미, 정방향과 역방향 해석, 연애운, 재회운, 직장운, 금전운에서의 메시지를 확인하세요.`}
   canonicalPath={`/cards/${card.id}/`}
   ogType="article"
-  pageType="Article"
   keywords={[`${card.nameKo} 카드 의미`, card.nameEn, ...card.keywords]}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
@@ -123,7 +123,7 @@ const jsonLd = [
     <section class="content-section">
       <h2>연애운에서의 의미</h2>
       <p>{card.upright.love}</p>
-      <p>역방향에서는 {card.reversed.love}</p>
+      <p>{card.reversed.love}</p>
     </section>
     <section class="content-section">
       <h2>재회운에서의 의미</h2>
@@ -132,12 +132,12 @@ const jsonLd = [
     <section class="content-section">
       <h2>직장/이직운에서의 의미</h2>
       <p>{card.upright.career}</p>
-      <p>역방향에서는 {card.reversed.career}</p>
+      <p>{card.reversed.career}</p>
     </section>
     <section class="content-section">
       <h2>금전운에서의 의미</h2>
       <p>{card.upright.money}</p>
-      <p>역방향에서는 {card.reversed.money}</p>
+      <p>{card.reversed.money}</p>
     </section>
     <section class="content-section warning-box">
       <h2>오늘의 조언</h2>
@@ -148,11 +148,12 @@ const jsonLd = [
       <p>{cardCombinationText}</p>
       <div class="card-grid-list">
         {relatedCards.map((item) => (
-          <a class="feature-card" href={`/cards/${item.id}/`}>
+          <article class="feature-card">
             <span class="eyebrow">{item.arcana === 'major' ? `메이저 ${item.number}` : '마이너 아르카나'}</span>
             <h3>{item.nameKo}</h3>
             <p>{item.keywords.join(' · ')}</p>
-          </a>
+            <a class="card-link" href={`/cards/${item.id}/`}>{item.nameKo} 카드 의미 보기 →</a>
+          </article>
         ))}
       </div>
     </section>

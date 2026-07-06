@@ -112,7 +112,6 @@ const jsonLd = [
   description={guide.description}
   canonicalPath={`/guides/${guide.slug}/`}
   ogType="article"
-  pageType="Article"
   keywords={guideKeywords}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
@@ -137,11 +136,12 @@ const jsonLd = [
       <h2>관련해서 함께 보면 좋은 글과 리딩</h2>
       <div class="card-grid-list">
         {relatedLinks.map((link) => (
-          <a class="feature-card" href={link.href}>
+          <article class="feature-card">
             <span class="eyebrow">관련 링크</span>
             <h3>{link.label}</h3>
             <p>{link.description}</p>
-          </a>
+            <a class="card-link" href={link.href}>{link.label} →</a>
+          </article>
         ))}
       </div>
     </section>

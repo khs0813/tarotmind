@@ -35,6 +35,33 @@ export function safeJsonLd(data: Record<string, unknown>): string {
   return JSON.stringify(data).replace(/</g, '\\u003c');
 }
 
+export function dedupeRepeatedLabel(value: string): string {
+  const normalized = value.trim().replace(/\s+/g, ' ');
+  const words = normalized.split(' ');
+  if (words.length % 2 === 0) {
+    const midpoint = words.length / 2;
+    const first = words.slice(0, midpoint).join(' ');
+    const second = words.slice(midpoint).join(' ');
+    if (first === second) return first;
+  }
+  return normalized.replace(/\b(.+?)\s+\1\b/g, '$1');
+}
+
+function hasFinalConsonant(value: string): boolean {
+  const last = value.trim().charAt(value.trim().length - 1);
+  if (!last) return false;
+  const code = last.charCodeAt(0);
+  if (code >= 0xac00 && code <= 0xd7a3) return (code - 0xac00) % 28 !== 0;
+  if (/[0178]/.test(last)) return true;
+  if (/[236]/.test(last)) return false;
+  return false;
+}
+
+export function josa(value: string, pair: '은/는' | '이/가' | '을/를' | '과/와'): string {
+  const [withBatchim, withoutBatchim] = pair.split('/');
+  return `${value}${hasFinalConsonant(value) ? withBatchim : withoutBatchim}`;
+}
+
 export function getContactEmail(): string {
   return import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'contact@tarotmind.kr';
 }

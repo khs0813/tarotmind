@@ -2,9 +2,9 @@
 import type { TarotReadingPage } from '../data/tarotReadings';
 const { reading } = Astro.props as { reading: TarotReadingPage };
 ---
-<a class="feature-card" href={`/tarot/${reading.slug}/`}>
+<article class="feature-card">
   <span class="eyebrow">{reading.shortTitle}</span>
   <h3>{reading.title.split('|')[0].trim()}</h3>
-  <p>{reading.description}</p>
-  <span class="card-link">카드 뽑기 →</span>
-</a>
+  <p>{reading.summary}</p>
+  <a class="card-link" href={`/tarot/${reading.slug}/`}>{reading.shortTitle} 보기 →</a>
+</article>

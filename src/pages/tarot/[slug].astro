@@ -66,9 +66,7 @@ const jsonLd = [
     <span class="eyebrow">{reading.shortTitle}</span>
     <h1>{reading.title.split('|')[0].trim()}</h1>
     <p>{reading.description}</p>
-    <div class="keyword-chips">
-      {reading.targetKeywords.map((keyword) => <span>{keyword}</span>)}
-    </div>
+    <p class="page-summary">{reading.summary}</p>
   </section>
 
   <AdSlot position="top" />

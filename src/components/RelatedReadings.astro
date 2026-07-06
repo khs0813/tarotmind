@@ -8,11 +8,12 @@ const readings = slugs.map((slug) => tarotReadings.find((item) => item.slug === 
     <h2>{title}</h2>
     <div class="card-grid-list">
       {readings.map((reading) => reading && (
-        <a class="feature-card" href={`/tarot/${reading.slug}/`}>
+        <article class="feature-card">
           <span class="eyebrow">타로 리딩</span>
           <h3>{reading.shortTitle}</h3>
-          <p>{reading.description}</p>
-        </a>
+          <p>{reading.summary}</p>
+          <a class="card-link" href={`/tarot/${reading.slug}/`}>{reading.shortTitle} 보기 →</a>
+        </article>
       ))}
     </div>
   </section>

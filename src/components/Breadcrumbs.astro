@@ -1,5 +1,5 @@
 ---
-import type { BreadcrumbItem } from '../data/site';
+import { dedupeRepeatedLabel, type BreadcrumbItem } from '../data/site';
 const { items = [] } = Astro.props as { items: BreadcrumbItem[] };
 ---
 {items.length > 0 && (
@@ -7,7 +7,7 @@ const { items = [] } = Astro.props as { items: BreadcrumbItem[] };
     {items.map((item, index) => (
       <>
         {index > 0 && <span aria-hidden="true">/</span>}
-        {index === items.length - 1 ? <span aria-current="page">{item.name}</span> : <a href={item.path}>{item.name}</a>}
+        {index === items.length - 1 ? <span aria-current="page">{dedupeRepeatedLabel(item.name)}</span> : <a href={item.path}>{dedupeRepeatedLabel(item.name)}</a>}
       </>
     ))}
   </nav>

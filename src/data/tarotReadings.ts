@@ -17,6 +17,7 @@ export type TarotReadingPage = {
   category: 'daily' | 'love' | 'career' | 'money' | 'choice';
   spreadType: 'one-card' | 'three-card' | 'yes-no' | 'choice';
   targetKeywords: string[];
+  summary: string;
   positions: TarotPosition[];
   faqs: FAQItem[];
   relatedSlugs: string[];
@@ -66,6 +67,7 @@ export const tarotReadings: TarotReadingPage[] = [
     category: 'daily',
     spreadType: 'one-card',
     targetKeywords: ['오늘의 타로', '오늘 타로', '오늘의 운세 타로', '무료 타로'],
+    summary: '오늘의 타로는 하루의 흐름, 조언, 주의할 점을 카드 한 장으로 가볍게 확인하는 무료 타로 리딩입니다.',
     positions: oneCard,
     intro: '오늘의 타로는 카드 한 장으로 지금 하루의 분위기와 현실적인 조언을 가볍게 확인하는 리딩입니다.',
     sections: [
@@ -87,6 +89,7 @@ export const tarotReadings: TarotReadingPage[] = [
     category: 'love',
     spreadType: 'three-card',
     targetKeywords: ['연애 타로', '사랑 타로', '무료 연애운 타로', '연애운 타로'],
+    summary: '연애 타로는 현재 관계의 분위기, 상대방의 마음, 앞으로의 흐름을 차분히 살펴보는 무료 타로 리딩입니다.',
     positions: relationship,
     intro: '연애 타로는 내 마음, 관계의 분위기, 지금 필요한 조언을 3장의 카드로 나누어 살펴보는 리딩입니다.',
     sections: [
@@ -108,6 +111,7 @@ export const tarotReadings: TarotReadingPage[] = [
     category: 'love',
     spreadType: 'three-card',
     targetKeywords: ['재회 타로', '재회운 타로', '전남친 재회 타로', '전여친 재회 타로'],
+    summary: '재회 타로는 이별 후 상대방의 마음, 다시 연락할 가능성, 관계 회복을 위한 조언을 확인하는 리딩입니다.',
     positions: pastPresentFuture,
     intro: '재회 타로는 지난 관계의 흐름, 현재 분위기, 앞으로 생각해볼 수 있는 가능성을 차분하게 정리하는 리딩입니다.',
     sections: [
@@ -129,6 +133,7 @@ export const tarotReadings: TarotReadingPage[] = [
     category: 'career',
     spreadType: 'three-card',
     targetKeywords: ['직장운 타로', '취업운 타로', '이직운 타로', '커리어 타로'],
+    summary: '직장운 타로는 현재 업무 흐름, 이직 고민, 커리어 방향, 일에서 주의할 점을 정리해보는 리딩입니다.',
     positions: career,
     intro: '직장운 타로는 취업, 이직, 업무 관계, 프로젝트 고민을 카드 3장으로 살펴보는 리딩입니다.',
     sections: [
@@ -150,6 +155,7 @@ export const tarotReadings: TarotReadingPage[] = [
     category: 'money',
     spreadType: 'three-card',
     targetKeywords: ['금전운 타로', '재물운 타로', '돈 타로', '무료 금전운'],
+    summary: '금전운 타로는 재정 흐름, 소비 습관, 돈과 관련된 선택에서 참고할 조언을 확인하는 리딩입니다.',
     positions: money,
     intro: '금전운 타로는 돈이 들어오고 나가는 흐름, 지출 습관, 오늘 참고할 수 있는 돈 관리 조언을 살펴보는 리딩입니다.',
     sections: [
@@ -171,6 +177,7 @@ export const tarotReadings: TarotReadingPage[] = [
     category: 'choice',
     spreadType: 'yes-no',
     targetKeywords: ['예 아니오 타로', 'yes no 타로', '선택 타로', '무료 타로 yes or no'],
+    summary: 'Yes or No 타로는 선택이 필요한 질문에 대해 간단한 방향성을 확인하는 무료 타로 리딩입니다.',
     positions: oneCard,
     intro: 'Yes or No 타로는 간단한 선택이나 확인하고 싶은 질문을 카드 한 장으로 살펴보는 리딩입니다.',
     sections: [
@@ -192,6 +199,7 @@ export const tarotReadings: TarotReadingPage[] = [
     category: 'daily',
     spreadType: 'three-card',
     targetKeywords: ['3장 타로', '과거 현재 미래 타로', '무료 3카드 타로'],
+    summary: '3장 타로는 과거, 현재, 미래의 흐름을 함께 살펴보며 고민의 맥락을 정리하는 리딩입니다.',
     positions: pastPresentFuture,
     intro: '3장 타로는 과거의 영향, 현재 상황, 앞으로의 흐름을 나누어 볼 수 있는 가장 기본적인 스프레드입니다.',
     sections: [
@@ -213,6 +221,7 @@ export const tarotReadings: TarotReadingPage[] = [
     category: 'choice',
     spreadType: 'choice',
     targetKeywords: ['선택 타로', '고민 타로', '둘 중 하나 타로', '결정 타로'],
+    summary: '선택 고민 타로는 두 가지 선택지를 비교하며 각 선택의 흐름과 현실적인 확인점을 정리하는 리딩입니다.',
     positions: choice,
     intro: '선택 고민 타로는 두 가지 선택지를 놓고 각각의 분위기와 현실적으로 확인할 점을 비교해보는 리딩입니다.',
     sections: [

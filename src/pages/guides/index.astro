@@ -32,11 +32,12 @@ const jsonLd = [{
   <section class="container content-section">
     <div class="card-grid-list">
       {guides.map((guide) => (
-        <a class="feature-card" href={`/guides/${guide.slug}/`}>
+        <article class="feature-card">
           <span class="eyebrow">가이드</span>
           <h3>{guide.title.split('|')[0].trim()}</h3>
           <p>{guide.description}</p>
-        </a>
+          <a class="card-link" href={`/guides/${guide.slug}/`}>{guide.title.split('|')[0].trim()} 보기 →</a>
+        </article>
       ))}
     </div>
   </section>
