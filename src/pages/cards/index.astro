@@ -3,6 +3,7 @@ import Layout from '../../components/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import { tarotCards } from '../../data/tarotCards';
+import { DEFAULT_LASTMOD } from '../../data/site';
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '타로 카드 의미', path: '/cards/' }];
 const major = tarotCards.filter((card) => card.arcana === 'major');
 const minor = tarotCards.filter((card) => card.arcana === 'minor');
@@ -18,9 +19,12 @@ const jsonLd = [{
   title="타로 카드 의미 모음 | 타로마음"
   description="메이저 아르카나와 마이너 아르카나 카드의 기본 키워드, 정방향·역방향 의미를 한눈에 확인할 수 있습니다."
   canonicalPath="/cards/"
+  pageType="CollectionPage"
   keywords={['타로 카드 의미', '메이저 아르카나', '마이너 아르카나', '정방향 타로', '역방향 타로']}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
 >
   <Breadcrumbs items={breadcrumbs} />
   <section class="page-hero container">

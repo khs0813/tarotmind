@@ -1,6 +1,7 @@
 export const SITE_NAME = '타로마음';
 export const SITE_TAGLINE = '무료 AI 스타일 타로 리딩';
 export const SITE_DESCRIPTION = '카드를 고르면 오늘의 흐름, 연애운, 재회운, 직장운, 금전운을 AI처럼 자연스러운 문장으로 확인할 수 있는 무료 타로 리딩 사이트입니다.';
+export const SITE_LOCALE = 'ko-KR';
 export const DEFAULT_OG_IMAGE = '/og-image.png';
 export const DEFAULT_LASTMOD = '2026-07-05';
 
@@ -38,6 +39,7 @@ export type SitePage = {
   title: string;
   description: string;
   lastmod?: string;
+  image?: string;
   rss?: boolean;
   changefreq?: 'daily' | 'weekly' | 'monthly' | 'yearly';
   priority?: number;

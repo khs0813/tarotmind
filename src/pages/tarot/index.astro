@@ -4,7 +4,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import ReadingCard from '../../components/ReadingCard.astro';
 import { tarotReadings } from '../../data/tarotReadings';
-import { getSiteUrl } from '../../data/site';
+import { DEFAULT_LASTMOD, getSiteUrl } from '../../data/site';
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '타로 리딩', path: '/tarot/' }];
 const siteUrl = getSiteUrl();
 const jsonLd = [{
@@ -18,9 +18,12 @@ const jsonLd = [{
   title="무료 타로 리딩 모음 | 타로마음"
   description="오늘의 타로, 연애 타로, 재회 타로, 직장운 타로, 금전운 타로 등 무료 AI 스타일 타로 리딩을 모아볼 수 있습니다."
   canonicalPath="/tarot/"
+  pageType="CollectionPage"
   keywords={['무료 타로 리딩', '오늘의 타로', '연애 타로', '재회 타로', '직장운 타로', '금전운 타로', '선택 타로']}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
 >
   <Breadcrumbs items={breadcrumbs} />
   <section class="page-hero container">

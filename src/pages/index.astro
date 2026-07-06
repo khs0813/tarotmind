@@ -5,7 +5,7 @@ import FAQ from '../components/FAQ.astro';
 import ReadingCard from '../components/ReadingCard.astro';
 import { tarotReadings } from '../data/tarotReadings';
 import { guides } from '../data/guides';
-import { getSiteUrl, SITE_DESCRIPTION, SITE_NAME } from '../data/site';
+import { DEFAULT_LASTMOD, getSiteUrl, SITE_DESCRIPTION, SITE_NAME } from '../data/site';
 
 const siteUrl = getSiteUrl();
 const faqs = [
@@ -42,6 +42,8 @@ const jsonLd = [
   canonicalPath="/"
   keywords={['무료 타로', 'AI 타로', '오늘의 타로', '연애 타로', '재회 타로', '직장운 타로', '금전운 타로']}
   jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
 >
   <section class="hero">
     <div class="container hero-grid">

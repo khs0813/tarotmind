@@ -2,7 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { guides } from '../../data/guides';
-import { getSiteUrl } from '../../data/site';
+import { DEFAULT_LASTMOD, getSiteUrl } from '../../data/site';
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '타로 가이드', path: '/guides/' }];
 const siteUrl = getSiteUrl();
 const jsonLd = [{
@@ -16,9 +16,12 @@ const jsonLd = [{
   title="타로 가이드 모음 | 타로마음"
   description="타로 카드 의미, 타로 보는 법, 메이저 아르카나, 타로 스프레드 등 초보자를 위한 타로 가이드를 모았습니다."
   canonicalPath="/guides/"
+  pageType="CollectionPage"
   keywords={['타로 가이드', '타로 카드 의미', '타로 보는 법', '메이저 아르카나', '타로 스프레드']}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
 >
   <Breadcrumbs items={breadcrumbs} />
   <section class="page-hero container">

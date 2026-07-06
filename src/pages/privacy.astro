@@ -1,11 +1,11 @@
 ---
 import Layout from '../components/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { getContactEmail } from '../data/site';
+import { DEFAULT_LASTMOD, getContactEmail } from '../data/site';
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '개인정보처리방침', path: '/privacy/' }];
 const email = getContactEmail();
 ---
-<Layout title="개인정보처리방침 | 타로마음" description="타로마음의 개인정보 처리 기준, localStorage 저장 방식, 카카오 애드핏 광고 관련 안내를 확인할 수 있습니다." canonicalPath="/privacy/" breadcrumbs={breadcrumbs}>
+<Layout title="개인정보처리방침 | 타로마음" description="타로마음의 개인정보 처리 기준, localStorage 저장 방식, 카카오 애드핏 광고 관련 안내를 확인할 수 있습니다." canonicalPath="/privacy/" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
   <Breadcrumbs items={breadcrumbs} />
   <article class="container readable-content page-hero">
     <span class="eyebrow">개인정보</span>

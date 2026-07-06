@@ -14,6 +14,7 @@ const { guide } = Astro.props as { guide: GuidePage };
 const siteUrl = getSiteUrl();
 const pageUrl = `${siteUrl}/guides/${guide.slug}/`;
 const imageUrl = new URL(DEFAULT_OG_IMAGE, `${siteUrl}/`).toString();
+const guideKeywords = [guide.title.split('|')[0].trim(), '타로 가이드', '타로 보는 법', '타로 카드 의미'];
 const breadcrumbs = [
   { name: '타로마음', path: '/' },
   { name: '타로 가이드', path: '/guides/' },
@@ -31,13 +32,15 @@ const jsonLd = [
     inLanguage: 'ko-KR',
     datePublished: DEFAULT_LASTMOD,
     dateModified: DEFAULT_LASTMOD,
-    image: imageUrl,
-    keywords: guide.title.split('|')[0].trim(),
-    author: { '@type': 'Organization', name: SITE_NAME },
+    image: [imageUrl],
+    articleSection: '타로 가이드',
+    keywords: guideKeywords.join(', '),
+    author: { '@type': 'Organization', name: SITE_NAME, url: siteUrl },
     publisher: {
       '@type': 'Organization',
       name: SITE_NAME,
-      logo: imageUrl
+      url: siteUrl,
+      logo: { '@type': 'ImageObject', url: imageUrl, width: 1200, height: 630 }
     }
   },
   {
@@ -52,7 +55,7 @@ const jsonLd = [
   description={guide.description}
   canonicalPath={`/guides/${guide.slug}/`}
   ogType="article"
-  keywords={[guide.title.split('|')[0].trim(), '타로 가이드', '타로 보는 법', '타로 카드 의미']}
+  keywords={guideKeywords}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
   datePublished={DEFAULT_LASTMOD}

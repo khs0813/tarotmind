@@ -1,10 +1,11 @@
 ---
 import Layout from '../components/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { DEFAULT_LASTMOD } from '../data/site';
 
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '이미지 출처', path: '/credits/' }];
 ---
-<Layout title="이미지 출처 | 타로마음" description="타로마음에서 사용하는 타로 카드 이미지의 출처와 라이선스 기준을 안내합니다." canonicalPath="/credits/" breadcrumbs={breadcrumbs}>
+<Layout title="이미지 출처 | 타로마음" description="타로마음에서 사용하는 타로 카드 이미지의 출처와 라이선스 기준을 안내합니다." canonicalPath="/credits/" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
   <Breadcrumbs items={breadcrumbs} />
   <section class="page-hero container">
     <span class="eyebrow">이미지 출처</span>

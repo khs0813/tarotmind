@@ -18,10 +18,10 @@ export const GET: APIRoute = () => {
     });
   }
   const siteUrl = getSiteUrl();
-  const imageLoc = escapeXml(new URL(DEFAULT_OG_IMAGE, `${siteUrl}/`).toString());
   const imageTitle = escapeXml(`${SITE_NAME} 대표 이미지`);
   const urls = getAllPages().map((page) => {
     const loc = escapeXml(new URL(page.path, `${siteUrl}/`).toString());
+    const imageLoc = escapeXml(new URL(page.image ?? DEFAULT_OG_IMAGE, `${siteUrl}/`).toString());
     const lastmod = page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : '';
     const changefreq = page.changefreq ? `\n    <changefreq>${page.changefreq}</changefreq>` : '';
     const priority = typeof page.priority === 'number' ? `\n    <priority>${page.priority.toFixed(1)}</priority>` : '';

@@ -1,9 +1,10 @@
 ---
 import Layout from '../components/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { DEFAULT_LASTMOD } from '../data/site';
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '이용약관', path: '/terms/' }];
 ---
-<Layout title="이용약관 | 타로마음" description="타로마음 이용 시 참고해야 할 오락용 콘텐츠 안내, 책임 제한, 광고 안내, 서비스 변경 가능성을 정리한 페이지입니다." canonicalPath="/terms/" breadcrumbs={breadcrumbs}>
+<Layout title="이용약관 | 타로마음" description="타로마음 이용 시 참고해야 할 오락용 콘텐츠 안내, 책임 제한, 광고 안내, 서비스 변경 가능성을 정리한 페이지입니다." canonicalPath="/terms/" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
   <Breadcrumbs items={breadcrumbs} />
   <article class="container readable-content page-hero">
     <span class="eyebrow">약관</span>

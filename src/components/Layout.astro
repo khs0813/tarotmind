@@ -4,7 +4,7 @@ import '../styles/tarot.css';
 import '../styles/cards.css';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
-import { DEFAULT_OG_IMAGE, getNaverVerification, getSiteUrl, isSiteUrlConfigured, SITE_NAME, SITE_DESCRIPTION, type BreadcrumbItem } from '../data/site';
+import { DEFAULT_OG_IMAGE, getNaverVerification, getSiteUrl, isSiteUrlConfigured, SITE_NAME, SITE_DESCRIPTION, SITE_LOCALE, type BreadcrumbItem } from '../data/site';
 
 type Props = {
   title: string;
@@ -13,6 +13,7 @@ type Props = {
   keywords?: string[];
   ogImage?: string;
   ogType?: 'website' | 'article';
+  pageType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage' | 'Article';
   breadcrumbs?: BreadcrumbItem[];
   jsonLd?: Record<string, unknown>[];
   robots?: string;
@@ -27,6 +28,7 @@ const {
   keywords = [],
   ogImage = DEFAULT_OG_IMAGE,
   ogType = 'website',
+  pageType = 'WebPage',
   breadcrumbs = [],
   jsonLd = [],
   robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
@@ -41,7 +43,8 @@ const imageUrl = new URL(ogImage, `${siteUrl}/`).toString();
 const rssUrl = new URL('/rss.xml', `${siteUrl}/`).toString();
 const naverVerification = getNaverVerification();
 const robotsContent = hasConfiguredSiteUrl ? robots : 'noindex, nofollow, noarchive';
-const keywordContent = keywords.map((keyword) => keyword.trim()).filter(Boolean).join(', ');
+const uniqueKeywords = [...new Set(keywords.map((keyword) => keyword.trim()).filter(Boolean))];
+const keywordContent = uniqueKeywords.join(', ');
 const siteId = `${siteUrl}/#website`;
 const publisherId = `${siteUrl}/#organization`;
 const pageId = `${canonicalUrl}#webpage`;
@@ -62,11 +65,13 @@ const organizationLd = {
 const webPageLd = {
   '@context': 'https://schema.org',
   '@id': pageId,
-  '@type': 'WebPage',
+  '@type': pageType,
   name: title,
+  headline: title,
   description,
   url: canonicalUrl,
-  inLanguage: 'ko-KR',
+  inLanguage: SITE_LOCALE,
+  image: imageUrl,
   isPartOf: {
     '@id': siteId,
     '@type': 'WebSite',
@@ -74,6 +79,7 @@ const webPageLd = {
     url: siteUrl
   },
   publisher: { '@id': publisherId },
+  ...(uniqueKeywords.length > 0 ? { keywords: uniqueKeywords.join(', ') } : {}),
   ...(datePublished ? { datePublished } : {}),
   ...(dateModified ? { dateModified } : {})
 };
@@ -85,7 +91,7 @@ const webSiteLd = canonicalPath === '/' ? [{
   name: SITE_NAME,
   description: SITE_DESCRIPTION,
   url: siteUrl,
-  inLanguage: 'ko-KR',
+  inLanguage: SITE_LOCALE,
   publisher: publisherLd
 }] : [];
 
@@ -115,6 +121,7 @@ const allJsonLd = hasConfiguredSiteUrl ? [organizationLd, ...webSiteLd, webPageL
     <meta name="theme-color" content="#0f172a" />
     <meta name="author" content={SITE_NAME} />
     <meta name="generator" content="Astro" />
+    <meta name="format-detection" content="telephone=no" />
     {naverVerification && <meta name="naver-site-verification" content={naverVerification} />}
 
     <meta property="og:locale" content="ko_KR" />
@@ -129,9 +136,11 @@ const allJsonLd = hasConfiguredSiteUrl ? [organizationLd, ...webSiteLd, webPageL
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:alt" content={`${SITE_NAME} 대표 이미지`} />
+    {dateModified && <meta property="og:updated_time" content={dateModified} />}
     {ogType === 'article' && datePublished && <meta property="article:published_time" content={datePublished} />}
     {ogType === 'article' && dateModified && <meta property="article:modified_time" content={dateModified} />}
     {ogType === 'article' && <meta property="article:author" content={SITE_NAME} />}
+    {ogType === 'article' && uniqueKeywords.map((keyword) => <meta property="article:tag" content={keyword} />)}
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

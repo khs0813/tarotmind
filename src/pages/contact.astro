@@ -1,11 +1,11 @@
 ---
 import Layout from '../components/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { getContactEmail } from '../data/site';
+import { DEFAULT_LASTMOD, getContactEmail } from '../data/site';
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '문의', path: '/contact/' }];
 const email = getContactEmail();
 ---
-<Layout title="문의 | 타로마음" description="타로마음 사이트 오류 제보, 리딩 주제 제안, 광고 관련 문의를 보낼 수 있는 연락 페이지입니다." canonicalPath="/contact/" breadcrumbs={breadcrumbs}>
+<Layout title="문의 | 타로마음" description="타로마음 사이트 오류 제보, 리딩 주제 제안, 광고 관련 문의를 보낼 수 있는 연락 페이지입니다." canonicalPath="/contact/" pageType="ContactPage" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
   <Breadcrumbs items={breadcrumbs} />
   <article class="container readable-content page-hero">
     <span class="eyebrow">문의</span>

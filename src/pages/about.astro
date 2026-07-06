@@ -1,9 +1,10 @@
 ---
 import Layout from '../components/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { DEFAULT_LASTMOD } from '../data/site';
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '사이트 소개', path: '/about/' }];
 ---
-<Layout title="사이트 소개 | 타로마음" description="타로마음은 서버 저장 없이 브라우저에서 무료 AI 스타일 타로 리딩을 제공하는 정적 웹사이트입니다." canonicalPath="/about/" breadcrumbs={breadcrumbs}>
+<Layout title="사이트 소개 | 타로마음" description="타로마음은 서버 저장 없이 브라우저에서 무료 AI 스타일 타로 리딩을 제공하는 정적 웹사이트입니다." canonicalPath="/about/" pageType="AboutPage" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
   <Breadcrumbs items={breadcrumbs} />
   <article class="container readable-content page-hero">
     <span class="eyebrow">소개</span>
