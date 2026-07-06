@@ -22,7 +22,7 @@ async function drawReading(page: import('@playwright/test').Page, slug: string) 
 
 test('home and tarot listing are reachable', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: /카드를 고르면 오늘의 메시지/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /무료 AI 스타일 타로 리딩/ })).toBeVisible();
   await page.getByRole('link', { name: /타로 전체 보기/ }).click();
   await expect(page).toHaveURL(/\/tarot\/$/);
   await expect(page.getByRole('heading', { name: /무료 AI 스타일 타로 리딩/ })).toBeVisible();
