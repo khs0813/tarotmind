@@ -1,5 +1,13 @@
 import { safeGetItem, safeRemoveItem, safeSetItem } from './storage';
 
+declare global {
+  interface Window {
+    TarotMindAdFit?: {
+      mount: (slot: Element | null) => void;
+    };
+  }
+}
+
 type Topic = 'general' | 'love' | 'career' | 'money';
 
 type TarotCard = {
@@ -270,6 +278,7 @@ function initReader(root: HTMLElement): void {
   const resultCards = root.querySelector<HTMLElement>('[data-result-cards]');
   const resultSections = root.querySelector<HTMLElement>('[data-result-sections]');
   const resultDisclaimer = root.querySelector<HTMLElement>('[data-result-disclaimer]');
+  const resultAdSlot = root.querySelector<HTMLElement>('[data-adfit-slot][data-adfit-autoload="false"]');
   const copyResult = root.querySelector<HTMLButtonElement>('[data-copy-result]');
   const copyShare = root.querySelector<HTMLButtonElement>('[data-copy-share]');
   const clearHistoryButtons = [...root.querySelectorAll<HTMLButtonElement>('[data-clear-history]')];
@@ -316,6 +325,7 @@ function initReader(root: HTMLElement): void {
       </article>
     `).join('');
     resultDisclaimer.textContent = result.disclaimer;
+    window.TarotMindAdFit?.mount(resultAdSlot);
     resultWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 

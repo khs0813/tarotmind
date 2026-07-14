@@ -1,7 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import AdSlot from '../../components/AdSlot.astro';
 import FAQ from '../../components/FAQ.astro';
 import { guides, type GuidePage } from '../../data/guides';
 import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, SITE_NAME, getSiteUrl } from '../../data/site';
@@ -124,7 +123,6 @@ const jsonLd = [
     <h1>{guide.title.split('|')[0].trim()}</h1>
     <p>{guide.intro}</p>
   </section>
-  <AdSlot position="top" />
   <article class="container readable-content">
     {guide.sections.map((section) => (
       <section class="content-section">
@@ -147,5 +145,4 @@ const jsonLd = [
     </section>
     <FAQ faqs={guide.faqs} />
   </article>
-  <AdSlot position="bottom" />
 </Layout>

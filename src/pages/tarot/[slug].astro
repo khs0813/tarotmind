@@ -1,7 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import AdSlot from '../../components/AdSlot.astro';
 import FAQ from '../../components/FAQ.astro';
 import TarotReader from '../../components/TarotReader.astro';
 import RelatedReadings from '../../components/RelatedReadings.astro';
@@ -69,13 +68,9 @@ const jsonLd = [
     <p class="page-summary">{reading.summary}</p>
   </section>
 
-  <AdSlot position="top" />
-
   <div class="container">
     <TarotReader reading={reading} />
   </div>
-
-  <AdSlot position="middle" />
 
   <article class="container readable-content">
     <section class="content-section">
@@ -99,5 +94,4 @@ const jsonLd = [
     <RelatedReadings slugs={reading.relatedSlugs} />
   </article>
 
-  <AdSlot position="bottom" />
 </Layout>

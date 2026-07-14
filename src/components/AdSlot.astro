@@ -1,28 +1,82 @@
 ---
+import { ADFIT_DEBUG_PLACEHOLDERS, ADFIT_ENABLED, getAdFitSlot, type AdFitPlacement } from '../data/adfit';
+
 type Props = {
-  position: 'top' | 'middle' | 'bottom' | 'sidebar';
-  label?: string;
+  placement: AdFitPlacement;
+  deferUntil?: 'load' | 'result';
 };
-const { position, label = '광고' } = Astro.props as Props;
-const unitMap: Record<string, string | undefined> = {
-  top: import.meta.env.PUBLIC_ADFIT_TOP_UNIT,
-  middle: import.meta.env.PUBLIC_ADFIT_MIDDLE_UNIT,
-  bottom: import.meta.env.PUBLIC_ADFIT_BOTTOM_UNIT,
-  sidebar: import.meta.env.PUBLIC_ADFIT_MIDDLE_UNIT
-};
-const unitId = unitMap[position];
-const size = position === 'top' ? { width: 320, height: 100 } : { width: 320, height: 100 };
+
+const { placement, deferUntil = 'load' } = Astro.props as Props;
+const slot = getAdFitSlot(placement);
+const canRenderAd = ADFIT_ENABLED && Boolean(slot.unitId);
+const canRenderPlaceholder = ADFIT_ENABLED && ADFIT_DEBUG_PLACEHOLDERS && !slot.unitId;
 ---
-{unitId && (
-  <section class={`ad-slot ad-slot-${position}`} aria-label="광고 영역">
-    <span class="ad-label">{label}</span>
-      <ins
-        class="kakao_ad_area"
-        style={`display:none;width:${size.width}px;height:${size.height}px;`}
-        data-ad-unit={unitId}
-        data-ad-width={String(size.width)}
-        data-ad-height={String(size.height)}
-      />
-      <script is:inline async type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js"></script>
+{canRenderAd && (
+  <section
+    class={`ad-slot ad-slot-${placement}`}
+    aria-label="광고 영역"
+    data-adfit-slot
+    data-adfit-autoload={deferUntil === 'load' ? 'true' : 'false'}
+    data-ad-unit={slot.unitId}
+    data-ad-width={String(slot.width)}
+    data-ad-height={String(slot.height)}
+  >
+    <span class="ad-label">광고</span>
+    <div class="adfit-mount" data-adfit-mount style={`width:${slot.width}px;height:${slot.height}px;`}></div>
+  </section>
+  <script is:inline>
+    (() => {
+      const sdkSrc = 'https://t1.kakaocdn.net/kas/static/ba.min.js';
+
+      function loadSdk() {
+        if (document.querySelector(`script[src="${sdkSrc}"]`)) return;
+        const script = document.createElement('script');
+        script.async = true;
+        script.type = 'text/javascript';
+        script.setAttribute('charset', 'utf-8');
+        script.src = sdkSrc;
+        document.body.appendChild(script);
+      }
+
+      function mount(slot) {
+        if (!slot || slot.dataset.adfitMounted === 'true') return;
+        const width = Number(slot.dataset.adWidth);
+        const height = Number(slot.dataset.adHeight);
+        const unitId = slot.dataset.adUnit;
+        const mountPoint = slot.querySelector('[data-adfit-mount]');
+        if (!unitId || !mountPoint || !width || !height || window.innerWidth < width) return;
+
+        const ad = document.createElement('ins');
+        ad.className = 'kakao_ad_area';
+        ad.style.display = 'none';
+        ad.style.width = `${width}px`;
+        ad.style.height = `${height}px`;
+        ad.dataset.adUnit = unitId;
+        ad.dataset.adWidth = String(width);
+        ad.dataset.adHeight = String(height);
+        mountPoint.appendChild(ad);
+        slot.dataset.adfitMounted = 'true';
+        loadSdk();
+      }
+
+      window.TarotMindAdFit = window.TarotMindAdFit || { mount };
+      window.TarotMindAdFit.mount = window.TarotMindAdFit.mount || mount;
+
+      const mountAutoloadSlots = () => {
+        document.querySelectorAll('[data-adfit-slot][data-adfit-autoload="true"]').forEach((slot) => mount(slot));
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', mountAutoloadSlots, { once: true });
+      } else {
+        mountAutoloadSlots();
+      }
+    })();
+  </script>
+)}
+{canRenderPlaceholder && (
+  <section class={`ad-slot ad-slot-${placement}`} aria-label="광고 영역">
+    <span class="ad-label">광고</span>
+    <div class="ad-placeholder">AdFit {slot.width}x{slot.height}</div>
   </section>
 )}

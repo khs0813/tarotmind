@@ -98,8 +98,6 @@ const jsonLd = [
     <div class="keyword-chips">{card.keywords.map((keyword) => <span>{keyword}</span>)}</div>
   </section>
 
-  <AdSlot position="top" />
-
   <article class="container readable-content">
     <section class="content-section">
       <h2>카드 핵심 키워드</h2>
@@ -120,6 +118,7 @@ const jsonLd = [
       <p>{card.reversed.general}</p>
       <p>{card.reversed.advice}</p>
     </section>
+    <AdSlot placement="card-detail" />
     <section class="content-section">
       <h2>연애운에서의 의미</h2>
       <p>{card.upright.love}</p>
@@ -160,6 +159,4 @@ const jsonLd = [
     <RelatedReadings slugs={relatedReadingSlugs} />
     <FAQ faqs={faqs} />
   </article>
-
-  <AdSlot position="bottom" />
 </Layout>

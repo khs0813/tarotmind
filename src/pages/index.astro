@@ -62,9 +62,6 @@ const jsonLd = [
       </div>
     </div>
   </section>
-
-  <AdSlot position="top" />
-
   <section class="container content-section popular-readings">
     <div class="section-heading">
       <span class="eyebrow">인기 리딩</span>
@@ -75,6 +72,8 @@ const jsonLd = [
       {tarotReadings.map((reading) => <ReadingCard reading={reading} />)}
     </div>
   </section>
+
+  <AdSlot placement="home" />
 
   <section class="container content-section two-column-section">
     <div class="info-card">
@@ -88,9 +87,6 @@ const jsonLd = [
       <a class="text-link" href="/guides/">가이드 모음 보기 →</a>
     </div>
   </section>
-
-  <AdSlot position="middle" />
-
   <section class="container content-section">
     <div class="section-heading">
       <span class="eyebrow">타로 가이드</span>
@@ -111,6 +107,4 @@ const jsonLd = [
   <section class="container">
     <FAQ faqs={faqs} />
   </section>
-
-  <AdSlot position="bottom" />
 </Layout>
