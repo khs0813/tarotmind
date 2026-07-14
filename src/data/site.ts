@@ -5,6 +5,7 @@ export const SITE_LOCALE = 'ko-KR';
 export const DEFAULT_OG_IMAGE = '/og-image.png';
 export const DEFAULT_LASTMOD = '2026-07-14';
 export const DEFAULT_SITE_URL = 'https://tarotmind.onrender.com';
+export const DEFAULT_NAVER_SITE_VERIFICATION = '929de4121fc94e573caf3baf36ff8e601d85f1ca';
 
 function getRawSiteUrl(): string | undefined {
   return import.meta.env.SITE_URL?.trim() || import.meta.env.NEXT_PUBLIC_SITE_URL?.trim();
@@ -67,8 +68,7 @@ export function getContactEmail(): string {
 }
 
 export function getNaverVerification(): string | undefined {
-  const raw = import.meta.env.NAVER_SITE_VERIFICATION?.trim();
-  if (!raw) return undefined;
+  const raw = import.meta.env.NAVER_SITE_VERIFICATION?.trim() || DEFAULT_NAVER_SITE_VERIFICATION;
   const match = raw.match(/content=["']([^"']+)["']/i);
   return match?.[1] ?? raw;
 }
