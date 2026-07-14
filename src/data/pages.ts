@@ -5,7 +5,7 @@ import { tarotCards } from './tarotCards';
 
 export function getAllPages(): SitePage[] {
   return [
-    { path: '/', title: '타로마음 | 무료 AI 스타일 타로 리딩 - 오늘의 타로·연애·재회·금전운', description: SITE_DESCRIPTION, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly', priority: 1.0 },
+    { path: '/', title: '타로마음 | 무료 AI 타로 리딩', description: SITE_DESCRIPTION, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly', priority: 1.0 },
     { path: '/tarot/', title: '무료 타로 리딩 모음 | 타로마음', description: '오늘의 타로, 연애 타로, 재회 타로, 직장운 타로, 금전운 타로 등 무료 AI 스타일 타로 리딩을 모아볼 수 있습니다.', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly', priority: 0.9 },
     ...tarotReadings.map((reading) => ({ path: `/tarot/${reading.slug}/`, title: reading.title, description: reading.description, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly' as const, priority: 0.85 })),
     { path: '/cards/', title: '타로 카드 의미 | 메이저·마이너 78장 정방향·역방향 해석', description: '타로 카드 78장의 기본 의미, 정방향, 역방향, 연애운, 직장운, 금전운 해석을 한곳에서 확인하세요.', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly', priority: 0.8 },

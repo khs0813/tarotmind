@@ -1,0 +1,10 @@
+User-agent: Yeti
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://tarocue.co.kr/sitemap.xml
