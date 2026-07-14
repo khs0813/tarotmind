@@ -4,7 +4,7 @@ export const SITE_DESCRIPTION = '타로마음에서 오늘의 타로, 연애 타
 export const SITE_LOCALE = 'ko-KR';
 export const DEFAULT_OG_IMAGE = '/og-image.png';
 export const DEFAULT_LASTMOD = '2026-07-14';
-export const DEFAULT_SITE_URL = 'https://tarotmind.onrender.com';
+export const DEFAULT_SITE_URL = 'https://tarocue.co.kr';
 export const DEFAULT_NAVER_SITE_VERIFICATION = '929de4121fc94e573caf3baf36ff8e601d85f1ca';
 
 function getRawSiteUrl(): string | undefined {
@@ -13,7 +13,7 @@ function getRawSiteUrl(): string | undefined {
 
 export function isSiteUrlConfigured(): boolean {
   const raw = getRawSiteUrl();
-  return !raw || Boolean(!raw.includes('your-domain.com') && /^https?:\/\//i.test(raw));
+  return !raw || /^https?:\/\//i.test(raw);
 }
 
 export function getSiteUrl(): string {
