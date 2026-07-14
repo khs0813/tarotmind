@@ -16,13 +16,13 @@ const canRenderPlaceholder = ADFIT_ENABLED && ADFIT_DEBUG_PLACEHOLDERS && !slot.
     <span class="ad-label">광고</span>
     <ins
       class="kakao_ad_area"
-      style={`display:none;width:${slot.width}px;height:${slot.height}px;`}
+      style="display:none;"
       data-ad-unit={slot.unitId}
       data-ad-width={String(slot.width)}
       data-ad-height={String(slot.height)}
     />
   </section>
-  <script is:inline async type="text/javascript" charset="utf-8" src="https://t1.kakaocdn.net/kas/static/ba.min.js"></script>
+  <script is:inline async type="text/javascript" charset="utf-8" src="//t1.kakaocdn.net/kas/static/ba.min.js"></script>
 )}
 {canRenderAd && deferUntil === 'result' && (
   <section
@@ -62,8 +62,6 @@ const canRenderPlaceholder = ADFIT_ENABLED && ADFIT_DEBUG_PLACEHOLDERS && !slot.
         const ad = document.createElement('ins');
         ad.className = 'kakao_ad_area';
         ad.style.display = 'none';
-        ad.style.width = `${width}px`;
-        ad.style.height = `${height}px`;
         ad.dataset.adUnit = unitId;
         ad.dataset.adWidth = String(width);
         ad.dataset.adHeight = String(height);
