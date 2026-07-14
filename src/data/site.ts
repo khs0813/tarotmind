@@ -3,7 +3,7 @@ export const SITE_TAGLINE = '무료 AI 스타일 타로 리딩';
 export const SITE_DESCRIPTION = '타로마음에서 오늘의 타로, 연애 타로, 재회 타로, 직장운, 금전운을 무료로 확인하세요. 서버 저장 없이 브라우저에서 가볍게 이용할 수 있는 AI 스타일 타로 리딩입니다.';
 export const SITE_LOCALE = 'ko-KR';
 export const DEFAULT_OG_IMAGE = '/og-image.png';
-export const DEFAULT_LASTMOD = '2026-07-05';
+export const DEFAULT_LASTMOD = '2026-07-14';
 export const DEFAULT_SITE_URL = 'https://tarotmind.onrender.com';
 
 function getRawSiteUrl(): string | undefined {
