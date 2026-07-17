@@ -6,6 +6,44 @@
 .meaning-card {
   position: relative;
   min-height: 190px;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.meaning-card-image-link {
+  display: block;
+  border-radius: 12px;
+}
+.meaning-card-image,
+.minor-card-image,
+.related-card-image,
+.card-detail-image {
+  display: block;
+  aspect-ratio: 500 / 866;
+  object-fit: contain;
+  background: #111827;
+  border: 2px solid rgba(253, 230, 138, 0.72);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+.meaning-card-image {
+  width: 96px;
+  border-radius: 12px;
+}
+.minor-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  color: #fde68a;
+  font-weight: 800;
+}
+.minor-card-image {
+  width: 40px;
+  flex: 0 0 auto;
+  border-width: 1px;
+  border-radius: 6px;
+  box-shadow: none;
 }
 .card-number {
   display: inline-grid;
@@ -32,11 +70,26 @@
 
 .card-detail-lead-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
   gap: 32px;
   align-items: start;
   margin-top: 38px;
   margin-bottom: 48px;
+}
+.card-detail-image-panel {
+  margin: 0;
+  position: sticky;
+  top: 18px;
+}
+.card-detail-image {
+  width: 100%;
+  border-radius: 16px;
+}
+.card-detail-image-panel figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  text-align: center;
 }
 .card-core-content .content-section {
   margin-block: 0 32px;
@@ -45,19 +98,42 @@
   margin-bottom: 0;
 }
 .card-detail-lead-grid .ad-slot-card-detail-primary {
+  grid-column: 1 / -1;
   margin: 0 auto;
 }
 
 @media (max-width: 860px) {
   .card-detail-lead-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
     gap: 48px;
   }
+  .card-detail-image-panel {
+    position: static;
+  }
   .card-detail-lead-grid .ad-slot-card-detail-primary {
+    grid-column: 1 / -1;
     margin-block: 0;
   }
 }
 
 @media (max-width: 720px) {
   .meaning-grid { grid-template-columns: 1fr; }
+  .meaning-card {
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 14px;
+  }
+  .meaning-card-image {
+    width: 82px;
+  }
+  .card-detail-lead-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .card-detail-image-panel {
+    width: min(220px, 72vw);
+    margin-inline: auto;
+  }
+  .minor-card-link {
+    min-width: 172px;
+  }
 }

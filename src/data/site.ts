@@ -1,6 +1,6 @@
 export const SITE_NAME = '타로마음';
-export const SITE_TAGLINE = '무료 AI 스타일 타로 리딩';
-export const SITE_DESCRIPTION = '오늘의 타로, 연애, 재회, 직장운, 금전운을 무료로 확인하세요.';
+export const SITE_TAGLINE = '무료타로 AI 스타일 리딩';
+export const SITE_DESCRIPTION = '오늘의 타로, 연애, 재회, 직장운, 금전운 무료타로 리딩을 확인하세요.';
 export const SITE_LOCALE = 'ko-KR';
 export const DEFAULT_OG_IMAGE = '/og-image.png';
 export const DEFAULT_LASTMOD = '2026-07-14';

@@ -1,11 +1,7 @@
 {"message":"connected.","label":"vite","level":"info"}
 {"message":"Generated 0ms","label":"types","level":"info"}
 {"message":"connected.","label":"vite","level":"info"}
-{"message":"Port 4321 is in use, trying another one...","label":"vite","level":"info"}
-{"message":" astro  v7.0.6 ready in 416 ms\n┃ Local    http://127.0.0.1:4322/","label":"SKIP_FORMAT",{"message":"Configuration file updated. Restarting...","label":null,"level":"info"}
-{"message":"connected.","label":"vite","level":"info"}
-{"message":"connected.","label":"vite","level":"info"}
-{"message":"Re-optimizing dependencies because vite config has changed","label":"vite","leve{"message":"connected.","label":"vite","level":"info"}
-{"message":"server restarted.","label":"vite","level":"info"}
-{"message":"[200] / 11ms","label":null,"level":"info"}
-{"message":"[200] / 1ms","label":null,"level":"info"}
+listen EPERM: operation not permitted 127.0.0.1:4330
+  Stack trace:
+    at Server.setupListenHandle [as _listen2] (node:net:1986:21)
+    at node:net:2274:7
