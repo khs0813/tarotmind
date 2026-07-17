@@ -29,6 +29,35 @@
   color: #fde68a;
 }
 .static-tarot-card.is-reversed { transform: rotate(180deg); }
+
+.card-detail-lead-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 32px;
+  align-items: start;
+  margin-top: 38px;
+  margin-bottom: 48px;
+}
+.card-core-content .content-section {
+  margin-block: 0 32px;
+}
+.card-core-content .content-section:last-child {
+  margin-bottom: 0;
+}
+.card-detail-lead-grid .ad-slot-card-detail-primary {
+  margin: 0 auto;
+}
+
+@media (max-width: 860px) {
+  .card-detail-lead-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .card-detail-lead-grid .ad-slot-card-detail-primary {
+    margin-block: 0;
+  }
+}
+
 @media (max-width: 720px) {
   .meaning-grid { grid-template-columns: 1fr; }
 }

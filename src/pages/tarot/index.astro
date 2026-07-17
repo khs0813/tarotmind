@@ -1,6 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AdSlot from '../../components/AdSlot.astro';
 import ReadingCard from '../../components/ReadingCard.astro';
 import { tarotReadings } from '../../data/tarotReadings';
 import { DEFAULT_LASTMOD, getSiteUrl } from '../../data/site';
@@ -30,6 +31,7 @@ const jsonLd = [{
     <h1>무료 AI 스타일 타로 리딩</h1>
     <p>오늘의 메시지부터 연애, 재회, 직장, 금전, 선택 고민까지 상황에 맞는 카드를 뽑아보세요.</p>
   </section>
+  <AdSlot placement="hub-primary" />
   <section class="container content-section">
     <div class="card-grid-list">
       {tarotReadings.map((reading) => <ReadingCard reading={reading} />)}

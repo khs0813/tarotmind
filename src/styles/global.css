@@ -295,8 +295,11 @@ button:disabled { cursor: not-allowed; opacity: 0.58; }
 .ad-slot {
   width: min(300px, calc(100% - 32px));
   min-height: 250px;
-  margin: 40px auto;
+  margin: 48px auto 56px;
   text-align: center;
+}
+.ad-slot[hidden] {
+  display: none;
 }
 .ad-label {
   display: block;
@@ -307,6 +310,9 @@ button:disabled { cursor: not-allowed; opacity: 0.58; }
 .adfit-mount {
   margin-inline: auto;
 }
+.adfit-mount:empty {
+  display: none;
+}
 .ad-placeholder {
   display: grid;
   place-items: center;
@@ -316,6 +322,18 @@ button:disabled { cursor: not-allowed; opacity: 0.58; }
   border: 1px dashed rgba(148, 163, 184, 0.45);
   background: rgba(15, 23, 42, 0.56);
   color: var(--muted-2);
+}
+.ad-slot-hub-primary {
+  margin-top: 48px;
+  margin-bottom: 56px;
+}
+.ad-slot-reading-primary {
+  margin-top: 32px;
+  margin-bottom: 56px;
+}
+.ad-slot-card-index-primary {
+  margin-top: 32px;
+  margin-bottom: 56px;
 }
 
 .readable-content {
@@ -474,6 +492,12 @@ td { color: var(--muted); }
 @media (max-width: 319px) {
   .ad-slot {
     display: none;
+  }
+}
+
+@media print {
+  .ad-slot {
+    display: none !important;
   }
 }
 

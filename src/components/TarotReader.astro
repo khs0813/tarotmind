@@ -1,7 +1,6 @@
 ---
 import { tarotCards } from '../data/tarotCards';
 import type { TarotReadingPage } from '../data/tarotReadings';
-import AdSlot from './AdSlot.astro';
 const { reading } = Astro.props as { reading: TarotReadingPage };
 const requiredCards = reading.positions.length;
 ---
@@ -11,7 +10,6 @@ const requiredCards = reading.positions.length;
 
   <div class="reader-panel">
     <div class="reader-intro">
-      <span class="eyebrow">무료 AI 스타일 리딩</span>
       <h2>카드를 선택해 리딩을 시작하세요</h2>
       <p>{reading.intro}</p>
     </div>
@@ -75,7 +73,6 @@ const requiredCards = reading.positions.length;
       <button class="secondary-button" data-clear-history type="button">저장 기록 삭제</button>
     </div>
     <p class="disclaimer" data-result-disclaimer>본 타로 리딩은 오락 및 참고용 콘텐츠입니다.</p>
-    <AdSlot placement="tarot-result" deferUntil="result" />
   </section>
 
   <section class="reading-history" data-history-wrap hidden>

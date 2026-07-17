@@ -99,26 +99,30 @@ const jsonLd = [
   </section>
 
   <article class="container readable-content">
-    <section class="content-section">
-      <h2>카드 핵심 키워드</h2>
-      <p>{card.upright.general}</p>
-      <p>{card.caution}</p>
-    </section>
-    <section class="content-section">
-      <h2>카드 그림과 상징 해석</h2>
-      <p>{symbolSummary}</p>
-    </section>
-    <section class="content-section">
-      <h2>정방향 의미</h2>
-      <p>{card.upright.general}</p>
-      <p>{card.upright.advice}</p>
-    </section>
-    <section class="content-section">
-      <h2>역방향 의미</h2>
-      <p>{card.reversed.general}</p>
-      <p>{card.reversed.advice}</p>
-    </section>
-    <AdSlot placement="card-detail" />
+    <div class="card-detail-lead-grid">
+      <div class="card-core-content">
+        <section class="content-section">
+          <h2>카드 핵심 키워드</h2>
+          <p>{card.upright.general}</p>
+          <p>{card.caution}</p>
+        </section>
+        <section class="content-section">
+          <h2>카드 그림과 상징 해석</h2>
+          <p>{symbolSummary}</p>
+        </section>
+        <section class="content-section">
+          <h2>정방향 의미</h2>
+          <p>{card.upright.general}</p>
+          <p>{card.upright.advice}</p>
+        </section>
+        <section class="content-section">
+          <h2>역방향 의미</h2>
+          <p>{card.reversed.general}</p>
+          <p>{card.reversed.advice}</p>
+        </section>
+      </div>
+      <AdSlot placement="card-detail-primary" />
+    </div>
     <section class="content-section">
       <h2>연애운에서의 의미</h2>
       <p>{card.upright.love}</p>

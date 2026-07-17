@@ -83,9 +83,13 @@ NAVER_SITE_VERIFICATION='<meta name="naver-site-verification" content="abc123" /
 ```text
 SITE_URL=https://your-domain.com
 NAVER_SITE_VERIFICATION=
-PUBLIC_ADFIT_TOP_UNIT=
-PUBLIC_ADFIT_MIDDLE_UNIT=
-PUBLIC_ADFIT_BOTTOM_UNIT=
+ADFIT_ENABLED=false
+ADFIT_ALLOWED_HOSTS=tarocue.co.kr
+ADFIT_HOME_300X250=
+ADFIT_TAROT_RESULT_300X250=
+ADFIT_CARD_INDEX_300X250=
+ADFIT_CARD_DETAIL_300X250=
+ADFIT_DEBUG_PLACEHOLDERS=false
 PUBLIC_CONTACT_EMAIL=hello@example.com
 ```
 
@@ -93,12 +97,13 @@ PUBLIC_CONTACT_EMAIL=hello@example.com
 
 `src/components/AdSlot.astro`에서 관리합니다.
 
-광고단위 ID가 없으면 placeholder가 표시됩니다. 실제 광고단위 ID를 환경변수로 넣으면 카카오 애드핏 스크립트가 출력됩니다.
+광고단위 ID는 Render 환경변수로만 관리합니다. `ADFIT_ENABLED=true`이고 현재 hostname이 `ADFIT_ALLOWED_HOSTS`에 포함되며 해당 placement의 광고단위 ID가 있을 때만 카카오 애드핏 SDK가 로드됩니다.
 
-```bash
-PUBLIC_ADFIT_TOP_UNIT=광고단위ID
-PUBLIC_ADFIT_MIDDLE_UNIT=광고단위ID
-PUBLIC_ADFIT_BOTTOM_UNIT=광고단위ID
+```text
+ADFIT_HOME_300X250=
+ADFIT_TAROT_RESULT_300X250=
+ADFIT_CARD_INDEX_300X250=
+ADFIT_CARD_DETAIL_300X250=
 ```
 
 ## 네이버 서치어드바이저 등록 체크

@@ -1,9 +1,14 @@
 .tarot-page-hero { padding-bottom: 8px; }
 
+.reading-ad-lead {
+  max-width: 760px;
+  margin-top: 4px;
+}
+
 .tarot-reader {
   display: grid;
   gap: 24px;
-  margin: 24px 0 44px;
+  margin: 8px 0 44px;
 }
 
 .reader-panel {

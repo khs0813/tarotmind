@@ -1,4 +1,4 @@
-export type AdFitPlacement = 'home' | 'tarot-result' | 'card-index' | 'card-detail';
+export type AdFitPlacement = 'hub-primary' | 'reading-primary' | 'card-index-primary' | 'card-detail-primary';
 
 type AdFitSlotConfig = {
   placement: AdFitPlacement;
@@ -7,16 +7,28 @@ type AdFitSlotConfig = {
   height: 250;
 };
 
-const isTruthy = (value: string | undefined): boolean => ['1', 'true', 'yes', 'on'].includes(value?.trim().toLowerCase() ?? '');
+const DEFAULT_ALLOWED_HOSTS = ['tarocue.co.kr'];
 
-export const ADFIT_ENABLED = isTruthy(import.meta.env.ADFIT_ENABLED);
-export const ADFIT_DEBUG_PLACEHOLDERS = isTruthy(import.meta.env.ADFIT_DEBUG_PLACEHOLDERS);
+const isEnabled = (value: string | undefined): boolean => value?.trim().toLowerCase() === 'true';
+
+function parseAllowedHosts(value: string | undefined): string[] {
+  const hosts = value
+    ?.split(',')
+    .map((host) => host.trim().toLowerCase())
+    .filter((host) => host && host !== '*') ?? [];
+
+  return hosts.length > 0 ? hosts : DEFAULT_ALLOWED_HOSTS;
+}
+
+export const ADFIT_ENABLED = isEnabled(import.meta.env.ADFIT_ENABLED);
+export const ADFIT_DEBUG_PLACEHOLDERS = isEnabled(import.meta.env.ADFIT_DEBUG_PLACEHOLDERS);
+export const ADFIT_ALLOWED_HOSTS = parseAllowedHosts(import.meta.env.ADFIT_ALLOWED_HOSTS);
 
 const unitIds: Record<AdFitPlacement, string | undefined> = {
-  home: import.meta.env.ADFIT_HOME_300X250?.trim(),
-  'tarot-result': import.meta.env.ADFIT_TAROT_RESULT_300X250?.trim(),
-  'card-index': import.meta.env.ADFIT_CARD_INDEX_300X250?.trim(),
-  'card-detail': import.meta.env.ADFIT_CARD_DETAIL_300X250?.trim()
+  'hub-primary': import.meta.env.ADFIT_HOME_300X250?.trim(),
+  'reading-primary': import.meta.env.ADFIT_TAROT_RESULT_300X250?.trim(),
+  'card-index-primary': import.meta.env.ADFIT_CARD_INDEX_300X250?.trim(),
+  'card-detail-primary': import.meta.env.ADFIT_CARD_DETAIL_300X250?.trim()
 };
 
 export function getAdFitSlot(placement: AdFitPlacement): AdFitSlotConfig {
