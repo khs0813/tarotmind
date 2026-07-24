@@ -1,5 +1,7 @@
 export type AdFitPlacement = 'hub-primary' | 'reading-primary' | 'card-index-primary' | 'card-detail-primary';
 
+export const ADFIT_SDK_URL = 'https://t1.kakaocdn.net/kas/static/ba.min.js';
+
 type AdFitSlotConfig = {
   placement: AdFitPlacement;
   unitId?: string;

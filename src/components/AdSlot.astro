@@ -1,5 +1,5 @@
 ---
-import { ADFIT_ALLOWED_HOSTS, ADFIT_DEBUG_PLACEHOLDERS, ADFIT_ENABLED, getAdFitSlot, type AdFitPlacement } from '../data/adfit';
+import { ADFIT_ALLOWED_HOSTS, ADFIT_DEBUG_PLACEHOLDERS, ADFIT_ENABLED, ADFIT_SDK_URL, getAdFitSlot, type AdFitPlacement } from '../data/adfit';
 
 type Props = {
   placement: AdFitPlacement;
@@ -22,16 +22,20 @@ const allowedHosts = ADFIT_ALLOWED_HOSTS.join(',');
     data-ad-width={String(slot.width)}
     data-ad-height={String(slot.height)}
     data-adfit-allowed-hosts={allowedHosts}
+    data-adfit-sdk-url={ADFIT_SDK_URL}
   >
     <div class="adfit-mount" data-adfit-mount style={`width:${slot.width}px;height:${slot.height}px;`}></div>
   </section>
   <script is:inline>
     (() => {
-      const sdkSrc = 'https://t1.kakaocdn.net/kas/static/ba.min.js';
       const loaderKey = '__tarocueAdFitInit';
 
-      function loadSdk() {
-        if (document.querySelector(`script[data-adfit-sdk="true"], script[src="${sdkSrc}"], script[src="//t1.kakaocdn.net/kas/static/ba.min.js"]`)) return;
+      function hasSdkScript(sdkSrc) {
+        return Array.from(document.scripts).some((script) => script.dataset.adfitSdk === 'true' || script.src === sdkSrc);
+      }
+
+      function loadSdk(sdkSrc) {
+        if (!sdkSrc || hasSdkScript(sdkSrc)) return;
         const script = document.createElement('script');
         script.async = true;
         script.type = 'text/javascript';
@@ -59,7 +63,8 @@ const allowedHosts = ADFIT_ALLOWED_HOSTS.join(',');
         const height = Number(slot.dataset.adHeight);
         const unitId = slot.dataset.adUnit;
         const mountPoint = slot.querySelector('[data-adfit-mount]');
-        if (!unitId || !mountPoint || width !== 300 || height !== 250) return false;
+        const sdkSrc = slot.dataset.adfitSdkUrl;
+        if (!sdkSrc || !unitId || !mountPoint || width !== 300 || height !== 250) return false;
 
         const ad = document.createElement('ins');
         ad.className = 'kakao_ad_area';
@@ -71,15 +76,16 @@ const allowedHosts = ADFIT_ALLOWED_HOSTS.join(',');
         mountPoint.appendChild(ad);
         slot.hidden = false;
         slot.dataset.adfitMounted = 'true';
-        return true;
+        return sdkSrc;
       }
 
       function initAdFitSlots() {
-        let mounted = false;
+        const mountedSdkUrls = new Set();
         Array.from(document.querySelectorAll('[data-adfit-slot]')).forEach((slot) => {
-          mounted = mountSlot(slot) || mounted;
+          const sdkSrc = mountSlot(slot);
+          if (sdkSrc) mountedSdkUrls.add(sdkSrc);
         });
-        if (mounted) loadSdk();
+        mountedSdkUrls.forEach((sdkSrc) => loadSdk(sdkSrc));
       }
 
       window[loaderKey] = window[loaderKey] || initAdFitSlots;
