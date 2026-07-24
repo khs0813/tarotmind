@@ -23,7 +23,6 @@ const allowedHosts = ADFIT_ALLOWED_HOSTS.join(',');
     data-ad-height={String(slot.height)}
     data-adfit-allowed-hosts={allowedHosts}
   >
-    <span class="ad-label">광고</span>
     <div class="adfit-mount" data-adfit-mount style={`width:${slot.width}px;height:${slot.height}px;`}></div>
   </section>
   <script is:inline>
@@ -95,7 +94,6 @@ const allowedHosts = ADFIT_ALLOWED_HOSTS.join(',');
 )}
 {canRenderPlaceholder && (
   <section class={`ad-slot ad-slot-${placement}`} aria-label="광고 영역" data-adfit-placeholder>
-    <span class="ad-label">광고</span>
     <div class="ad-placeholder">AdFit {slot.width}x{slot.height}</div>
   </section>
 )}

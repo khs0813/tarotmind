@@ -302,12 +302,6 @@ button:disabled { cursor: not-allowed; opacity: 0.58; }
 .ad-slot[hidden] {
   display: none;
 }
-.ad-label {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--muted-2);
-  font-size: 0.78rem;
-}
 .adfit-mount {
   margin-inline: auto;
 }
