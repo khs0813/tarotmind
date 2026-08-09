@@ -5,7 +5,7 @@ import FAQ from '../../components/FAQ.astro';
 import ReadingCard from '../../components/ReadingCard.astro';
 import { tarotReadingsEn } from '../../data/tarotReadingsEn';
 import { guidesEn } from '../../data/guidesEn';
-import { DEFAULT_LASTMOD, EN_SITE_DESCRIPTION, EN_SITE_NAME, getSiteUrl } from '../../data/site';
+import { DEFAULT_DATE_PUBLISHED, DEFAULT_LASTMOD, EN_SITE_DESCRIPTION, EN_SITE_NAME, getSiteUrl } from '../../data/site';
 
 const siteUrl = getSiteUrl();
 const faqs = [
@@ -43,7 +43,7 @@ const jsonLd = [
   canonicalPath="/en/"
   keywords={['free tarot reading', 'daily tarot', 'love tarot', 'yes or no tarot', 'career tarot', 'money tarot', 'AI tarot reading']}
   jsonLd={jsonLd}
-  datePublished={DEFAULT_LASTMOD}
+  datePublished={DEFAULT_DATE_PUBLISHED}
   dateModified={DEFAULT_LASTMOD}
 >
   <section class="hero">

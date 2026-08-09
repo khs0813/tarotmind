@@ -5,7 +5,7 @@ import AdSlot from '../../../components/AdSlot.astro';
 import FAQ from '../../../components/FAQ.astro';
 import type { GuidePage } from '../../../data/guides';
 import { guidesEn } from '../../../data/guidesEn';
-import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, EN_SITE_NAME, getSiteUrl } from '../../../data/site';
+import { DEFAULT_DATE_PUBLISHED, DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, EN_SITE_NAME, getSiteUrl } from '../../../data/site';
 
 export function getStaticPaths() {
   return guidesEn.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
@@ -88,7 +88,7 @@ const jsonLd = [
     url: pageUrl,
     mainEntityOfPage: pageUrl,
     inLanguage: 'en-US',
-    datePublished: DEFAULT_LASTMOD,
+    datePublished: DEFAULT_DATE_PUBLISHED,
     dateModified: DEFAULT_LASTMOD,
     image: [imageUrl],
     articleSection: 'Tarot Guides',
@@ -117,7 +117,7 @@ const jsonLd = [
   keywords={guideKeywords}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
-  datePublished={DEFAULT_LASTMOD}
+  datePublished={DEFAULT_DATE_PUBLISHED}
   dateModified={DEFAULT_LASTMOD}
 >
   <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />

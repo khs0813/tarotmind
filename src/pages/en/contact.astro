@@ -1,12 +1,12 @@
 ---
 import Layout from '../../components/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { DEFAULT_LASTMOD, getContactEmail } from '../../data/site';
+import { DEFAULT_DATE_PUBLISHED, DEFAULT_LASTMOD, getContactEmail } from '../../data/site';
 
 const breadcrumbs = [{ name: 'TarotMind', path: '/en/' }, { name: 'Contact', path: '/en/contact/' }];
 const email = getContactEmail();
 ---
-<Layout locale="en" title="Contact | TarotMind" description="Contact TarotMind about site issues, suggestions for new tarot topics, card meaning feedback, or advertising questions." canonicalPath="/en/contact/" pageType="ContactPage" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
+<Layout locale="en" title="Contact | TarotMind" description="Contact TarotMind about site issues, suggestions for new tarot topics, card meaning feedback, or advertising questions." canonicalPath="/en/contact/" pageType="ContactPage" breadcrumbs={breadcrumbs} datePublished={DEFAULT_DATE_PUBLISHED} dateModified={DEFAULT_LASTMOD}>
   <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
   <article class="container readable-content page-hero">
     <span class="eyebrow">Contact</span>

@@ -4,7 +4,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import { tarotCards } from '../../data/tarotCards';
 import { cardImageSrc } from '../../data/tarotImages';
-import { DEFAULT_LASTMOD, getSiteUrl } from '../../data/site';
+import { DEFAULT_DATE_PUBLISHED, DEFAULT_LASTMOD, getSiteUrl } from '../../data/site';
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '타로 카드 의미', path: '/cards/' }];
 const major = tarotCards.filter((card) => card.arcana === 'major');
 const minor = tarotCards.filter((card) => card.arcana === 'minor');
@@ -30,7 +30,7 @@ const jsonLd = [{
   keywords={['타로 카드 의미', '메이저 아르카나', '마이너 아르카나', '정방향 타로', '역방향 타로']}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
-  datePublished={DEFAULT_LASTMOD}
+  datePublished={DEFAULT_DATE_PUBLISHED}
   dateModified={DEFAULT_LASTMOD}
 >
   <Breadcrumbs items={breadcrumbs} />

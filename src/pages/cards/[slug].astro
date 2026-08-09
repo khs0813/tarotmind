@@ -6,7 +6,7 @@ import FAQ from '../../components/FAQ.astro';
 import RelatedReadings from '../../components/RelatedReadings.astro';
 import { tarotCards, type TarotCard } from '../../data/tarotCards';
 import { cardImageSrc } from '../../data/tarotImages';
-import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, SITE_NAME, getSiteUrl, josa } from '../../data/site';
+import { DEFAULT_DATE_PUBLISHED, DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, SITE_NAME, getSiteUrl, josa } from '../../data/site';
 
 export function getStaticPaths() {
   return tarotCards
@@ -66,7 +66,7 @@ const jsonLd = [
     url: pageUrl,
     mainEntityOfPage: pageUrl,
     inLanguage: 'ko-KR',
-    datePublished: DEFAULT_LASTMOD,
+    datePublished: DEFAULT_DATE_PUBLISHED,
     dateModified: DEFAULT_LASTMOD,
     image: [imageUrl],
     articleSection: '타로 카드 의미',
@@ -89,7 +89,7 @@ const jsonLd = [
   keywords={[`${card.nameKo} 카드 의미`, card.nameEn, ...card.keywords]}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
-  datePublished={DEFAULT_LASTMOD}
+  datePublished={DEFAULT_DATE_PUBLISHED}
   dateModified={DEFAULT_LASTMOD}
 >
   <Breadcrumbs items={breadcrumbs} />

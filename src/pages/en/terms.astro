@@ -1,11 +1,11 @@
 ---
 import Layout from '../../components/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { DEFAULT_LASTMOD } from '../../data/site';
+import { DEFAULT_DATE_PUBLISHED, DEFAULT_LASTMOD } from '../../data/site';
 
 const breadcrumbs = [{ name: 'TarotMind', path: '/en/' }, { name: 'Terms of Use', path: '/en/terms/' }];
 ---
-<Layout locale="en" title="Terms of Use | TarotMind" description="Review entertainment-use disclaimers, responsibility limits, advertising notices, and service-change terms for TarotMind." canonicalPath="/en/terms/" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
+<Layout locale="en" title="Terms of Use | TarotMind" description="Review entertainment-use disclaimers, responsibility limits, advertising notices, and service-change terms for TarotMind." canonicalPath="/en/terms/" breadcrumbs={breadcrumbs} datePublished={DEFAULT_DATE_PUBLISHED} dateModified={DEFAULT_LASTMOD}>
   <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
   <article class="container readable-content page-hero">
     <span class="eyebrow">Terms</span>

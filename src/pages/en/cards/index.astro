@@ -4,7 +4,7 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import AdSlot from '../../../components/AdSlot.astro';
 import { tarotCardsEn } from '../../../data/tarotCardsEn';
 import { cardImageSrc } from '../../../data/tarotImages';
-import { DEFAULT_LASTMOD, getSiteUrl } from '../../../data/site';
+import { DEFAULT_DATE_PUBLISHED, DEFAULT_LASTMOD, getSiteUrl } from '../../../data/site';
 
 const breadcrumbs = [{ name: 'TarotMind', path: '/en/' }, { name: 'Tarot Card Meanings', path: '/en/cards/' }];
 const major = tarotCardsEn.filter((card) => card.arcana === 'major');
@@ -32,7 +32,7 @@ const jsonLd = [{
   keywords={['tarot card meanings', 'major arcana meanings', 'minor arcana meanings', 'upright tarot', 'reversed tarot']}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
-  datePublished={DEFAULT_LASTMOD}
+  datePublished={DEFAULT_DATE_PUBLISHED}
   dateModified={DEFAULT_LASTMOD}
 >
   <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />

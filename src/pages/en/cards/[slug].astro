@@ -7,7 +7,7 @@ import RelatedReadings from '../../../components/RelatedReadings.astro';
 import { tarotCardsEn } from '../../../data/tarotCardsEn';
 import type { TarotCard } from '../../../data/tarotCards';
 import { cardImageSrc } from '../../../data/tarotImages';
-import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, EN_SITE_NAME, getSiteUrl } from '../../../data/site';
+import { DEFAULT_DATE_PUBLISHED, DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, EN_SITE_NAME, getSiteUrl } from '../../../data/site';
 
 export function getStaticPaths() {
   return tarotCardsEn.map((card) => ({ params: { slug: card.id }, props: { card } }));
@@ -66,7 +66,7 @@ const jsonLd = [
     url: pageUrl,
     mainEntityOfPage: pageUrl,
     inLanguage: 'en-US',
-    datePublished: DEFAULT_LASTMOD,
+    datePublished: DEFAULT_DATE_PUBLISHED,
     dateModified: DEFAULT_LASTMOD,
     image: [imageUrl],
     articleSection: 'Tarot Card Meanings',
@@ -90,7 +90,7 @@ const jsonLd = [
   keywords={[`${card.nameEn} tarot card meaning`, `${card.nameEn} reversed`, ...card.keywords]}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
-  datePublished={DEFAULT_LASTMOD}
+  datePublished={DEFAULT_DATE_PUBLISHED}
   dateModified={DEFAULT_LASTMOD}
 >
   <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />

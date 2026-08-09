@@ -8,7 +8,7 @@ import RelatedReadings from '../../../components/RelatedReadings.astro';
 import type { TarotReadingPage } from '../../../data/tarotReadings';
 import { tarotReadingsEn } from '../../../data/tarotReadingsEn';
 import { tarotCardsEn } from '../../../data/tarotCardsEn';
-import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, EN_SITE_NAME, getSiteUrl } from '../../../data/site';
+import { DEFAULT_DATE_PUBLISHED, DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, EN_SITE_NAME, getSiteUrl } from '../../../data/site';
 
 export function getStaticPaths() {
   return tarotReadingsEn.map((reading) => ({ params: { slug: reading.slug }, props: { reading } }));
@@ -62,7 +62,7 @@ const jsonLd = [
   keywords={seoKeywords}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
-  datePublished={DEFAULT_LASTMOD}
+  datePublished={DEFAULT_DATE_PUBLISHED}
   dateModified={DEFAULT_LASTMOD}
 >
   <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />

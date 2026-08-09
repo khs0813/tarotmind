@@ -3,7 +3,7 @@ import Layout from '../../components/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import { guides } from '../../data/guides';
-import { DEFAULT_LASTMOD, getSiteUrl } from '../../data/site';
+import { DEFAULT_DATE_PUBLISHED, DEFAULT_LASTMOD, getSiteUrl } from '../../data/site';
 const breadcrumbs = [{ name: '타로마음', path: '/' }, { name: '타로 가이드', path: '/guides/' }];
 const siteUrl = getSiteUrl();
 const jsonLd = [{
@@ -21,7 +21,7 @@ const jsonLd = [{
   keywords={['타로 가이드', '타로 카드 의미', '타로 보는 법', '메이저 아르카나', '타로 스프레드']}
   breadcrumbs={breadcrumbs}
   jsonLd={jsonLd}
-  datePublished={DEFAULT_LASTMOD}
+  datePublished={DEFAULT_DATE_PUBLISHED}
   dateModified={DEFAULT_LASTMOD}
 >
   <Breadcrumbs items={breadcrumbs} />
