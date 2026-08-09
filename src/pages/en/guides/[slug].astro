@@ -1,0 +1,152 @@
+---
+import Layout from '../../../components/Layout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import AdSlot from '../../../components/AdSlot.astro';
+import FAQ from '../../../components/FAQ.astro';
+import type { GuidePage } from '../../../data/guides';
+import { guidesEn } from '../../../data/guidesEn';
+import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, EN_SITE_NAME, getSiteUrl } from '../../../data/site';
+
+export function getStaticPaths() {
+  return guidesEn.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+
+const { guide } = Astro.props as { guide: GuidePage };
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/en/guides/${guide.slug}/`;
+const imageUrl = new URL(DEFAULT_OG_IMAGE, `${siteUrl}/`).toString();
+const guideKeywords = [guide.title.split('|')[0].trim(), 'tarot guide', 'how to read tarot', 'tarot card meanings'];
+const relatedLinksBySlug: Record<string, { href: string; label: string; description: string }[]> = {
+  'tarot-card-meaning': [
+    { href: '/en/cards/', label: 'All 78 tarot card meanings', description: 'Read Major and Minor Arcana upright and reversed meanings.' },
+    { href: '/en/cards/the-fool/', label: 'The Fool meaning', description: 'Start with the card of new beginnings and possibility.' },
+    { href: '/en/tarot/today/', label: 'Daily Tarot reading', description: 'Apply card meanings in a simple one-card reading.' }
+  ],
+  'how-to-read-tarot': [
+    { href: '/en/tarot/today/', label: 'Daily Tarot reading', description: 'Practice with a simple one-card spread.' },
+    { href: '/en/tarot/three-card/', label: 'Three Card Tarot', description: 'Read past, present, and future in a classic spread.' },
+    { href: '/en/guides/tarot-question-examples-50/', label: '50 tarot question examples', description: 'Use sample questions to make readings clearer.' }
+  ],
+  'major-arcana': [
+    { href: '/en/cards/the-fool/', label: 'The Fool meaning', description: 'Explore the beginning of the Major Arcana journey.' },
+    { href: '/en/cards/the-lovers/', label: 'The Lovers meaning', description: 'Read a card of choice, values, and relationship.' },
+    { href: '/en/cards/the-world/', label: 'The World meaning', description: 'Review completion, integration, and closure.' }
+  ],
+  'tarot-spread': [
+    { href: '/en/tarot/today/', label: 'Daily Tarot', description: 'Use a one-card spread immediately.' },
+    { href: '/en/tarot/three-card/', label: 'Three Card Tarot', description: 'Try a past-present-future layout.' },
+    { href: '/en/tarot/choice/', label: 'Choice Tarot', description: 'Compare two options with two cards.' }
+  ],
+  'love-tarot-question-examples': [
+    { href: '/en/tarot/love/', label: 'Love Tarot', description: 'Reflect on feelings and relationship dynamics.' },
+    { href: '/en/tarot/reunion/', label: 'Reconciliation Tarot', description: 'Review reconnection questions calmly.' },
+    { href: '/en/cards/the-lovers/', label: 'The Lovers meaning', description: 'Understand a key relationship card.' }
+  ],
+  'reunion-tarot-question-guide': [
+    { href: '/en/tarot/reunion/', label: 'Reconciliation Tarot', description: 'Check reconnection and boundaries.' },
+    { href: '/en/tarot/love/', label: 'Love Tarot', description: 'Review the current emotional dynamic.' },
+    { href: '/en/cards/judgement/', label: 'Judgement meaning', description: 'Read the card of reassessment and awakening.' }
+  ],
+  'yes-or-no-tarot-question-examples': [
+    { href: '/en/tarot/yes-or-no/', label: 'Yes or No Tarot', description: 'Ask one clear question for quick direction.' },
+    { href: '/en/tarot/choice/', label: 'Choice Tarot', description: 'Compare two paths if Yes or No feels too narrow.' },
+    { href: '/en/tarot/three-card/', label: 'Three Card Tarot', description: 'Add more context to a decision.' }
+  ],
+  'three-card-tarot-spread-guide': [
+    { href: '/en/tarot/three-card/', label: 'Three Card Tarot', description: 'Use the spread directly.' },
+    { href: '/en/tarot/career/', label: 'Career Tarot', description: 'Read situation, variable, and advice for work.' },
+    { href: '/en/tarot/money/', label: 'Money Tarot', description: 'Review financial patterns and spending cautions.' }
+  ],
+  'when-tarot-result-is-bad': [
+    { href: '/en/cards/the-tower/', label: 'The Tower meaning', description: 'Read disruption as a signal for rebuilding.' },
+    { href: '/en/cards/death/', label: 'Death meaning', description: 'Understand ending, transition, and renewal.' },
+    { href: '/en/tarot/today/', label: 'Daily Tarot', description: 'Return to one practical action for today.' }
+  ],
+  'tarot-suits-wands-cups-swords-pentacles': [
+    { href: '/en/cards/wands-ace/', label: 'Ace of Wands meaning', description: 'Start with the first Wands card.' },
+    { href: '/en/cards/cups-ace/', label: 'Ace of Cups meaning', description: 'Read emotional beginnings and openness.' },
+    { href: '/en/cards/pentacles-ace/', label: 'Ace of Pentacles meaning', description: 'Review practical opportunities and stability.' }
+  ]
+};
+const relatedLinks = relatedLinksBySlug[guide.slug] ?? [
+  { href: '/en/tarot/today/', label: 'Daily Tarot', description: 'Apply the guide with a one-card reading.' },
+  { href: '/en/cards/', label: 'Tarot card meanings', description: 'Read all 78 card meanings.' },
+  { href: '/en/guides/tarot-question-examples-50/', label: 'Tarot question examples', description: 'Choose clearer questions before drawing cards.' }
+];
+const breadcrumbs = [
+  { name: 'TarotMind', path: '/en/' },
+  { name: 'Tarot Guides', path: '/en/guides/' },
+  { name: guide.title.split('|')[0].trim(), path: `/en/guides/${guide.slug}/` }
+];
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@id': `${pageUrl}#article`,
+    '@type': 'Article',
+    headline: guide.title.split('|')[0].trim(),
+    description: guide.description,
+    url: pageUrl,
+    mainEntityOfPage: pageUrl,
+    inLanguage: 'en-US',
+    datePublished: DEFAULT_LASTMOD,
+    dateModified: DEFAULT_LASTMOD,
+    image: [imageUrl],
+    articleSection: 'Tarot Guides',
+    keywords: guideKeywords.join(', '),
+    author: { '@type': 'Organization', name: EN_SITE_NAME, url: siteUrl },
+    publisher: {
+      '@type': 'Organization',
+      name: EN_SITE_NAME,
+      url: siteUrl,
+      logo: { '@type': 'ImageObject', url: imageUrl, width: 1200, height: 630 }
+    }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: guide.faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+  }
+];
+---
+<Layout
+  locale="en"
+  title={guide.title}
+  description={guide.description}
+  canonicalPath={`/en/guides/${guide.slug}/`}
+  ogType="article"
+  keywords={guideKeywords}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
+>
+  <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
+  <section class="page-hero container">
+    <span class="eyebrow">Tarot Guide</span>
+    <h1>{guide.title.split('|')[0].trim()}</h1>
+    <p>{guide.intro}</p>
+  </section>
+  <AdSlot placement="hub-primary" locale="en" />
+  <article class="container readable-content">
+    {guide.sections.map((section) => (
+      <section class="content-section">
+        <h2>{section.title}</h2>
+        <p>{section.content}</p>
+      </section>
+    ))}
+    <section class="content-section">
+      <h2>Related Readings and Guides</h2>
+      <div class="card-grid-list">
+        {relatedLinks.map((link) => (
+          <article class="feature-card">
+            <span class="eyebrow">Related</span>
+            <h3>{link.label}</h3>
+            <p>{link.description}</p>
+            <a class="card-link" href={link.href}>{link.label} -></a>
+          </article>
+        ))}
+      </div>
+    </section>
+    <FAQ faqs={guide.faqs} title="Frequently Asked Questions" />
+  </article>
+</Layout>

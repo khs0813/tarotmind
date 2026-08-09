@@ -1,0 +1,113 @@
+---
+import Layout from '../../components/Layout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import FAQ from '../../components/FAQ.astro';
+import ReadingCard from '../../components/ReadingCard.astro';
+import { tarotReadingsEn } from '../../data/tarotReadingsEn';
+import { guidesEn } from '../../data/guidesEn';
+import { DEFAULT_LASTMOD, EN_SITE_DESCRIPTION, EN_SITE_NAME, getSiteUrl } from '../../data/site';
+
+const siteUrl = getSiteUrl();
+const faqs = [
+  { question: 'Does TarotMind use a real AI API?', answer: 'In this static version, TarotMind does not call an external AI API. It combines tarot card data and topic-specific templates into AI-style reading text.' },
+  { question: 'Are reading results stored on the server?', answer: 'No. Results are not stored on a server. If you choose to save recent readings, they are saved only in your current browser.' },
+  { question: 'Can tarot results be used for important decisions?', answer: 'This content is for entertainment and reflection. For important decisions about health, law, investing, money, or relationships, use qualified advice and real-world information.' }
+];
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Free AI-style tarot readings',
+    itemListElement: tarotReadingsEn.map((reading, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: reading.shortTitle,
+      url: `${siteUrl}/en/tarot/${reading.slug}/`
+    }))
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer }
+    }))
+  }
+];
+---
+<Layout
+  locale="en"
+  title={`${EN_SITE_NAME} | Free AI-style Tarot Readings`}
+  description={EN_SITE_DESCRIPTION}
+  canonicalPath="/en/"
+  keywords={['free tarot reading', 'daily tarot', 'love tarot', 'yes or no tarot', 'career tarot', 'money tarot', 'AI tarot reading']}
+  jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Free AI-style tarot readings</span>
+        <h1>Free tarot readings for daily guidance, love, career, and decisions</h1>
+        <p>Pick your cards and receive a reflective tarot reading in your browser. No login, no server-side result storage, and clear advice for your next step.</p>
+        <div class="hero-actions">
+          <a class="primary-button" href="/en/tarot/today/">Start Daily Tarot</a>
+          <a class="secondary-button" href="/en/tarot/">Browse Readings</a>
+        </div>
+      </div>
+      <div class="hero-card-stack" aria-hidden="true">
+        <div class="hero-tarot-card">✦</div>
+        <div class="hero-tarot-card hero-tarot-card-alt">☾</div>
+      </div>
+    </div>
+  </section>
+
+  <AdSlot placement="hub-primary" locale="en" />
+
+  <section class="container content-section popular-readings">
+    <div class="section-heading">
+      <span class="eyebrow">Popular readings</span>
+      <h2>Free tarot spreads by question type</h2>
+      <p>Draw cards immediately and save recent readings only when you choose to store them in this browser.</p>
+    </div>
+    <div class="card-grid-list">
+      {tarotReadingsEn.map((reading) => <ReadingCard reading={reading} locale="en" />)}
+    </div>
+  </section>
+
+  <section class="container content-section two-column-section">
+    <div class="info-card">
+      <h2>Learn tarot card meanings</h2>
+      <p>Read the 78 Major and Minor Arcana cards with upright, reversed, love, career, and money interpretations.</p>
+      <a class="text-link" href="/en/cards/">View tarot card meanings -></a>
+    </div>
+    <div class="info-card">
+      <h2>Beginner tarot guides</h2>
+      <p>Learn how to ask tarot questions, choose spreads, and use results as practical reflection instead of fixed predictions.</p>
+      <a class="text-link" href="/en/guides/">Open tarot guides -></a>
+    </div>
+  </section>
+
+  <section class="container content-section">
+    <div class="section-heading">
+      <span class="eyebrow">Tarot guides</span>
+      <h2>Understand tarot with practical articles</h2>
+    </div>
+    <div class="card-grid-list">
+      {guidesEn.slice(0, 4).map((guide) => (
+        <article class="feature-card">
+          <span class="eyebrow">Guide</span>
+          <h3>{guide.title.split('|')[0].trim()}</h3>
+          <p>{guide.description}</p>
+          <a class="card-link" href={`/en/guides/${guide.slug}/`}>Read guide -></a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="container">
+    <FAQ faqs={faqs} title="Frequently Asked Questions" />
+  </section>
+</Layout>

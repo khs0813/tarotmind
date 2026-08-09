@@ -1,0 +1,48 @@
+---
+import Layout from '../../../components/Layout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import AdSlot from '../../../components/AdSlot.astro';
+import { guidesEn } from '../../../data/guidesEn';
+import { DEFAULT_LASTMOD, getSiteUrl } from '../../../data/site';
+
+const breadcrumbs = [{ name: 'TarotMind', path: '/en/' }, { name: 'Tarot Guides', path: '/en/guides/' }];
+const siteUrl = getSiteUrl();
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Tarot guides',
+  itemListElement: guidesEn.map((guide, index) => ({ '@type': 'ListItem', position: index + 1, name: guide.title, url: `${siteUrl}/en/guides/${guide.slug}/` }))
+}];
+---
+<Layout
+  locale="en"
+  title="Tarot Guides | How to Read Tarot and Ask Better Questions"
+  description="Beginner-friendly tarot guides for card meanings, spreads, love questions, reconciliation questions, and practical interpretation."
+  canonicalPath="/en/guides/"
+  pageType="CollectionPage"
+  keywords={['tarot guide', 'how to read tarot', 'tarot card meanings', 'tarot spreads', 'tarot questions']}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
+>
+  <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
+  <section class="page-hero container">
+    <span class="eyebrow">Tarot guides</span>
+    <h1>How to read tarot and ask better questions</h1>
+    <p>Learn card meanings, question wording, tarot spreads, and practical ways to use readings without treating them as fixed predictions.</p>
+  </section>
+  <AdSlot placement="hub-primary" locale="en" />
+  <section class="container content-section">
+    <div class="card-grid-list">
+      {guidesEn.map((guide) => (
+        <article class="feature-card">
+          <span class="eyebrow">Guide</span>
+          <h3>{guide.title.split('|')[0].trim()}</h3>
+          <p>{guide.description}</p>
+          <a class="card-link" href={`/en/guides/${guide.slug}/`}>Read guide -></a>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

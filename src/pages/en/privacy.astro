@@ -1,0 +1,31 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { DEFAULT_LASTMOD, getContactEmail } from '../../data/site';
+
+const breadcrumbs = [{ name: 'TarotMind', path: '/en/' }, { name: 'Privacy Policy', path: '/en/privacy/' }];
+const email = getContactEmail();
+---
+<Layout locale="en" title="Privacy Policy | TarotMind" description="Read how TarotMind handles browser storage, localStorage reading history, contact email, and advertising areas." canonicalPath="/en/privacy/" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
+  <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
+  <article class="container readable-content page-hero">
+    <span class="eyebrow">Privacy</span>
+    <h1>Privacy Policy</h1>
+    <section class="content-section">
+      <h2>Account Creation and Server Storage</h2>
+      <p>TarotMind does not provide account creation, login, comments, or public posting features. Tarot results are not stored in a server database.</p>
+    </section>
+    <section class="content-section">
+      <h2>Browser Storage</h2>
+      <p>Only when you choose “Save recent readings in this browser” can reading results be stored in the current browser’s localStorage. Avoid using this feature on shared computers.</p>
+    </section>
+    <section class="content-section">
+      <h2>Advertising Notice</h2>
+      <p>This site may include Kakao AdFit advertising areas. Cookies or access data may be processed during ad delivery. Google AdSense and affiliate product areas are not used.</p>
+    </section>
+    <section class="content-section">
+      <h2>Contact</h2>
+      <p>For privacy questions, email <a href={`mailto:${email}`}>{email}</a>.</p>
+    </section>
+  </article>
+</Layout>

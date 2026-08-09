@@ -1,0 +1,42 @@
+---
+import Layout from '../../../components/Layout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import AdSlot from '../../../components/AdSlot.astro';
+import ReadingCard from '../../../components/ReadingCard.astro';
+import { tarotReadingsEn } from '../../../data/tarotReadingsEn';
+import { DEFAULT_LASTMOD, getSiteUrl } from '../../../data/site';
+
+const breadcrumbs = [{ name: 'TarotMind', path: '/en/' }, { name: 'Tarot Readings', path: '/en/tarot/' }];
+const siteUrl = getSiteUrl();
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Free tarot readings',
+  itemListElement: tarotReadingsEn.map((reading, index) => ({ '@type': 'ListItem', position: index + 1, name: reading.shortTitle, url: `${siteUrl}/en/tarot/${reading.slug}/` }))
+}];
+---
+<Layout
+  locale="en"
+  title="Free Tarot Readings | TarotMind"
+  description="Browse free tarot readings for daily guidance, love, reconciliation, career, money, yes-or-no questions, and two-option decisions."
+  canonicalPath="/en/tarot/"
+  pageType="CollectionPage"
+  keywords={['free tarot reading', 'daily tarot', 'love tarot', 'reconciliation tarot', 'career tarot', 'money tarot', 'yes or no tarot']}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
+>
+  <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
+  <section class="page-hero container">
+    <span class="eyebrow">Tarot reading library</span>
+    <h1>Free AI-style tarot readings</h1>
+    <p>Choose a spread for today’s message, love, reconciliation, career, money, yes-or-no questions, or comparing two options.</p>
+  </section>
+  <AdSlot placement="hub-primary" locale="en" />
+  <section class="container content-section">
+    <div class="card-grid-list">
+      {tarotReadingsEn.map((reading) => <ReadingCard reading={reading} locale="en" />)}
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,174 @@
+---
+import Layout from '../../../components/Layout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import AdSlot from '../../../components/AdSlot.astro';
+import FAQ from '../../../components/FAQ.astro';
+import RelatedReadings from '../../../components/RelatedReadings.astro';
+import { tarotCardsEn } from '../../../data/tarotCardsEn';
+import type { TarotCard } from '../../../data/tarotCards';
+import { cardImageSrc } from '../../../data/tarotImages';
+import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, EN_SITE_NAME, getSiteUrl } from '../../../data/site';
+
+export function getStaticPaths() {
+  return tarotCardsEn.map((card) => ({ params: { slug: card.id }, props: { card } }));
+}
+
+const { card } = Astro.props as { card: TarotCard };
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/en/cards/${card.id}/`;
+const cardImagePath = cardImageSrc(card);
+const imageUrl = new URL(DEFAULT_OG_IMAGE, `${siteUrl}/`).toString();
+const currentIndex = tarotCardsEn.findIndex((item) => item.id === card.id);
+const relatedCards = [
+  tarotCardsEn[(currentIndex + tarotCardsEn.length - 1) % tarotCardsEn.length],
+  tarotCardsEn[(currentIndex + 1) % tarotCardsEn.length],
+  tarotCardsEn[(currentIndex + 22) % tarotCardsEn.length]
+].filter((item, index, arr) => item.id !== card.id && arr.findIndex((other) => other.id === item.id) === index);
+const relatedReadingSlugs = card.suit === 'cups' || ['the-lovers', 'the-star', 'judgement'].includes(card.id)
+  ? ['love', 'reunion', 'choice']
+  : card.suit === 'pentacles' || ['the-emperor', 'justice', 'the-chariot'].includes(card.id)
+    ? ['career', 'money', 'three-card']
+    : ['today', 'three-card', 'yes-or-no'];
+const faqs = [
+  {
+    question: `Is ${card.nameEn} a good tarot card?`,
+    answer: `${card.nameEn} is best read through context rather than as simply good or bad. Its core themes are ${card.keywords.slice(0, 3).join(', ')}.`
+  },
+  {
+    question: `Is ${card.nameEn} reversed always negative?`,
+    answer: `No. A reversed card can show delay, imbalance, excess, or a need to adjust the same theme. ${card.reversed.advice}`
+  },
+  {
+    question: `What does ${card.nameEn} mean in love tarot?`,
+    answer: card.upright.love
+  }
+];
+const arcanaLabel = card.arcana === 'major' ? `Major Arcana ${card.number}` : `Minor Arcana · ${card.suit ? card.suit[0].toUpperCase() + card.suit.slice(1) : 'Tarot'}`;
+const symbolSummary = card.arcana === 'major'
+  ? `${card.nameEn} belongs to the Major Arcana and points to themes of ${card.keywords.join(', ')} as larger life patterns. Read the image and symbols through the question and spread position rather than treating the card as a fixed prediction.`
+  : `${card.nameEn} belongs to the ${card.suit ? card.suit[0].toUpperCase() + card.suit.slice(1) : 'Minor Arcana'} suit and shows ${card.keywords.slice(0, 3).join(', ')} through daily choices, habits, feelings, or practical details.`;
+const reconciliationMeaning = `In a reconciliation reading, ${card.nameEn} asks you to review the emotional dynamics and the real conditions for reconnecting. ${card.upright.love} Avoid treating the card as a guarantee that someone will return.`;
+const cardCombinationText = relatedCards.length > 0
+  ? `When ${card.nameEn} appears with ${relatedCards.map((item) => item.nameEn).join(', ')}, the theme of ${card.keywords[0]} may become stronger. Similar keywords can show the core issue, while contrasting cards can point to what needs balance.`
+  : `${card.nameEn} changes meaning with the surrounding cards. Repeated keywords strengthen a theme, while contrasting cards show what needs adjustment.`;
+const breadcrumbs = [
+  { name: 'TarotMind', path: '/en/' },
+  { name: 'Tarot Card Meanings', path: '/en/cards/' },
+  { name: card.nameEn, path: `/en/cards/${card.id}/` }
+];
+const description = `Learn the meaning of ${card.nameEn} for upright and reversed tarot readings, love, reconciliation, career, money, and practical advice.`;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: `${card.nameEn} Tarot Card Meaning`,
+    description,
+    url: pageUrl,
+    mainEntityOfPage: pageUrl,
+    inLanguage: 'en-US',
+    datePublished: DEFAULT_LASTMOD,
+    dateModified: DEFAULT_LASTMOD,
+    image: [imageUrl],
+    articleSection: 'Tarot Card Meanings',
+    keywords: card.keywords.join(', '),
+    author: { '@type': 'Organization', name: EN_SITE_NAME, url: siteUrl },
+    publisher: { '@type': 'Organization', name: EN_SITE_NAME, url: siteUrl, logo: { '@type': 'ImageObject', url: imageUrl, width: 1200, height: 630 } }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+  }
+];
+---
+<Layout
+  locale="en"
+  title={`${card.nameEn} Tarot Card Meaning | Upright, Reversed, Love, and Money`}
+  description={description}
+  canonicalPath={`/en/cards/${card.id}/`}
+  ogType="article"
+  keywords={[`${card.nameEn} tarot card meaning`, `${card.nameEn} reversed`, ...card.keywords]}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
+>
+  <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
+  <section class="page-hero container">
+    <span class="eyebrow">{arcanaLabel}</span>
+    <h1>{card.nameEn} Tarot Card Meaning</h1>
+    <p>{card.nameEn} highlights themes of {card.keywords.join(', ')} in tarot readings.</p>
+    <div class="keyword-chips">{card.keywords.map((keyword) => <span>{keyword}</span>)}</div>
+  </section>
+
+  <article class="container readable-content">
+    <div class="card-detail-lead-grid">
+      <figure class="card-detail-image-panel">
+        <img class="card-detail-image" src={cardImagePath} alt={`${card.nameEn} tarot card image`} width="500" height="866" decoding="async" />
+        <figcaption>{card.nameEn}</figcaption>
+      </figure>
+      <div class="card-core-content">
+        <section class="content-section">
+          <h2>Core Keywords</h2>
+          <p>{card.upright.general}</p>
+          <p>{card.caution}</p>
+        </section>
+        <section class="content-section">
+          <h2>Image and Symbolism</h2>
+          <p>{symbolSummary}</p>
+        </section>
+        <section class="content-section">
+          <h2>Upright Meaning</h2>
+          <p>{card.upright.general}</p>
+          <p>{card.upright.advice}</p>
+        </section>
+        <section class="content-section">
+          <h2>Reversed Meaning</h2>
+          <p>{card.reversed.general}</p>
+          <p>{card.reversed.advice}</p>
+        </section>
+      </div>
+      <AdSlot placement="card-detail-primary" locale="en" />
+    </div>
+    <section class="content-section">
+      <h2>Love Meaning</h2>
+      <p>{card.upright.love}</p>
+      <p>{card.reversed.love}</p>
+    </section>
+    <section class="content-section">
+      <h2>Reconciliation Meaning</h2>
+      <p>{reconciliationMeaning}</p>
+    </section>
+    <section class="content-section">
+      <h2>Career Meaning</h2>
+      <p>{card.upright.career}</p>
+      <p>{card.reversed.career}</p>
+    </section>
+    <section class="content-section">
+      <h2>Money Meaning</h2>
+      <p>{card.upright.money}</p>
+      <p>{card.reversed.money}</p>
+    </section>
+    <section class="content-section warning-box">
+      <h2>Advice for Today</h2>
+      <p>{card.action}</p>
+    </section>
+    <section class="content-section">
+      <h2>Card Combinations</h2>
+      <p>{cardCombinationText}</p>
+      <div class="card-grid-list">
+        {relatedCards.map((item) => (
+          <article class="feature-card">
+            <img class="related-card-image" src={cardImageSrc(item)} alt={`${item.nameEn} tarot card image`} width="500" height="866" loading="lazy" decoding="async" />
+            <span class="eyebrow">{item.arcana === 'major' ? `Major ${item.number}` : 'Minor Arcana'}</span>
+            <h3>{item.nameEn}</h3>
+            <p>{item.keywords.join(' · ')}</p>
+            <a class="card-link" href={`/en/cards/${item.id}/`}>Read {item.nameEn} meaning -></a>
+          </article>
+        ))}
+      </div>
+    </section>
+    <RelatedReadings slugs={relatedReadingSlugs} locale="en" />
+    <FAQ faqs={faqs} title="Frequently Asked Questions" />
+  </article>
+</Layout>

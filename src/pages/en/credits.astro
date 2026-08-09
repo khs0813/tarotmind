@@ -1,0 +1,33 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { DEFAULT_LASTMOD } from '../../data/site';
+
+const breadcrumbs = [{ name: 'TarotMind', path: '/en/' }, { name: 'Image Credits', path: '/en/credits/' }];
+---
+<Layout locale="en" title="Image Credits | TarotMind" description="Review the tarot card image sources and licensing standards used by TarotMind." canonicalPath="/en/credits/" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
+  <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
+  <section class="page-hero container">
+    <span class="eyebrow">Image credits</span>
+    <h1>Tarot Card Image License</h1>
+    <p>TarotMind uses images only when commercial use is permitted or the license can be clearly verified.</p>
+  </section>
+
+  <section class="container content-section readable-content">
+    <h2>Use Standards</h2>
+    <p>Images are used only when they are public domain, CC0, CC BY, commercially usable, or covered by a separate paid license.</p>
+
+    <h2>Current Card Images</h2>
+    <p>The 78 tarot card images currently shown in readings are local copies of Rider-Waite-Smith public domain files verified through Wikimedia Commons.</p>
+    <ul>
+      <li><a class="text-link" href="/tarot/rws/MANIFEST.json">File source and license manifest</a></li>
+      <li><a class="text-link" href="/tarot/rws/SHA256SUMS">Local image integrity hashes</a></li>
+      <li><a class="text-link" href="https://commons.wikimedia.org/wiki/File:RWS_Tarot_00_Fool.jpg" rel="nofollow noopener" target="_blank">Representative source: RWS Tarot 00 Fool.jpg</a></li>
+      <li><a class="text-link" href="https://commons.wikimedia.org/wiki/File:Wands01.jpg" rel="nofollow noopener" target="_blank">Representative source: Wands01.jpg</a></li>
+      <li><a class="text-link" href="https://en.wikipedia.org/wiki/Rider%E2%80%93Waite_Tarot" rel="nofollow noopener" target="_blank">Rider-Waite Tarot reference</a></li>
+    </ul>
+
+    <h2>Operating Principle</h2>
+    <p>Images with unclear source or license information are not used. If images are replaced later, the same standard will be applied and source, license, and integrity data will be kept with the local image folder.</p>
+  </section>
+</Layout>

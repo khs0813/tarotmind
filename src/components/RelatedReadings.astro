@@ -1,18 +1,24 @@
 ---
 import { tarotReadings } from '../data/tarotReadings';
-const { slugs, title = '관련 타로 리딩' } = Astro.props as { slugs: string[]; title?: string };
-const readings = slugs.map((slug) => tarotReadings.find((item) => item.slug === slug)).filter(Boolean);
+import { tarotReadingsEn } from '../data/tarotReadingsEn';
+import { type SiteLocale } from '../data/site';
+const { slugs, title, locale = 'ko' } = Astro.props as { slugs: string[]; title?: string; locale?: SiteLocale };
+const source = locale === 'en' ? tarotReadingsEn : tarotReadings;
+const basePath = locale === 'en' ? '/en' : '';
+const fallbackTitle = locale === 'en' ? 'Related Tarot Readings' : '관련 타로 리딩';
+const eyebrow = locale === 'en' ? 'Tarot Reading' : '타로 리딩';
+const readings = slugs.map((slug) => source.find((item) => item.slug === slug)).filter(Boolean);
 ---
 {readings.length > 0 && (
   <section class="content-section related-section">
-    <h2>{title}</h2>
+    <h2>{title ?? fallbackTitle}</h2>
     <div class="card-grid-list">
       {readings.map((reading) => reading && (
         <article class="feature-card">
-          <span class="eyebrow">타로 리딩</span>
+          <span class="eyebrow">{eyebrow}</span>
           <h3>{reading.shortTitle}</h3>
           <p>{reading.summary}</p>
-          <a class="card-link" href={`/tarot/${reading.slug}/`}>{reading.shortTitle} 보기 →</a>
+          <a class="card-link" href={`${basePath}/tarot/${reading.slug}/`}>{locale === 'en' ? `Open ${reading.shortTitle} ->` : `${reading.shortTitle} 보기 →`}</a>
         </article>
       ))}
     </div>

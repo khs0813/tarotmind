@@ -104,6 +104,26 @@ button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
   white-space: nowrap;
 }
 .main-nav a:hover { color: #fff; }
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding-left: 8px;
+  color: var(--muted-2);
+}
+.language-switch a {
+  min-height: 32px;
+  padding: 4px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+.language-switch a.is-active {
+  border-color: rgba(245, 158, 11, 0.65);
+  color: #fde68a;
+}
 
 .hero {
   padding: 72px 0 42px;
@@ -438,6 +458,18 @@ td { color: var(--muted); }
     padding: 8px 12px;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.06);
+  }
+  .language-switch {
+    min-height: 42px;
+    padding-left: 0;
+    gap: 4px;
+  }
+  .main-nav .language-switch a {
+    min-height: 42px;
+    padding-inline: 8px;
+  }
+  .main-nav .language-switch a.is-active {
+    display: none;
   }
   .hero {
     padding: 34px 0 28px;

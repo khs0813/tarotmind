@@ -1,0 +1,31 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { DEFAULT_LASTMOD } from '../../data/site';
+
+const breadcrumbs = [{ name: 'TarotMind', path: '/en/' }, { name: 'Terms of Use', path: '/en/terms/' }];
+---
+<Layout locale="en" title="Terms of Use | TarotMind" description="Review entertainment-use disclaimers, responsibility limits, advertising notices, and service-change terms for TarotMind." canonicalPath="/en/terms/" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
+  <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
+  <article class="container readable-content page-hero">
+    <span class="eyebrow">Terms</span>
+    <h1>Terms of Use</h1>
+    <section class="content-section">
+      <h2>Service Purpose</h2>
+      <p>TarotMind provides free tarot content so users can reflect on their thoughts and use card readings in a light, low-stakes way.</p>
+    </section>
+    <section class="content-section warning-box">
+      <h2>Entertainment and Reflection Content</h2>
+      <p>Tarot results are for entertainment and reflection. TarotMind does not guarantee accuracy, specific outcomes, reconciliation, financial gain, employment, or a successful job change.</p>
+      <p>Do not make major decisions about health, law, investing, money, work, or relationships based only on tarot results. Use qualified professional advice and real-world information.</p>
+    </section>
+    <section class="content-section">
+      <h2>Advertising Notice</h2>
+      <p>The site may include Kakao AdFit advertising areas. Ads and content are displayed as separate areas.</p>
+    </section>
+    <section class="content-section">
+      <h2>Service Changes</h2>
+      <p>Site structure, reading text, guide content, and advertising areas may change depending on operating needs.</p>
+    </section>
+  </article>
+</Layout>

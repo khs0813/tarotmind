@@ -1,0 +1,21 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { DEFAULT_LASTMOD, getContactEmail } from '../../data/site';
+
+const breadcrumbs = [{ name: 'TarotMind', path: '/en/' }, { name: 'Contact', path: '/en/contact/' }];
+const email = getContactEmail();
+---
+<Layout locale="en" title="Contact | TarotMind" description="Contact TarotMind about site issues, suggestions for new tarot topics, card meaning feedback, or advertising questions." canonicalPath="/en/contact/" pageType="ContactPage" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
+  <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
+  <article class="container readable-content page-hero">
+    <span class="eyebrow">Contact</span>
+    <h1>Contact TarotMind</h1>
+    <p>Email us about tarot reading errors, card meaning feedback, suggestions for new reading topics, or advertising questions.</p>
+    <p><a class="primary-button" href={`mailto:${email}`}>Email {email}</a></p>
+    <section class="content-section">
+      <h2>Before Contacting</h2>
+      <p>Because this is a database-free static site, a server-stored contact form is not provided. Your email service’s own policy applies when you send an email.</p>
+    </section>
+  </article>
+</Layout>

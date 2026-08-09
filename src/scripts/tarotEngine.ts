@@ -20,6 +20,7 @@ type TarotCard = {
 type ReadingConfig = {
   slug: string;
   shortTitle: string;
+  locale?: 'ko' | 'en';
   category: 'daily' | 'love' | 'career' | 'money' | 'choice';
   spreadType: 'one-card' | 'three-card' | 'yes-no' | 'choice';
   positions: { id: string; label: string; description: string }[];
@@ -60,6 +61,19 @@ function orientationLabel(orientation: DrawnCard['orientation']): string {
   return orientation === 'upright' ? '정방향' : '역방향';
 }
 
+function localizedOrientationLabel(orientation: DrawnCard['orientation'], locale: ReadingConfig['locale']): string {
+  if (locale === 'en') return orientation === 'upright' ? 'Upright' : 'Reversed';
+  return orientationLabel(orientation);
+}
+
+function cardDisplayName(card: TarotCard, locale: ReadingConfig['locale']): string {
+  return locale === 'en' ? card.nameEn : card.nameKo;
+}
+
+function storageKey(config: ReadingConfig): string {
+  return config.locale === 'en' ? `tarotmind.readings.en.${config.slug}` : `tarotmind.readings.${config.slug}`;
+}
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
@@ -74,78 +88,99 @@ function makeOrientation(useReversed: boolean): 'upright' | 'reversed' {
   return Math.random() < 0.25 ? 'reversed' : 'upright';
 }
 
-function computeYesNo(card: DrawnCard): string {
+function computeYesNo(card: DrawnCard, locale: ReadingConfig['locale']): string {
   const positiveIds = new Set(['the-sun', 'the-star', 'the-world', 'the-magician', 'the-empress', 'the-chariot', 'strength', 'temperance', 'wheel-of-fortune']);
   const cautiousIds = new Set(['the-devil', 'the-tower', 'the-moon', 'death', 'the-hanged-man']);
   if (card.orientation === 'reversed' || cautiousIds.has(card.card.id)) {
+    if (locale === 'en') return 'The reading leans No, or asks you to pause and check the situation more carefully.';
     return '지금은 No에 가깝거나, 조금 더 신중하게 확인할 필요가 있습니다.';
   }
   if (positiveIds.has(card.card.id)) {
+    if (locale === 'en') return 'The reading leans Yes. Still, check the practical conditions before deciding.';
     return '지금 흐름은 Yes에 가깝습니다. 다만 현실 조건을 함께 확인하세요.';
   }
+  if (locale === 'en') return 'This reads as Maybe. There is still something to review before you decide.';
   return 'Maybe에 가깝습니다. 아직 결정하기 전 한 번 더 살펴볼 부분이 있습니다.';
 }
 
 function buildResult(config: ReadingConfig, cards: DrawnCard[], choiceA: string, choiceB: string): ReadingResult {
   const topic = getTopic(config.category);
   const mainKeywords = cards.flatMap((item) => item.card.keywords.slice(0, 2)).slice(0, 5).join(', ');
-  let summary = `${config.shortTitle}에서 보이는 핵심 키워드는 ${mainKeywords}입니다. 결과는 확정적인 예언이 아니라 지금 흐름을 차분히 살펴보는 참고 문장입니다.`;
+  let summary = config.locale === 'en'
+    ? `The key themes in this ${config.shortTitle} reading are ${mainKeywords}. Treat the result as reflective guidance, not a fixed prediction.`
+    : `${config.shortTitle}에서 보이는 핵심 키워드는 ${mainKeywords}입니다. 결과는 확정적인 예언이 아니라 지금 흐름을 차분히 살펴보는 참고 문장입니다.`;
 
   if (config.spreadType === 'yes-no') {
-    summary = computeYesNo(cards[0]);
+    summary = computeYesNo(cards[0], config.locale);
   }
 
   const sections = cards.map((drawn, index) => {
     const meaning = drawn.card[drawn.orientation][topic];
     const positionName = config.spreadType === 'choice' && index === 0 && choiceA ? choiceA : config.spreadType === 'choice' && index === 1 && choiceB ? choiceB : drawn.position.label;
     return {
-      title: `${positionName} · ${drawn.card.nameKo} (${orientationLabel(drawn.orientation)})`,
-      content: `${meaning} ${drawn.position.description} 이 카드는 “${drawn.card.keywords.join(', ')}”의 키워드를 함께 참고하면 좋습니다.`
+      title: `${positionName} · ${cardDisplayName(drawn.card, config.locale)} (${localizedOrientationLabel(drawn.orientation, config.locale)})`,
+      content: config.locale === 'en'
+        ? `${meaning} ${drawn.position.description} Read this card together with the keywords "${drawn.card.keywords.join(', ')}."`
+        : `${meaning} ${drawn.position.description} 이 카드는 “${drawn.card.keywords.join(', ')}”의 키워드를 함께 참고하면 좋습니다.`
     };
   });
 
   if (config.spreadType === 'choice' && cards.length >= 2) {
     sections.push({
-      title: '선택 비교 조언',
-      content: `${choiceA || '선택 A'}는 ${cards[0].card.keywords[0]}의 흐름이 강하고, ${choiceB || '선택 B'}는 ${cards[1].card.keywords[0]}의 흐름이 보입니다. 어느 쪽이 무조건 옳다는 뜻은 아니며, 현실 조건과 마음의 부담을 함께 비교해보세요.`
+      title: config.locale === 'en' ? 'Choice Comparison Advice' : '선택 비교 조언',
+      content: config.locale === 'en'
+        ? `${choiceA || 'Option A'} carries a stronger ${cards[0].card.keywords[0]} tone, while ${choiceB || 'Option B'} shows ${cards[1].card.keywords[0]}. This does not mean one option is automatically right; compare both practical conditions and emotional cost.`
+        : `${choiceA || '선택 A'}는 ${cards[0].card.keywords[0]}의 흐름이 강하고, ${choiceB || '선택 B'}는 ${cards[1].card.keywords[0]}의 흐름이 보입니다. 어느 쪽이 무조건 옳다는 뜻은 아니며, 현실 조건과 마음의 부담을 함께 비교해보세요.`
     });
   } else if (config.spreadType === 'yes-no') {
     sections.push({
-      title: '답변을 활용하는 방법',
-      content: 'Yes, Maybe, No는 결정을 강요하는 답이 아닙니다. 지금 흐름이 어느 쪽에 가까운지 확인하고, 실제 정보와 내 상황을 함께 점검하는 기준으로 활용하세요.'
+      title: config.locale === 'en' ? 'How to Use This Answer' : '답변을 활용하는 방법',
+      content: config.locale === 'en'
+        ? 'Yes, Maybe, and No are not commands. Use the answer as a way to understand the current situation, then compare it with real information and your actual context.'
+        : 'Yes, Maybe, No는 결정을 강요하는 답이 아닙니다. 지금 흐름이 어느 쪽에 가까운지 확인하고, 실제 정보와 내 상황을 함께 점검하는 기준으로 활용하세요.'
     });
   } else {
     sections.push({
-      title: '종합 조언',
-      content: `${cards.map((item) => item.card[item.orientation].advice).join(' ')} 오늘은 ${cards[0].card.action}`
+      title: config.locale === 'en' ? 'Overall Advice' : '종합 조언',
+      content: config.locale === 'en'
+        ? `${cards.map((item) => item.card[item.orientation].advice).join(' ')} Today, ${cards[0].card.action.charAt(0).toLowerCase()}${cards[0].card.action.slice(1)}`
+        : `${cards.map((item) => item.card[item.orientation].advice).join(' ')} 오늘은 ${cards[0].card.action}`
     });
   }
 
   sections.push({
-    title: '주의할 점',
+    title: config.locale === 'en' ? 'What to Watch' : '주의할 점',
     content: cards.map((item) => item.card.caution).join(' ')
   });
 
   const extraDisclaimer = config.category === 'money'
-    ? ' 본 결과는 투자 조언이 아니며 특정 금융상품이나 종목의 매수·매도를 권유하지 않습니다.'
+    ? config.locale === 'en'
+      ? ' This result is not investment advice and does not recommend buying or selling any financial product or security.'
+      : ' 본 결과는 투자 조언이 아니며 특정 금융상품이나 종목의 매수·매도를 권유하지 않습니다.'
     : config.category === 'career'
-      ? ' 퇴사, 이직, 계약 등 중요한 결정은 실제 조건과 전문가 조언을 함께 고려하세요.'
+      ? config.locale === 'en'
+        ? ' For resignation, job changes, contracts, or other important career decisions, review the actual terms and qualified advice.'
+        : ' 퇴사, 이직, 계약 등 중요한 결정은 실제 조건과 전문가 조언을 함께 고려하세요.'
       : '';
 
   return {
-    title: `${config.shortTitle} 결과`,
+    title: config.locale === 'en' ? `${config.shortTitle} Result` : `${config.shortTitle} 결과`,
     summary,
     cards,
     sections,
-    disclaimer: `본 타로 리딩은 오락 및 참고용 콘텐츠입니다. 중요한 건강, 법률, 투자, 금전, 인간관계 결정은 전문가와 상담하거나 현실적인 정보를 함께 확인하시기 바랍니다.${extraDisclaimer}`,
+    disclaimer: config.locale === 'en'
+      ? `This tarot reading is for entertainment and reflection. For important decisions about health, law, investing, money, or relationships, use qualified professional advice and real-world information.${extraDisclaimer}`
+      : `본 타로 리딩은 오락 및 참고용 콘텐츠입니다. 중요한 건강, 법률, 투자, 금전, 인간관계 결정은 전문가와 상담하거나 현실적인 정보를 함께 확인하시기 바랍니다.${extraDisclaimer}`,
     createdAt: new Date().toISOString()
   };
 }
 
-function resultToText(result: ReadingResult): string {
-  const cardLines = result.cards.map((item) => `- ${item.position.label}: ${item.card.nameKo} (${orientationLabel(item.orientation)}) · ${item.card.keywords.join(', ')}`).join('\n');
+function resultToText(result: ReadingResult, locale: ReadingConfig['locale']): string {
+  const cardLines = result.cards.map((item) => `- ${item.position.label}: ${cardDisplayName(item.card, locale)} (${localizedOrientationLabel(item.orientation, locale)}) · ${item.card.keywords.join(', ')}`).join('\n');
   const sectionLines = result.sections.map((section) => `\n[${section.title}]\n${section.content}`).join('\n');
-  return `[${result.title}]\n\n${result.summary}\n\n${cardLines}\n${sectionLines}\n\n※ ${result.disclaimer}`;
+  return locale === 'en'
+    ? `[${result.title}]\n\n${result.summary}\n\n${cardLines}\n${sectionLines}\n\nNote: ${result.disclaimer}`
+    : `[${result.title}]\n\n${result.summary}\n\n${cardLines}\n${sectionLines}\n\n※ ${result.disclaimer}`;
 }
 
 function safeParse<T>(element: Element | null, fallback: T): T {
@@ -157,8 +192,8 @@ function safeParse<T>(element: Element | null, fallback: T): T {
   }
 }
 
-function saveHistory(slug: string, result: ReadingResult): void {
-  const key = `tarotmind.readings.${slug}`;
+function saveHistory(config: ReadingConfig, result: ReadingResult): void {
+  const key = storageKey(config);
   const prev = safeParse<ReadingResult[]>(null, []);
   const raw = safeGetItem(key);
   let items: ReadingResult[] = [];
@@ -169,11 +204,11 @@ function saveHistory(slug: string, result: ReadingResult): void {
   safeSetItem(key, JSON.stringify(items.slice(0, 5)));
 }
 
-function renderHistory(root: HTMLElement, slug: string): void {
+function renderHistory(root: HTMLElement, config: ReadingConfig): void {
   const wrap = root.querySelector<HTMLElement>('[data-history-wrap]');
   const list = root.querySelector<HTMLElement>('[data-history]');
   if (!wrap || !list) return;
-  const raw = safeGetItem(`tarotmind.readings.${slug}`);
+  const raw = safeGetItem(storageKey(config));
   if (!raw) {
     wrap.hidden = true;
     list.innerHTML = '';
@@ -187,7 +222,7 @@ function renderHistory(root: HTMLElement, slug: string): void {
     return;
   }
   wrap.hidden = false;
-  list.innerHTML = items.map((item) => `<article class="history-item"><strong>${item.title}</strong><p>${item.summary}</p><time>${new Date(item.createdAt).toLocaleString('ko-KR')}</time></article>`).join('');
+  list.innerHTML = items.map((item) => `<article class="history-item"><strong>${item.title}</strong><p>${item.summary}</p><time>${new Date(item.createdAt).toLocaleString(config.locale === 'en' ? 'en-US' : 'ko-KR')}</time></article>`).join('');
 }
 
 function initReader(root: HTMLElement): void {
@@ -229,7 +264,7 @@ function initReader(root: HTMLElement): void {
       const face = button.querySelector<HTMLElement>('.tarot-card-face');
       if (face) face.innerHTML = '';
     });
-    if (status) status.textContent = `0 / ${required}장 선택됨`;
+    if (status) status.textContent = config.locale === 'en' ? `0 / ${required} selected` : `0 / ${required}장 선택됨`;
   }
 
   function renderResult(result: ReadingResult): void {
@@ -239,11 +274,11 @@ function initReader(root: HTMLElement): void {
     resultSummary.textContent = result.summary;
     resultCards.innerHTML = result.cards.map((item) => `
       <article class="drawn-card">
-        <img class="drawn-card-image ${item.orientation === 'reversed' ? 'is-reversed' : ''}" src="${cardImageSrc(item.card)}" alt="${escapeHtml(item.card.nameKo)} 카드 이미지" width="500" height="866" loading="lazy" decoding="async" />
+        <img class="drawn-card-image ${item.orientation === 'reversed' ? 'is-reversed' : ''}" src="${cardImageSrc(item.card)}" alt="${escapeHtml(config.locale === 'en' ? `${item.card.nameEn} tarot card image` : `${item.card.nameKo} 카드 이미지`)}" width="500" height="866" loading="lazy" decoding="async" />
         <div>
-          <strong>${escapeHtml(item.card.nameKo)}</strong>
-          <span>${escapeHtml(item.card.nameEn)}</span>
-          <em>${orientationLabel(item.orientation)}</em>
+          <strong>${escapeHtml(cardDisplayName(item.card, config.locale))}</strong>
+          <span>${escapeHtml(config.locale === 'en' ? (item.card.arcana === 'major' ? 'Major Arcana' : 'Minor Arcana') : item.card.nameEn)}</span>
+          <em>${localizedOrientationLabel(item.orientation, config.locale)}</em>
           <p>${escapeHtml(item.position.label)} · ${escapeHtml(item.card.keywords.join(', '))}</p>
         </div>
       </article>
@@ -264,8 +299,8 @@ function initReader(root: HTMLElement): void {
     const face = button.querySelector<HTMLElement>('.tarot-card-face');
     if (face) {
       face.innerHTML = `
-        <img class="tarot-card-image ${drawn.orientation === 'reversed' ? 'is-reversed' : ''}" src="${cardImageSrc(drawn.card)}" alt="${escapeHtml(drawn.card.nameKo)} 카드 이미지" width="500" height="866" decoding="async" />
-        <span class="tarot-card-orientation">${orientationLabel(drawn.orientation)}</span>
+        <img class="tarot-card-image ${drawn.orientation === 'reversed' ? 'is-reversed' : ''}" src="${cardImageSrc(drawn.card)}" alt="${escapeHtml(config.locale === 'en' ? `${drawn.card.nameEn} tarot card image` : `${drawn.card.nameKo} 카드 이미지`)}" width="500" height="866" decoding="async" />
+        <span class="tarot-card-orientation">${localizedOrientationLabel(drawn.orientation, config.locale)}</span>
       `;
     }
   }
@@ -281,7 +316,7 @@ function initReader(root: HTMLElement): void {
       };
       selected.push(drawn);
       reveal(button, drawn);
-      if (status) status.textContent = `${selected.length} / ${required}장 선택됨`;
+      if (status) status.textContent = config.locale === 'en' ? `${selected.length} / ${required} selected` : `${selected.length} / ${required}장 선택됨`;
       if (selected.length === required) {
         cardButtons.forEach((item) => {
           if (!item.classList.contains('is-picked')) item.disabled = true;
@@ -290,8 +325,8 @@ function initReader(root: HTMLElement): void {
         latestResult = result;
         renderResult(result);
         if (saveReading?.checked) {
-          saveHistory(config.slug, result);
-          renderHistory(root, config.slug);
+          saveHistory(config, result);
+          renderHistory(root, config);
         }
       }
     });
@@ -301,23 +336,25 @@ function initReader(root: HTMLElement): void {
   redrawButton?.addEventListener('click', startShuffle);
   copyResult?.addEventListener('click', async () => {
     if (!latestResult) return;
-    await navigator.clipboard.writeText(resultToText(latestResult));
-    copyResult.textContent = '복사 완료';
-    window.setTimeout(() => { copyResult.textContent = '결과 복사하기'; }, 1600);
+    await navigator.clipboard.writeText(resultToText(latestResult, config.locale));
+    copyResult.textContent = config.locale === 'en' ? 'Copied' : '복사 완료';
+    window.setTimeout(() => { copyResult.textContent = config.locale === 'en' ? 'Copy result' : '결과 복사하기'; }, 1600);
   });
   copyShare?.addEventListener('click', async () => {
     if (!latestResult) return;
-    await navigator.clipboard.writeText(`${latestResult.title}\n${latestResult.summary}\n\n타로마음에서 카드 리딩 보기`);
-    copyShare.textContent = '공유 문구 복사 완료';
-    window.setTimeout(() => { copyShare.textContent = '공유 문구 복사'; }, 1600);
+    await navigator.clipboard.writeText(config.locale === 'en'
+      ? `${latestResult.title}\n${latestResult.summary}\n\nDraw a tarot reading on TarotMind`
+      : `${latestResult.title}\n${latestResult.summary}\n\n타로마음에서 카드 리딩 보기`);
+    copyShare.textContent = config.locale === 'en' ? 'Share text copied' : '공유 문구 복사 완료';
+    window.setTimeout(() => { copyShare.textContent = config.locale === 'en' ? 'Copy share text' : '공유 문구 복사'; }, 1600);
   });
   clearHistoryButtons.forEach((clearHistory) => clearHistory.addEventListener('click', () => {
-    safeRemoveItem(`tarotmind.readings.${config.slug}`);
-    renderHistory(root, config.slug);
+    safeRemoveItem(storageKey(config));
+    renderHistory(root, config);
   }));
 
   startShuffle();
-  renderHistory(root, config.slug);
+  renderHistory(root, config);
 }
 
 export function initTarotReaders(): void {

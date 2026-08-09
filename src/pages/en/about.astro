@@ -1,0 +1,27 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { DEFAULT_LASTMOD } from '../../data/site';
+
+const breadcrumbs = [{ name: 'TarotMind', path: '/en/' }, { name: 'About', path: '/en/about/' }];
+---
+<Layout locale="en" title="About | TarotMind" description="TarotMind is a static website that provides free AI-style tarot readings in the browser without server-side result storage." canonicalPath="/en/about/" pageType="AboutPage" breadcrumbs={breadcrumbs} datePublished={DEFAULT_LASTMOD} dateModified={DEFAULT_LASTMOD}>
+  <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
+  <article class="container readable-content page-hero">
+    <span class="eyebrow">About</span>
+    <h1>About TarotMind</h1>
+    <p>TarotMind provides free AI-style tarot readings for daily guidance, love, reconciliation, career, money, and decisions directly in the browser.</p>
+    <section class="content-section">
+      <h2>Why It Works Without a Database</h2>
+      <p>This site does not require account creation, login, comments, or a server database. Reading results are not stored on the server. If you choose to save recent readings, they are saved only in your current browser’s localStorage.</p>
+    </section>
+    <section class="content-section">
+      <h2>AI-Style Reading Method</h2>
+      <p>This version does not call an external AI API. It combines 78 tarot card meanings with topic-specific interpretation templates to produce natural-sounding reading text.</p>
+    </section>
+    <section class="content-section warning-box">
+      <h2>Entertainment and Reflection Notice</h2>
+      <p>Tarot results do not replace important decisions. For health, law, investing, money, work, or relationship matters, use qualified professional advice and real-world information.</p>
+    </section>
+  </article>
+</Layout>

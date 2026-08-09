@@ -1,18 +1,36 @@
 ---
-import { SITE_NAME } from '../data/site';
+import { SITE_COPY, localizePath, type SiteLocale } from '../data/site';
+const { locale = 'ko', currentPath = '/' } = Astro.props as { locale?: SiteLocale; currentPath?: string };
+const copy = SITE_COPY[locale];
+const koPath = localizePath(currentPath, 'ko');
+const enPath = localizePath(currentPath, 'en');
+const navItems = locale === 'en'
+  ? [
+      { href: '/en/tarot/', label: 'Readings' },
+      { href: '/en/cards/', label: 'Cards' },
+      { href: '/en/guides/', label: 'Guides' },
+      { href: '/en/about/', label: 'About' }
+    ]
+  : [
+      { href: '/tarot/', label: '타로 리딩' },
+      { href: '/cards/', label: '카드 의미' },
+      { href: '/guides/', label: '타로 가이드' },
+      { href: '/about/', label: '소개' }
+    ];
 ---
 <header class="site-header">
-  <a class="skip-link" href="#content">본문 바로가기</a>
+  <a class="skip-link" href="#content">{locale === 'en' ? 'Skip to content' : '본문 바로가기'}</a>
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label={`${SITE_NAME} 홈`}>
+    <a class="brand" href={locale === 'en' ? '/en/' : '/'} aria-label={locale === 'en' ? `${copy.name} home` : `${copy.name} 홈`}>
       <span class="brand-mark" aria-hidden="true">✦</span>
-      <span>{SITE_NAME}</span>
+      <span>{copy.name}</span>
     </a>
-    <nav class="main-nav" aria-label="주요 메뉴">
-      <a href="/tarot/">타로 리딩</a>
-      <a href="/cards/">카드 의미</a>
-      <a href="/guides/">타로 가이드</a>
-      <a href="/about/">소개</a>
+    <nav class="main-nav" aria-label={locale === 'en' ? 'Main menu' : '주요 메뉴'}>
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+      <span class="language-switch" aria-label={locale === 'en' ? 'Language switcher' : '언어 선택'}>
+        <a class={locale === 'ko' ? 'is-active' : ''} href={`${koPath}?lang=ko`} lang="ko">KO</a>
+        <a class={locale === 'en' ? 'is-active' : ''} href={`${enPath}?lang=en`} lang="en">EN</a>
+      </span>
     </nav>
   </div>
 </header>

@@ -1,16 +1,61 @@
 ---
-import { tarotCards } from '../data/tarotCards';
+import { tarotCards, type TarotCard } from '../data/tarotCards';
 import type { TarotReadingPage } from '../data/tarotReadings';
-const { reading } = Astro.props as { reading: TarotReadingPage };
+import { type SiteLocale } from '../data/site';
+const { reading, locale = 'ko', cards = tarotCards } = Astro.props as { reading: TarotReadingPage; locale?: SiteLocale; cards?: TarotCard[] };
 const requiredCards = reading.positions.length;
+const readerConfig = { ...reading, locale };
+const text = locale === 'en'
+  ? {
+      heading: 'Choose cards to start your reading',
+      choiceA: 'Option A name',
+      choiceB: 'Option B name',
+      choiceAPlaceholder: 'Example: Stay in my current role',
+      choiceBPlaceholder: 'Example: Prepare for a new job',
+      reversed: 'Include reversed cards',
+      save: 'Save recent readings in this browser',
+      privacy: 'Results are saved only in this browser when you choose to save recent readings.',
+      shuffle: 'Shuffle cards',
+      redraw: 'Draw again',
+      pickStatus: `Choose ${requiredCards} card${requiredCards > 1 ? 's' : ''}`,
+      cardAria: (index: number) => `Choose tarot card ${index + 1}`,
+      resultEyebrow: 'Reading Result',
+      resultTitle: `${reading.shortTitle} Result`,
+      copyResult: 'Copy result',
+      copyShare: 'Copy share text',
+      clearHistory: 'Clear saved history',
+      disclaimer: 'This tarot reading is for entertainment and reflection.',
+      history: 'Recent Readings'
+    }
+  : {
+      heading: '카드를 선택해 리딩을 시작하세요',
+      choiceA: '선택 A 이름',
+      choiceB: '선택 B 이름',
+      choiceAPlaceholder: '예: 지금 직장에 남기',
+      choiceBPlaceholder: '예: 이직 준비하기',
+      reversed: '역방향 카드 포함',
+      save: '이 브라우저에 최근 리딩 저장하기',
+      privacy: '최근 리딩 저장을 선택한 경우에만 결과가 현재 브라우저에 저장됩니다.',
+      shuffle: '카드 섞기',
+      redraw: '다시 뽑기',
+      pickStatus: `${requiredCards}장을 선택하세요`,
+      cardAria: (index: number) => `타로 카드 ${index + 1} 선택`,
+      resultEyebrow: '리딩 결과',
+      resultTitle: `${reading.shortTitle} 결과`,
+      copyResult: '결과 복사하기',
+      copyShare: '공유 문구 복사',
+      clearHistory: '저장 기록 삭제',
+      disclaimer: '본 타로 리딩은 오락 및 참고용 콘텐츠입니다.',
+      history: '최근 리딩'
+    };
 ---
 <section class="tarot-reader" data-tarot-reader data-reading-slug={reading.slug}>
-  <script is:inline type="application/json" data-reading-config set:html={JSON.stringify(reading)} />
-  <script is:inline type="application/json" data-card-data set:html={JSON.stringify(tarotCards)} />
+  <script is:inline type="application/json" data-reading-config set:html={JSON.stringify(readerConfig)} />
+  <script is:inline type="application/json" data-card-data set:html={JSON.stringify(cards)} />
 
   <div class="reader-panel">
     <div class="reader-intro">
-      <h2>카드를 선택해 리딩을 시작하세요</h2>
+      <h2>{text.heading}</h2>
       <p>{reading.intro}</p>
     </div>
 
@@ -18,38 +63,38 @@ const requiredCards = reading.positions.length;
       {reading.spreadType === 'choice' ? (
         <div class="choice-inputs">
           <label>
-            선택 A 이름
-            <input data-choice-a type="text" maxlength="40" placeholder="예: 지금 직장에 남기" />
+            {text.choiceA}
+            <input data-choice-a type="text" maxlength="40" placeholder={text.choiceAPlaceholder} />
           </label>
           <label>
-            선택 B 이름
-            <input data-choice-b type="text" maxlength="40" placeholder="예: 이직 준비하기" />
+            {text.choiceB}
+            <input data-choice-b type="text" maxlength="40" placeholder={text.choiceBPlaceholder} />
           </label>
         </div>
       ) : null}
       <div class="reader-options">
         <label class="check-option">
           <input data-use-reversed type="checkbox" checked />
-          역방향 카드 포함
+          {text.reversed}
         </label>
         <label class="check-option">
           <input data-save-reading type="checkbox" />
-          이 브라우저에 최근 리딩 저장하기
+          {text.save}
         </label>
       </div>
-      <p class="privacy-note">최근 리딩 저장을 선택한 경우에만 결과가 현재 브라우저에 저장됩니다.</p>
+      <p class="privacy-note">{text.privacy}</p>
     </div>
 
     <div class="reader-actions-top">
-      <button class="primary-button" data-shuffle type="button">카드 섞기</button>
-      <button class="secondary-button" data-redraw type="button">다시 뽑기</button>
-      <span data-picked-status>{requiredCards}장을 선택하세요</span>
+      <button class="primary-button" data-shuffle type="button">{text.shuffle}</button>
+      <button class="secondary-button" data-redraw type="button">{text.redraw}</button>
+      <span data-picked-status>{text.pickStatus}</span>
     </div>
   </div>
 
   <div class="tarot-table" aria-live="polite">
     {Array.from({ length: 12 }).map((_, index) => (
-      <button class="tarot-card-button" data-card-choice type="button" disabled aria-label={`타로 카드 ${index + 1} 선택`}>
+      <button class="tarot-card-button" data-card-choice type="button" disabled aria-label={text.cardAria(index)}>
         <span class="tarot-card-back">
           <span class="card-star">✦</span>
           <span class="card-text">TAROT</span>
@@ -61,24 +106,24 @@ const requiredCards = reading.positions.length;
 
   <section class="reading-result" data-result hidden>
     <div class="result-heading">
-      <span class="eyebrow">리딩 결과</span>
-      <h2 data-result-title>{reading.shortTitle} 결과</h2>
+      <span class="eyebrow">{text.resultEyebrow}</span>
+      <h2 data-result-title>{text.resultTitle}</h2>
       <p data-result-summary></p>
     </div>
     <div class="drawn-cards" data-result-cards></div>
     <div class="result-sections" data-result-sections></div>
     <div class="result-actions">
-      <button class="primary-button" data-copy-result type="button">결과 복사하기</button>
-      <button class="secondary-button" data-copy-share type="button">공유 문구 복사</button>
-      <button class="secondary-button" data-clear-history type="button">저장 기록 삭제</button>
+      <button class="primary-button" data-copy-result type="button">{text.copyResult}</button>
+      <button class="secondary-button" data-copy-share type="button">{text.copyShare}</button>
+      <button class="secondary-button" data-clear-history type="button">{text.clearHistory}</button>
     </div>
-    <p class="disclaimer" data-result-disclaimer>본 타로 리딩은 오락 및 참고용 콘텐츠입니다.</p>
+    <p class="disclaimer" data-result-disclaimer>{text.disclaimer}</p>
   </section>
 
   <section class="reading-history" data-history-wrap hidden>
-    <h2>최근 리딩</h2>
+    <h2>{text.history}</h2>
     <div data-history></div>
-    <button class="secondary-button history-clear-button" data-clear-history type="button">저장 기록 삭제</button>
+    <button class="secondary-button history-clear-button" data-clear-history type="button">{text.clearHistory}</button>
   </section>
 </section>
 

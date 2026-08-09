@@ -1,0 +1,106 @@
+---
+import Layout from '../../../components/Layout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import AdSlot from '../../../components/AdSlot.astro';
+import FAQ from '../../../components/FAQ.astro';
+import TarotReader from '../../../components/TarotReader.astro';
+import RelatedReadings from '../../../components/RelatedReadings.astro';
+import type { TarotReadingPage } from '../../../data/tarotReadings';
+import { tarotReadingsEn } from '../../../data/tarotReadingsEn';
+import { tarotCardsEn } from '../../../data/tarotCardsEn';
+import { DEFAULT_LASTMOD, DEFAULT_OG_IMAGE, EN_SITE_NAME, getSiteUrl } from '../../../data/site';
+
+export function getStaticPaths() {
+  return tarotReadingsEn.map((reading) => ({ params: { slug: reading.slug }, props: { reading } }));
+}
+
+const { reading } = Astro.props as { reading: TarotReadingPage };
+const siteUrl = getSiteUrl();
+const pageUrl = `${siteUrl}/en/tarot/${reading.slug}/`;
+const imageUrl = new URL(DEFAULT_OG_IMAGE, `${siteUrl}/`).toString();
+const breadcrumbs = [
+  { name: 'TarotMind', path: '/en/' },
+  { name: 'Tarot Readings', path: '/en/tarot/' },
+  { name: reading.shortTitle, path: `/en/tarot/${reading.slug}/` }
+];
+const seoKeywords = [...reading.targetKeywords, 'free tarot reading', 'AI tarot reading'];
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@id': `${pageUrl}#application`,
+    '@type': 'WebApplication',
+    name: reading.title.split('|')[0].trim(),
+    applicationCategory: 'LifestyleApplication',
+    operatingSystem: 'Web',
+    url: pageUrl,
+    description: reading.description,
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+    keywords: seoKeywords.join(', '),
+    dateModified: DEFAULT_LASTMOD,
+    image: imageUrl,
+    mainEntityOfPage: pageUrl,
+    publisher: { '@type': 'Organization', name: EN_SITE_NAME, url: siteUrl },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock' }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: reading.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer }
+    }))
+  }
+];
+---
+<Layout
+  locale="en"
+  title={reading.title}
+  description={reading.description}
+  canonicalPath={`/en/tarot/${reading.slug}/`}
+  keywords={seoKeywords}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+  datePublished={DEFAULT_LASTMOD}
+  dateModified={DEFAULT_LASTMOD}
+>
+  <Breadcrumbs items={breadcrumbs} ariaLabel="Breadcrumb" />
+  <section class="page-hero container tarot-page-hero">
+    <span class="eyebrow">{reading.shortTitle}</span>
+    <h1>{reading.title.split('|')[0].trim()}</h1>
+    <p>{reading.description}</p>
+    <p class="page-summary">{reading.summary}</p>
+  </section>
+
+  <section class="container reading-ad-lead">
+    <span class="eyebrow">Free AI-style reading</span>
+  </section>
+  <AdSlot placement="reading-primary" locale="en" />
+
+  <div class="container">
+    <TarotReader reading={reading} locale="en" cards={tarotCardsEn} />
+  </div>
+
+  <article class="container readable-content">
+    <section class="content-section">
+      <h2>How to Use {reading.shortTitle}</h2>
+      <p>{reading.intro}</p>
+      <p>Before drawing cards, keep the question simple and focus on one situation or question you want to understand. Use the result as reflection and practical guidance, not as a fixed prediction.</p>
+    </section>
+    {reading.sections.map((section) => (
+      <section class="content-section">
+        <h2>{section.title}</h2>
+        <p>{section.content}</p>
+      </section>
+    ))}
+    <section class="content-section warning-box">
+      <h2>Important Reading Note</h2>
+      <p>This tarot reading is for entertainment and reflection. For important decisions about health, law, investing, money, work, or relationships, use qualified professional advice and real-world information.</p>
+      {reading.category === 'money' && <p>Money tarot results are not investment advice and do not recommend buying or selling any financial product or security.</p>}
+      {reading.category === 'career' && <p>For resignation, job changes, contracts, or other major career choices, review the actual terms and qualified advice.</p>}
+    </section>
+    <FAQ faqs={reading.faqs} title="Frequently Asked Questions" />
+    <RelatedReadings slugs={reading.relatedSlugs} locale="en" />
+  </article>
+</Layout>

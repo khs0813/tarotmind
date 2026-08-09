@@ -1,9 +1,9 @@
 ---
 import { dedupeRepeatedLabel, type BreadcrumbItem } from '../data/site';
-const { items = [] } = Astro.props as { items: BreadcrumbItem[] };
+const { items = [], ariaLabel = '현재 위치' } = Astro.props as { items: BreadcrumbItem[]; ariaLabel?: string };
 ---
 {items.length > 0 && (
-  <nav class="breadcrumb container" aria-label="현재 위치">
+  <nav class="breadcrumb container" aria-label={ariaLabel}>
     {items.map((item, index) => (
       <>
         {index > 0 && <span aria-hidden="true">/</span>}

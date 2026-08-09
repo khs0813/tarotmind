@@ -1,34 +1,69 @@
-import { DEFAULT_LASTMOD, SITE_DESCRIPTION, type SitePage } from './site';
+import { DEFAULT_LASTMOD, EN_SITE_DESCRIPTION, SITE_DESCRIPTION, type SiteLocale, type SitePage } from './site';
 import { tarotReadings } from './tarotReadings';
+import { tarotReadingsEn } from './tarotReadingsEn';
 import { guides } from './guides';
+import { guidesEn } from './guidesEn';
 import { tarotCards } from './tarotCards';
+import { tarotCardsEn } from './tarotCardsEn';
 
-export function getAllPages(): SitePage[] {
+function getKoreanPages(): SitePage[] {
   return [
-    { path: '/', title: '타로마음 | 무료타로 AI 리딩', description: SITE_DESCRIPTION, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly', priority: 1.0 },
-    { path: '/tarot/', title: '무료타로 리딩 모음 | 타로마음', description: '오늘의 타로, 연애 타로, 재회 타로, 직장운 타로, 금전운 타로 등 무료타로 리딩을 모아볼 수 있습니다.', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly', priority: 0.9 },
-    ...tarotReadings.map((reading) => ({ path: `/tarot/${reading.slug}/`, title: reading.title, description: reading.description, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly' as const, priority: 0.85 })),
-    { path: '/cards/', title: '타로 카드 의미 | 메이저·마이너 78장 정방향·역방향 해석', description: '타로 카드 78장의 기본 의미, 정방향, 역방향, 연애운, 직장운, 금전운 해석을 한곳에서 확인하세요.', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly', priority: 0.8 },
+    { path: '/', title: '타로마음 | 무료타로 AI 리딩', description: SITE_DESCRIPTION, locale: 'ko', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly', priority: 1.0 },
+    { path: '/tarot/', title: '무료타로 리딩 모음 | 타로마음', description: '오늘의 타로, 연애 타로, 재회 타로, 직장운 타로, 금전운 타로 등 무료타로 리딩을 모아볼 수 있습니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly', priority: 0.9 },
+    ...tarotReadings.map((reading) => ({ path: `/tarot/${reading.slug}/`, title: reading.title, description: reading.description, locale: 'ko' as const, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly' as const, priority: 0.85 })),
+    { path: '/cards/', title: '타로 카드 의미 | 메이저·마이너 78장 정방향·역방향 해석', description: '타로 카드 78장의 기본 의미, 정방향, 역방향, 연애운, 직장운, 금전운 해석을 한곳에서 확인하세요.', locale: 'ko', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly', priority: 0.8 },
     ...tarotCards
       .map((card) => ({
         path: `/cards/${card.id}/`,
         title: `${card.nameKo} 카드 의미 | 정방향·역방향·연애·금전 해석`,
         description: `${card.nameKo} 타로 카드의 핵심 의미, 정방향과 역방향 해석, 연애운, 재회운, 직장운, 금전운에서의 메시지를 확인하세요.`,
+        locale: 'ko' as const,
         lastmod: DEFAULT_LASTMOD,
         rss: true,
         changefreq: 'monthly' as const,
         priority: 0.72
       })),
-    { path: '/guides/', title: '타로 가이드 | 타로 보는 법과 질문 예시 모음', description: '타로 초보자를 위한 카드 해석 방법, 질문하는 법, 스프레드 활용법, 연애·재회·금전운 타로 팁을 확인하세요.', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly', priority: 0.75 },
-    ...guides.map((guide) => ({ path: `/guides/${guide.slug}/`, title: guide.title, description: guide.description, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly' as const, priority: 0.7 })),
-    { path: '/about/', title: '사이트 소개 | 타로마음', description: '타로마음은 서버 저장 없이 브라우저에서 무료 AI 스타일 타로 리딩을 제공하는 정적 웹사이트입니다.', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.3 },
-    { path: '/privacy/', title: '개인정보처리방침 | 타로마음', description: '타로마음의 개인정보 처리 기준, localStorage 저장 방식, 카카오 애드핏 광고 관련 안내를 확인할 수 있습니다.', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
-    { path: '/terms/', title: '이용약관 | 타로마음', description: '타로마음 이용 시 참고해야 할 오락용 콘텐츠 안내, 책임 제한, 광고 안내, 서비스 변경 가능성을 정리한 페이지입니다.', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
-    { path: '/credits/', title: '이미지 출처 | 타로마음', description: '타로마음에서 사용하는 타로 카드 이미지의 출처와 라이선스 기준을 안내합니다.', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
-    { path: '/contact/', title: '문의 | 타로마음', description: '타로마음 사이트 오류 제보, 리딩 주제 제안, 광고 관련 문의를 보낼 수 있는 연락 페이지입니다.', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 }
+    { path: '/guides/', title: '타로 가이드 | 타로 보는 법과 질문 예시 모음', description: '타로 초보자를 위한 카드 해석 방법, 질문하는 법, 스프레드 활용법, 연애·재회·금전운 타로 팁을 확인하세요.', locale: 'ko', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly', priority: 0.75 },
+    ...guides.map((guide) => ({ path: `/guides/${guide.slug}/`, title: guide.title, description: guide.description, locale: 'ko' as const, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly' as const, priority: 0.7 })),
+    { path: '/about/', title: '사이트 소개 | 타로마음', description: '타로마음은 서버 저장 없이 브라우저에서 무료 AI 스타일 타로 리딩을 제공하는 정적 웹사이트입니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.3 },
+    { path: '/privacy/', title: '개인정보처리방침 | 타로마음', description: '타로마음의 개인정보 처리 기준, localStorage 저장 방식, 카카오 애드핏 광고 관련 안내를 확인할 수 있습니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
+    { path: '/terms/', title: '이용약관 | 타로마음', description: '타로마음 이용 시 참고해야 할 오락용 콘텐츠 안내, 책임 제한, 광고 안내, 서비스 변경 가능성을 정리한 페이지입니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
+    { path: '/credits/', title: '이미지 출처 | 타로마음', description: '타로마음에서 사용하는 타로 카드 이미지의 출처와 라이선스 기준을 안내합니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
+    { path: '/contact/', title: '문의 | 타로마음', description: '타로마음 사이트 오류 제보, 리딩 주제 제안, 광고 관련 문의를 보낼 수 있는 연락 페이지입니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 }
   ];
 }
 
-export function getRssPages(): SitePage[] {
-  return getAllPages().filter((page) => page.rss);
+function getEnglishPages(): SitePage[] {
+  return [
+    { path: '/en/', title: 'TarotMind | Free AI-style Tarot Readings', description: EN_SITE_DESCRIPTION, locale: 'en', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly', priority: 1.0 },
+    { path: '/en/tarot/', title: 'Free Tarot Readings | TarotMind', description: 'Browse free tarot readings for daily guidance, love, reconciliation, career, money, yes-or-no questions, and two-option decisions.', locale: 'en', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly', priority: 0.9 },
+    ...tarotReadingsEn.map((reading) => ({ path: `/en/tarot/${reading.slug}/`, title: reading.title, description: reading.description, locale: 'en' as const, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'weekly' as const, priority: 0.85 })),
+    { path: '/en/cards/', title: 'Tarot Card Meanings | 78 Upright and Reversed Cards', description: 'Explore all 78 tarot card meanings with upright, reversed, love, career, and money interpretations.', locale: 'en', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly', priority: 0.8 },
+    ...tarotCardsEn.map((card) => ({
+      path: `/en/cards/${card.id}/`,
+      title: `${card.nameEn} Tarot Card Meaning | Upright, Reversed, Love, and Money`,
+      description: `Learn the meaning of ${card.nameEn} for upright and reversed tarot readings, love, reconciliation, career, money, and practical advice.`,
+      locale: 'en' as const,
+      lastmod: DEFAULT_LASTMOD,
+      rss: true,
+      changefreq: 'monthly' as const,
+      priority: 0.72
+    })),
+    { path: '/en/guides/', title: 'Tarot Guides | How to Read Tarot and Ask Better Questions', description: 'Beginner-friendly tarot guides for card meanings, spreads, love questions, reconciliation questions, and practical interpretation.', locale: 'en', lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly', priority: 0.75 },
+    ...guidesEn.map((guide) => ({ path: `/en/guides/${guide.slug}/`, title: guide.title, description: guide.description, locale: 'en' as const, lastmod: DEFAULT_LASTMOD, rss: true, changefreq: 'monthly' as const, priority: 0.7 })),
+    { path: '/en/about/', title: 'About | TarotMind', description: 'TarotMind is a static website that provides free AI-style tarot readings in the browser without server-side result storage.', locale: 'en', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.3 },
+    { path: '/en/privacy/', title: 'Privacy Policy | TarotMind', description: 'Read how TarotMind handles browser storage, localStorage reading history, contact email, and advertising areas.', locale: 'en', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
+    { path: '/en/terms/', title: 'Terms of Use | TarotMind', description: 'Review entertainment-use disclaimers, responsibility limits, advertising notices, and service-change terms for TarotMind.', locale: 'en', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
+    { path: '/en/credits/', title: 'Image Credits | TarotMind', description: 'Review the tarot card image sources and licensing standards used by TarotMind.', locale: 'en', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
+    { path: '/en/contact/', title: 'Contact | TarotMind', description: 'Contact TarotMind about site issues, suggestions for new tarot topics, card meaning feedback, or advertising questions.', locale: 'en', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 }
+  ];
+}
+
+export function getAllPages(locale?: SiteLocale): SitePage[] {
+  const pages = [...getKoreanPages(), ...getEnglishPages()];
+  return locale ? pages.filter((page) => page.locale === locale) : pages;
+}
+
+export function getRssPages(locale: SiteLocale = 'ko'): SitePage[] {
+  return getAllPages(locale).filter((page) => page.rss);
 }
