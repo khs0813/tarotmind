@@ -2,6 +2,7 @@
 import { tarotCards, type TarotCard } from '../data/tarotCards';
 import type { TarotReadingPage } from '../data/tarotReadings';
 import { type SiteLocale } from '../data/site';
+import AdSlot from './AdSlot.astro';
 const { reading, locale = 'ko', cards = tarotCards } = Astro.props as { reading: TarotReadingPage; locale?: SiteLocale; cards?: TarotCard[] };
 const requiredCards = reading.positions.length;
 const readerConfig = { ...reading, locale };
@@ -110,6 +111,7 @@ const text = locale === 'en'
       <h2 data-result-title>{text.resultTitle}</h2>
       <p data-result-summary></p>
     </div>
+    <AdSlot placement="reading-primary" locale={locale} deferUntilVisible />
     <div class="drawn-cards" data-result-cards></div>
     <div class="result-sections" data-result-sections></div>
     <div class="result-actions">

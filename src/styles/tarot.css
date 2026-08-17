@@ -1,10 +1,5 @@
 .tarot-page-hero { padding-bottom: 8px; }
 
-.reading-ad-lead {
-  max-width: 760px;
-  margin-top: 4px;
-}
-
 .tarot-reader {
   display: grid;
   gap: 24px;
@@ -151,6 +146,10 @@
 }
 .result-heading h2 { margin: 8px 0; }
 .result-heading p { color: var(--muted); }
+.reading-result .ad-slot-reading-primary {
+  margin-top: 22px;
+  margin-bottom: 26px;
+}
 .drawn-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

@@ -4,9 +4,10 @@ import { ADFIT_ALLOWED_HOSTS, ADFIT_DEBUG_PLACEHOLDERS, ADFIT_ENABLED, ADFIT_SDK
 type Props = {
   placement: AdFitPlacement;
   locale?: 'ko' | 'en';
+  deferUntilVisible?: boolean;
 };
 
-const { placement, locale = 'ko' } = Astro.props as Props;
+const { placement, locale = 'ko', deferUntilVisible = false } = Astro.props as Props;
 const slot = getAdFitSlot(placement);
 const canRenderAd = ADFIT_ENABLED && Boolean(slot.unitId);
 const canRenderPlaceholder = ADFIT_ENABLED && ADFIT_DEBUG_PLACEHOLDERS && !slot.unitId;
@@ -24,6 +25,7 @@ const allowedHosts = ADFIT_ALLOWED_HOSTS.join(',');
     data-ad-height={String(slot.height)}
     data-adfit-allowed-hosts={allowedHosts}
     data-adfit-sdk-url={ADFIT_SDK_URL}
+    data-adfit-defer-until-visible={deferUntilVisible ? 'true' : undefined}
   >
     <div class="adfit-mount" data-adfit-mount style={`width:${slot.width}px;height:${slot.height}px;`}></div>
   </section>
@@ -58,8 +60,18 @@ const allowedHosts = ADFIT_ALLOWED_HOSTS.join(',');
         return allowedHosts.includes(window.location.hostname.toLowerCase());
       }
 
+      function hasHiddenAncestor(slot) {
+        let parent = slot.parentElement;
+        while (parent) {
+          if (parent.hidden) return true;
+          parent = parent.parentElement;
+        }
+        return false;
+      }
+
       function mountSlot(slot) {
         if (!slot || slot.dataset.adfitMounted === 'true' || !isAllowedHost(slot)) return false;
+        if (slot.dataset.adfitDeferUntilVisible === 'true' && hasHiddenAncestor(slot)) return false;
         const width = Number(slot.dataset.adWidth);
         const height = Number(slot.dataset.adHeight);
         const unitId = slot.dataset.adUnit;

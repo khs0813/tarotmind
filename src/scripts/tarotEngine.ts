@@ -290,6 +290,7 @@ function initReader(root: HTMLElement): void {
       </article>
     `).join('');
     resultDisclaimer.textContent = result.disclaimer;
+    (window as Window & { __tarocueAdFitInit?: () => void }).__tarocueAdFitInit?.();
     resultWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 

@@ -1,7 +1,6 @@
 ---
 import Layout from '../../../components/Layout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import AdSlot from '../../../components/AdSlot.astro';
 import FAQ from '../../../components/FAQ.astro';
 import TarotReader from '../../../components/TarotReader.astro';
 import RelatedReadings from '../../../components/RelatedReadings.astro';
@@ -72,11 +71,6 @@ const jsonLd = [
     <p>{reading.description}</p>
     <p class="page-summary">{reading.summary}</p>
   </section>
-
-  <section class="container reading-ad-lead">
-    <span class="eyebrow">Free AI-style reading</span>
-  </section>
-  <AdSlot placement="reading-primary" locale="en" />
 
   <div class="container">
     <TarotReader reading={reading} locale="en" cards={tarotCardsEn} />
