@@ -147,8 +147,8 @@
 .result-heading h2 { margin: 8px 0; }
 .result-heading p { color: var(--muted); }
 .reading-result .ad-slot-reading-primary {
-  margin-top: 22px;
-  margin-bottom: 26px;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 .drawn-cards {
   display: grid;

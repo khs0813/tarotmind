@@ -111,9 +111,9 @@ const text = locale === 'en'
       <h2 data-result-title>{text.resultTitle}</h2>
       <p data-result-summary></p>
     </div>
-    <AdSlot placement="reading-primary" locale={locale} deferUntilVisible />
     <div class="drawn-cards" data-result-cards></div>
     <div class="result-sections" data-result-sections></div>
+    <AdSlot placement="reading-primary" locale={locale} deferUntilVisible />
     <div class="result-actions">
       <button class="primary-button" data-copy-result type="button">{text.copyResult}</button>
       <button class="secondary-button" data-copy-share type="button">{text.copyShare}</button>

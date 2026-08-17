@@ -243,6 +243,7 @@ function initReader(root: HTMLElement): void {
   const resultSummary = root.querySelector<HTMLElement>('[data-result-summary]');
   const resultCards = root.querySelector<HTMLElement>('[data-result-cards]');
   const resultSections = root.querySelector<HTMLElement>('[data-result-sections]');
+  const resultAd = root.querySelector<HTMLElement>('.reading-result .ad-slot-reading-primary');
   const resultDisclaimer = root.querySelector<HTMLElement>('[data-result-disclaimer]');
   const copyResult = root.querySelector<HTMLButtonElement>('[data-copy-result]');
   const copyShare = root.querySelector<HTMLButtonElement>('[data-copy-share]');
@@ -267,6 +268,20 @@ function initReader(root: HTMLElement): void {
     if (status) status.textContent = config.locale === 'en' ? `0 / ${required} selected` : `0 / ${required}장 선택됨`;
   }
 
+  function getAdviceSectionIndex(result: ReadingResult): number {
+    const adviceTitle = config.locale === 'en' ? 'Overall Advice' : '종합 조언';
+    const adviceIndex = result.sections.findIndex((section) => section.title === adviceTitle);
+    if (adviceIndex >= 0) return adviceIndex;
+    return result.sections.length > 1 ? result.sections.length - 2 : 0;
+  }
+
+  function placeResultAd(result: ReadingResult): void {
+    if (!resultAd || !resultSections) return;
+    const adviceIndex = getAdviceSectionIndex(result);
+    const target = resultSections.querySelector<HTMLElement>(`[data-result-section-index="${adviceIndex}"]`);
+    resultSections.insertBefore(resultAd, target ?? null);
+  }
+
   function renderResult(result: ReadingResult): void {
     if (!resultWrap || !resultTitle || !resultSummary || !resultCards || !resultSections || !resultDisclaimer) return;
     resultWrap.hidden = false;
@@ -283,12 +298,13 @@ function initReader(root: HTMLElement): void {
         </div>
       </article>
     `).join('');
-    resultSections.innerHTML = result.sections.map((section) => `
-      <article class="result-section-item">
+    resultSections.innerHTML = result.sections.map((section, index) => `
+      <article class="result-section-item" data-result-section-index="${index}">
         <h3>${section.title}</h3>
         <p>${section.content}</p>
       </article>
     `).join('');
+    placeResultAd(result);
     resultDisclaimer.textContent = result.disclaimer;
     (window as Window & { __tarocueAdFitInit?: () => void }).__tarocueAdFitInit?.();
     resultWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
