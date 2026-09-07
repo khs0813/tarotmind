@@ -121,7 +121,7 @@ export function josa(value: string, pair: '은/는' | '이/가' | '을/를' | '�
 }
 
 export function getContactEmail(): string {
-  return import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'contact@tarotmind.kr';
+  return import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'webinquiry365@gmail.com';
 }
 
 export function getNaverVerification(): string | undefined {
