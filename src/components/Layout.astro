@@ -10,6 +10,7 @@ import {
   buildSiteUrl,
   dedupeRepeatedLabel,
   getAlternateUrls,
+  getGoogleAdSenseAccount,
   getNaverVerification,
   getSiteUrl,
   isSiteUrlConfigured,
@@ -62,6 +63,7 @@ const englishPath = localizePath(normalizedCanonicalPath, 'en');
 const imageUrl = new URL(ogImage, `${siteUrl}/`).toString();
 const rssUrl = new URL(locale === 'en' ? '/en/rss.xml' : '/rss.xml', `${siteUrl}/`).toString();
 const naverVerification = getNaverVerification();
+const googleAdSenseAccount = getGoogleAdSenseAccount();
 const robotsContent = robots;
 const uniqueKeywords = [...new Set(keywords.map((keyword) => keyword.trim()).filter(Boolean))];
 const keywordContent = uniqueKeywords.join(', ');
@@ -143,6 +145,7 @@ const allJsonLd = hasConfiguredSiteUrl ? [organizationLd, ...webSiteLd, webPageL
     <meta name="generator" content="Astro" />
     <meta name="format-detection" content="telephone=no" />
     {naverVerification && <meta name="naver-site-verification" content={naverVerification} />}
+    {googleAdSenseAccount && <meta name="google-adsense-account" content={googleAdSenseAccount} />}
 
     <meta property="og:locale" content={siteCopy.ogLocale} />
     <meta property="og:locale:alternate" content={locale === 'en' ? SITE_COPY.ko.ogLocale : SITE_COPY.en.ogLocale} />

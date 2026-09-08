@@ -11,6 +11,7 @@ export const DEFAULT_DATE_PUBLISHED = '2026-07-14';
 export const DEFAULT_LASTMOD = '2026-08-09';
 export const DEFAULT_SITE_URL = 'https://tarocue.co.kr';
 export const DEFAULT_NAVER_SITE_VERIFICATION = '929de4121fc94e573caf3baf36ff8e601d85f1ca';
+export const DEFAULT_GOOGLE_ADSENSE_ACCOUNT = 'ca-pub-7766989656523085';
 const LEGACY_RENDER_SITE_URL = 'https://tarotmind.onrender.com';
 
 export type SiteLocale = 'ko' | 'en';
@@ -126,6 +127,12 @@ export function getContactEmail(): string {
 
 export function getNaverVerification(): string | undefined {
   const raw = import.meta.env.NAVER_SITE_VERIFICATION?.trim() || DEFAULT_NAVER_SITE_VERIFICATION;
+  const match = raw.match(/content=["']([^"']+)["']/i);
+  return match?.[1] ?? raw;
+}
+
+export function getGoogleAdSenseAccount(): string | undefined {
+  const raw = import.meta.env.GOOGLE_ADSENSE_ACCOUNT?.trim() || DEFAULT_GOOGLE_ADSENSE_ACCOUNT;
   const match = raw.match(/content=["']([^"']+)["']/i);
   return match?.[1] ?? raw;
 }
