@@ -29,7 +29,7 @@ function getKoreanPages(): SitePage[] {
     { path: '/privacy/', title: '개인정보처리방침 | 타로마음', description: '타로마음의 개인정보 처리 기준, localStorage 저장 방식, 카카오 애드핏 광고 관련 안내를 확인할 수 있습니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
     { path: '/terms/', title: '이용약관 | 타로마음', description: '타로마음 이용 시 참고해야 할 오락용 콘텐츠 안내, 책임 제한, 광고 안내, 서비스 변경 가능성을 정리한 페이지입니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
     { path: '/credits/', title: '이미지 출처 | 타로마음', description: '타로마음에서 사용하는 타로 카드 이미지의 출처와 라이선스 기준을 안내합니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
-    { path: '/contact/', title: '문의 | 타로마음', description: '타로마음 사이트 오류 제보, 리딩 주제 제안, 광고 관련 문의를 보낼 수 있는 연락 페이지입니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 }
+    { path: '/contact/', title: '광고문의 | 타로마음', description: '타로마음 광고 문의, 배너 집행 및 제휴 관련 연락처 정보를 안내합니다.', locale: 'ko', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 }
   ];
 }
 
@@ -55,7 +55,7 @@ function getEnglishPages(): SitePage[] {
     { path: '/en/privacy/', title: 'Privacy Policy | TarotMind', description: 'Read how TarotMind handles browser storage, localStorage reading history, contact email, and advertising areas.', locale: 'en', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
     { path: '/en/terms/', title: 'Terms of Use | TarotMind', description: 'Review entertainment-use disclaimers, responsibility limits, advertising notices, and service-change terms for TarotMind.', locale: 'en', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
     { path: '/en/credits/', title: 'Image Credits | TarotMind', description: 'Review the tarot card image sources and licensing standards used by TarotMind.', locale: 'en', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 },
-    { path: '/en/contact/', title: 'Contact | TarotMind', description: 'Contact TarotMind about site issues, suggestions for new tarot topics, card meaning feedback, or advertising questions.', locale: 'en', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 }
+    { path: '/en/contact/', title: 'Advertising | TarotMind', description: 'Advertising inquiries and contact information for TarotMind.', locale: 'en', lastmod: DEFAULT_LASTMOD, changefreq: 'yearly', priority: 0.2 }
   ];
 }
 
