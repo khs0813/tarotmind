@@ -23,7 +23,7 @@ DB 없이 운영 가능한 Astro + TypeScript 기반 무료 AI 스타일 타로 
 - `rss.xml`
 - `robots.txt`
 - 네이버 서치어드바이저 소유확인 메타태그 환경변수 지원
-- 카카오 애드핏 광고 placeholder
+- 쿠팡 파트너스 제휴 광고 배너
 - 78장 타로 카드 데이터
 - 외부 AI API 없이 동작하는 템플릿 기반 타로 리딩 엔진
 - 선택적 `localStorage` 최근 리딩 저장
@@ -83,28 +83,12 @@ NAVER_SITE_VERIFICATION='<meta name="naver-site-verification" content="abc123" /
 ```text
 SITE_URL=https://your-domain.com
 NAVER_SITE_VERIFICATION=
-ADFIT_ENABLED=false
-ADFIT_ALLOWED_HOSTS=tarocue.co.kr
-ADFIT_HOME_300X250=
-ADFIT_TAROT_RESULT_300X250=
-ADFIT_CARD_INDEX_300X250=
-ADFIT_CARD_DETAIL_300X250=
-ADFIT_DEBUG_PLACEHOLDERS=false
 PUBLIC_CONTACT_EMAIL=hello@example.com
 ```
 
-## 카카오 애드핏 적용
+## 쿠팡 파트너스 적용
 
-`src/components/AdSlot.astro`에서 관리합니다.
-
-광고단위 ID는 Render 환경변수로만 관리합니다. `ADFIT_ENABLED=true`이고 현재 hostname이 `ADFIT_ALLOWED_HOSTS`에 포함되며 해당 placement의 광고단위 ID가 있을 때만 카카오 애드핏 SDK가 로드됩니다.
-
-```text
-ADFIT_HOME_300X250=
-ADFIT_TAROT_RESULT_300X250=
-ADFIT_CARD_INDEX_300X250=
-ADFIT_CARD_DETAIL_300X250=
-```
+`src/components/AdSlot.astro`에서 관리합니다. 쿠팡 파트너스 다이내믹 캐러셀 배너가 삽입되어 있으며, 모바일 화면에서도 깨짐 없는 반응형 레이아웃을 제공합니다.
 
 ## 네이버 서치어드바이저 등록 체크
 
